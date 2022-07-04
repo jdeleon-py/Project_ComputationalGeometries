@@ -12,3 +12,5 @@ window.
 [Wikipedia: Cellular Automaton](https://en.wikipedia.org/wiki/Cellular_automaton)
 
 [Softology's Blog: Cellular Automata](https://softologyblog.wordpress.com/category/cellular-automata-2/)
+
+["The Nature Of Code" -Daniel Shiffman (Chapter 7: Cellular Automata)](https://natureofcode.com/book/chapter-7-cellular-automata/)
