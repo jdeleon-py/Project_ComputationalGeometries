@@ -10,4 +10,5 @@ window.
 
 ## Resources
 [Wikipedia: Cellular Automaton](https://en.wikipedia.org/wiki/Cellular_automaton)
+
 [Softology's Blog: Cellular Automata](https://softologyblog.wordpress.com/category/cellular-automata-2/)
