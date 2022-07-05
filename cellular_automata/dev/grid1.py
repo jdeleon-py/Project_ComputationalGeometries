@@ -20,19 +20,11 @@ class Grid1:
 		pygame.display.set_caption("Array Backed Grid")
 		self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 		self.clock = pygame.time.Clock()
-		self.grid = self.define_grid()
+		self.grid = [[0 for row in range(0, 10)] for column in range(0, 10)]
 		self.running = True
     
 	def __str__(self):
 		return "Mouse Coordinates: {0}; Grid Coordinates: ".format(row, column)
-
-	def define_grid(self):
-		grid = []
-		for row in range(0, 10):
-			grid.append([])
-			for column in range(0, 10):
-				grid[row].append(0)
-		return grid
 
 	def draw_grid(self):
 		for row in range(0, 10):
