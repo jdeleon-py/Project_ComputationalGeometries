@@ -16,18 +16,15 @@ class Grid1:
 	# This sets the margin between each cell
 	MARGIN = 1
 
-	def __init__(self):
+	def __init__(self) -> None:
 		pygame.init()
 		pygame.display.set_caption("Array Backed Grid")
 		self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 		self.clock = pygame.time.Clock()
-		self.grid = [[random.choice([0,1]) for row in range(0, 10)] for column in range(0, 10)]
+		self.grid = [[random.choice([0, 1]) for row in range(0, 10)] for column in range(0, 10)]
 		self.running = True
-    
-	def __str__(self):
-		return "Mouse Coordinates: {0}; Grid Coordinates: ".format(row, column)
 
-	def draw_grid(self):
+	def draw_grid(self) -> None:
 		for row in range(0, 10):
 			for column in range(0, 10):
 				color = Grid1.BLACK
@@ -40,7 +37,7 @@ class Grid1:
 										 Grid1.HEIGHT]
 				)
 
-	def cell_state(self):
+	def cell_state(self) -> None:
 		# Change the x/y screen coordinates to grid coordinates
 		pos = pygame.mouse.get_pos()
 		column = pos[0] // (Grid1.WIDTH + Grid1.MARGIN)
@@ -49,16 +46,14 @@ class Grid1:
 		else: self.grid[row][column] = 0
 		print("Mouse Coordinates: {0}; Grid Coordinates: ({1},{2})".format(pos, row, column))
 
-	def run(self):
+	def run(self) -> None:
 		while self.running:
 			self.screen.fill(Grid1.WHITE)
 			for event in pygame.event.get():
 				if event.type == QUIT: self.running = False
 				elif event.type == MOUSEBUTTONDOWN: self.cell_state()
-
 			# Draw the grid
 			self.draw_grid()
-
 			pygame.display.flip()
 			self.clock.tick(60)
 
