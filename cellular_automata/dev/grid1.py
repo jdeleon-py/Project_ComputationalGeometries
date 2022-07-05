@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import QUIT, MOUSEBUTTONDOWN
+import random
 
 class Grid1:
 	'''
@@ -20,7 +21,7 @@ class Grid1:
 		pygame.display.set_caption("Array Backed Grid")
 		self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 		self.clock = pygame.time.Clock()
-		self.grid = [[0 for row in range(0, 10)] for column in range(0, 10)]
+		self.grid = [[random.choice([0,1]) for row in range(0, 10)] for column in range(0, 10)]
 		self.running = True
     
 	def __str__(self):
