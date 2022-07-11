@@ -9,7 +9,7 @@
 window.
 
 ### John Conway's Game of Life
-[Game of Life Animation](game_of_life.gif)
+[Game of Life Animation: (init: random, pixel_dim: 128x128)](game_of_life_r128.gif)
 
 ## Resources
 [Wikipedia: Cellular Automaton](https://en.wikipedia.org/wiki/Cellular_automaton)
