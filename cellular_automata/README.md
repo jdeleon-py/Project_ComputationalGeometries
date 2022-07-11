@@ -8,6 +8,9 @@
 	* This script is extremely basic. The next step would be to eliminate all hard-coding associated with the window itself, so that I can have any size cell for any size pygame 
 window.
 
+### John Conway's Game of Life
+[Game of Life Animation](game_of_life.gif)
+
 ## Resources
 [Wikipedia: Cellular Automaton](https://en.wikipedia.org/wiki/Cellular_automaton)
 
