@@ -7,16 +7,20 @@ class Automata:
 	'''
 	BLACK = (0, 0, 0)
 	WHITE = (255, 255, 255)
+
 	DIM = 128
+	WINDOW_WIDTH = 512
+	WINDOW_HEIGHT = 512
+
+	CELL_WIDTH = WINDOW_WIDTH / DIM
+	CELL_HEIGHT = WINDOW_HEIGHT / DIM
 
 	def __init__(self) -> None:
 		pygame.init()
 		pygame.display.set_caption("John Conway's Game of Life")
-		self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+		self.screen = pygame.display.set_mode((Automata.WINDOW_WIDTH, Automata.WINDOW_HEIGHT))
 		self.clock = pygame.time.Clock()
 		self.grid = [[random.choice([0, 1]) for _ in range(0, Automata.DIM)] for _ in range(0, Automata.DIM)]
-		self.cell_width = WINDOW_WIDTH / Automata.DIM
-		self.cell_height = WINDOW_HEIGHT / Automata.DIM
 		self.running = True
 
 	def check_neighbors(self, i: int, j: int, border: bool) -> int:
@@ -41,10 +45,10 @@ class Automata:
 				if self.grid[row][col] == 1: color = Automata.WHITE
 				pygame.draw.rect(surface = self.screen,
 								 color = color, 
-								 rect = [self.cell_width * col, 
-								 		 self.cell_height * row, 
-								 		 self.cell_width, 
-								 		 self.cell_height]
+								 rect = [Automata.CELL_WIDTH * col,
+								 		 Automata.CELL_HEIGHT * row, 
+								 		 Automata.CELL_WIDTH, 
+								 		 Automata.CELL_HEIGHT]
 				)
 
 	def cell_state(self) -> None:
@@ -71,9 +75,6 @@ class Automata:
 			self.clock.tick(60)
 
 if __name__ == "__main__":
-	WINDOW_WIDTH = 512
-	WINDOW_HEIGHT = 512
-
 	game = Automata()
 	game.run()
 	pygame.quit()
