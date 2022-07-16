@@ -3,6 +3,10 @@
 ### Description
 These experiments demonstrate a natural phenomenon by a surprisingly algorithmic methodology.
 
+### Preview of Results
+
+![Cardioid (300 Points)](etc/outputs/cardioid.png)
+
 ## Resources
 
 [Light Ray Reflections](etc/LightsRaysReflections.pdf)
