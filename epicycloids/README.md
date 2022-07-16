@@ -3,7 +3,7 @@
 ### Description
 These experiments demonstrate a natural phenomenon by a surprisingly algorithmic methodology.
 
-### Preview of Results
+### Preview of Results: Cardioid
 
 ![Cardioid (300 Points)](etc/outputs/cardioid.png)
 
