@@ -79,7 +79,7 @@ class Automata:
 		for row in range(1, Automata.DIM - 1):
 			for column in range(1, Automata.DIM - 1):
 				alive = self.check_neighbors(row, column, border = True)
-				if (self.grid[row][column] == 1) and (alive < 2): grid_copy[row][column] = 0
+				if alive < 2 and self.grid[row][column] == 1: grid_copy[row][column] = 0
 				elif (alive in [2, 3]) and self.grid[row][column] == 1: grid_copy[row][column] = 1
 				elif alive > 3 and self.grid[row][column] == 1: grid_copy[row][column] = 0
 				elif alive == 3 and self.grid[row][column] == 0: grid_copy[row][column] = 1
@@ -91,7 +91,7 @@ class Automata:
 			self.screen.fill(Automata.WHITE)
 			for event in pygame.event.get():
 				if event.type == QUIT: self.running = False
-				elif event.type == MOUSEBUTTONDOWN: self.__init__(save_frame = False)
+				elif event.type == MOUSEBUTTONDOWN: self.__init__(save_frame = self.save_frame)
 			self.eval_state()
 			self.draw_grid()
 			pygame.display.flip()
