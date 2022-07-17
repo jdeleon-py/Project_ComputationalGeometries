@@ -12,7 +12,7 @@ class Cell:
 		self.color = self.define_color()
 		self.neighbors = 0
 
-	def define_state(self):
+	def define_state(self) -> int:
 		return random.choice([0, 1]) if self.init else 0
 
 	def define_color(self) -> tuple:

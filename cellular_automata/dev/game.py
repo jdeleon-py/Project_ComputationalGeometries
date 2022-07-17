@@ -21,7 +21,7 @@ class Game:
 		for row in range(0, h.DIM):
 			for col in range(0, h.DIM):
 				color = h.BLACK
-				if row == 0 or col == 0 or row == h.DIM - 1 or col == h.DIM - 1:
+				if row in [0, h.DIM - 1] or col in [0, h.DIM - 1]: 
 					self.grid.grid[row][col].state = 0
 				if self.grid.grid[row][col].state == 1: color = h.WHITE
 				pygame.draw.rect(surface = self.screen,
@@ -41,7 +41,7 @@ class Game:
 			self.grid.eval_state()
 			self.draw_grid()
 			pygame.display.flip()
-			self.clock.tick(60)
+			self.clock.tick(30)
 
 
 if __name__ == "__main__":
