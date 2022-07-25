@@ -1,6 +1,7 @@
 # SHAPE FEATURE BASE CLASS
 
 from point import Point
+from hyperparameters import Hyperparameters as h
 
 class Shape:
 	'''
@@ -8,9 +9,9 @@ class Shape:
 	ANGLE_MAX = 360
 	SCALE = 0.3
 
-	def __init__(self, dim: int, point_num: int) -> None:
-		self.dimension = dim
-		self.point_num = point_num
+	def __init__(self) -> None:
+		self.dimension = h.DIM
+		self.point_num = h.POINT_NUM
 		self.radius = Shape.SCALE * self.dimension
 		self.points = self.define_points()
 

@@ -1,13 +1,12 @@
 # CYCLOID CONSTRUCTION (DERIVED) CLASS
 
 from shape import Shape
-from hyperparameters import Hyperparameters as h
 
 class Cycloid(Shape):
 	'''
 	'''
 	def __init__(self, multiplier) -> None:
-		Shape.__init__(self, h.DIM, h.POINT_NUM)
+		Shape.__init__(self)
 		self.multiplier = multiplier
 
 	def solve_product(self, index: int) -> int:

@@ -1,13 +1,12 @@
 # CIRCLE GEOMETRY DATA (DERIVED) CLASS
 
 from shape import Shape
-from hyperparameters import Hyperparameters as h
 
 class Circle(Shape):
 	'''
 	'''
 	def __init__(self) -> None:
-		Shape.__init__(self, h.DIM, h.POINT_NUM)
+		Shape.__init__(self)
 
 	def draw(self, tool: object) -> None:
 		tool.hideturtle()
