@@ -1,36 +1,35 @@
-# CYCLOID CONSTRUCTION CLASS
+# CYCLOID CONSTRUCTION (DERIVED) CLASS
 
-from turtle import Turtle
+from shape import Shape
+from hyperparameters import Hyperparameters as h
 
-class Cycloid:
+class Cycloid(Shape):
 	'''
 	'''
-	def __init__(self):
-		pass
+	def __init__(self, multiplier) -> None:
+		Shape.__init__(self, h.DIM, h.POINT_NUM)
+		self.multiplier = multiplier
 
-class Shape:
-	coordinates = []
+	def solve_product(self, index: int) -> int:
+		return (self.multiplier * index) % self.point_num
+
+	def draw(self, tool: object) -> None:
+		tool.hideturtle()
+		for current_point in range(0, len(self.points)):
+			index = self.points[current_point].index
+			prod = self.solve_product(index = index)
+			tool.penup()
+			tool.goto(self.points[current_point].coordinates)
+			tool.pendown()
+			tool.goto(self.points[prod].coordinates)
+
 
 if __name__ == "__main__":
-	points = 10000
-	circle = Turtle()
-	circle.speed(0)
-	circle.setheading(90)
-
-	circle.penup()
-	circle.goto(-300, 0)
-	circle.pendown()
-	for i in range(0, points):
-		Shape.coordinates.append(circle.position())
-		#print("{x} : {y}" .format(x = i, y = circle.position()))
-		circle.penup()
-		circle.forward(1800 * (points ** -1))
-		circle.pendown()
-		circle.dot(5)
-		circle.right(360 / points)
-
-	circle.penup()
-	circle.goto(-300, 300)
-	circle.pendown()
-	circle.hideturtle()
+	from turtle import Turtle, Screenx
+	cardioid = Cycloid(multiplier = h.MULTIPLIER)
+	t = Turtle()
+	t.speed(0)
+	screen = Screen()
+	screen.setup(h.DIM, h.DIM)
+	cardioid.draw(t)
 	delay = input("Press enter to exit")
