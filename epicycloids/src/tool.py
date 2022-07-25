@@ -17,7 +17,7 @@ class Tool:
 		self.cycloid = Cycloid(multiplier = h.MULTIPLIER)
 
 	def run(self) -> None:
-		self.circle.draw(self.turtle)
+		if h.REF_CIR == True: self.circle.draw(self.turtle)
 		self.cycloid.draw(self.turtle)
 		delay = input("Press enter to exit")
 

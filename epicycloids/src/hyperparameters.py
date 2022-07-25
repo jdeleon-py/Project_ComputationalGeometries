@@ -3,8 +3,9 @@
 class Hyperparameters:
 	'''
 	'''
-	POINT_NUM = 100
-	MULTIPLIER = 51
+	REF_CIR = True
+	POINT_NUM = 500
+	MULTIPLIER = 2
 	DIM = 1000
 
 
