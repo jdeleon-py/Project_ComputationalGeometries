@@ -8,9 +8,9 @@ class Hyperparameters:
 	- DIM: specifies the size (DIM x DIM) on the drawing canvas (in pixels) 
 	'''
 	REF_CIR: bool = True
-	POINT_NUM: int = 800
-	MULTIPLIER: int = 102
-	DIM: int = 1000
+	POINT_NUM: int = 300
+	MULTIPLIER: int = 2
+	DIM: int = 600
 
 
 if __name__ == "__main__": pass
