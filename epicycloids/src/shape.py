@@ -1,7 +1,7 @@
 # SHAPE FEATURE BASE CLASS
 
+import json
 from point import Point
-from hyperparameters import Hyperparameters as h
 
 class Shape:
 	'''
@@ -22,10 +22,21 @@ class Shape:
 	SCALE = 0.3
 
 	def __init__(self) -> None:
-		self.dimension = h.DIM
-		self.point_num = h.POINT_NUM
+		self.params = self.define_params()
+		self.dimension = self.params["Window Dimension"]
+		self.point_num = self.params["Number of Points"]
 		self.radius = Shape.SCALE * self.dimension
 		self.points = self.define_points()
+
+	def define_params(self) -> dict:
+		'''
+		- extracts the hyperparameter json file that 
+			specifies conditions of the simulation
+		'''
+		with open("parameters.json", 'r') as file:
+			data = json.load(file)
+		file.close()
+		return data
 
 	def define_points(self) -> list:
 		'''

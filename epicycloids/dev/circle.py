@@ -1,15 +1,25 @@
 # CIRCLE GEOMETRY DATA (DERIVED) CLASS
 
 from shape import Shape
-from hyperparameters import Hyperparameters as h
 
 class Circle(Shape):
 	'''
+	** DERIVED CLASS TO SHAPE **
+
+	METHODS:
+		- ability to draw each Point object on a canvas
+
+	ATTRIBUTES:
+		- inherited attributes of the Shape object
 	'''
 	def __init__(self) -> None:
-		Shape.__init__(self, h.DIM, h.POINT_NUM)
+		Shape.__init__(self)
 
 	def draw(self, tool: object) -> None:
+		'''
+		- this draw function takes the shape of a circle
+		- this draw function draws every Point object onto a canvas
+		'''
 		tool.hideturtle()
 		for point in self.points:
 			tool.penup()
