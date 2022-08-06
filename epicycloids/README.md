@@ -31,7 +31,7 @@ The collective iteration and overlap of all line drawings from all discretized p
 Python's turtle library is used to graphically display the discretized representation of this epicycloid generator (it's slow, i know). 
 
 ### App Visual
-![App Frontend](etc/app_frontend.png)
+![App](etc/app_frontend.png)
 
 ## Simulation Results
 
