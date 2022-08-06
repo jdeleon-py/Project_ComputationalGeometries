@@ -54,7 +54,7 @@ Python's turtle library is used to graphically display the discretized represent
 ## Task List
 * [ ] Demonstrate with an animation of the number of points increasing.
 * [ ] Demonstrate with an animation of the multiplier increasing.
-* [ ] Use the tkinter library to make a user-friendly app interface to quickly generate epicycloids.
+* [X] Use the tkinter library to make a user-friendly app interface to quickly generate epicycloids.
 * [ ] Reimplement this project with a faster library or a faster language altogether.
 
 ## Resources
