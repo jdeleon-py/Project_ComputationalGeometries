@@ -1,6 +1,6 @@
 {
-	"Reference Circle": 1,
-	"Number of Points": 100,
-	"Multiplier": 2,
-	"Window Dimension": 1000
+    "Reference Circle": 1,
+    "Number of Points": 200,
+    "Multiplier": 4,
+    "Window Dimension": 600
 }

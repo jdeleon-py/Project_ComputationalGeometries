@@ -1,6 +1,7 @@
 # TURTLE DRAWING TOOL CLASS
 
 import json
+import turtle
 from turtle import Turtle, Screen
 from circle import Circle
 from cycloid import Cycloid
@@ -47,7 +48,7 @@ class Tool:
 		if self.params["Reference Circle"] == True:
 			self.circle.draw(self.turtle)
 		self.cycloid.draw(self.turtle)
-		delay = input("Press enter to exit")
+		turtle.exitonclick()
 
 
 if __name__ == "__main__":
