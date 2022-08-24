@@ -21,15 +21,12 @@ class Point:
 		self.x = x
 		self.y = y
 		self.coordinates = tuple([self.x, self.y])
-		self.color = tuple(self.define_color())
+		self.color = tuple([random.randint(0, 255) for _ in range(0, 3)])
 
-	def define_color(self) -> list:
-		R = random.randint(0, 255)
-		G = random.randint(0, 255)
-		B = random.randint(0, 255)
-		return [R, G, B]
-
+	def __str__(self) -> str:
+		return "Coordinates: {0}, Color: {1}".format(self.coordinates, self.color)
 
 
 if __name__ == "__main__":
-	pass
+	points = [Point(random.randint(0, 100), random.randint(0, 100)) for _ in range(0, 10)]
+	for point in points: print(point)
