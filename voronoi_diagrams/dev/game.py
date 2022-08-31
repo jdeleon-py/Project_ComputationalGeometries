@@ -31,7 +31,7 @@ class Game:
 			for point in self.points:
 				pygame.draw.circle(surface = self.screen, 
 								   color = (255, 255, 255), 
-								   center = tuple([point.x, point.y]), 
+								   center = point.coordinates, 
 								   radius = 3
 				)
 			for event in pygame.event.get():
