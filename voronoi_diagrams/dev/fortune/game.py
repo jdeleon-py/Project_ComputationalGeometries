@@ -1,6 +1,8 @@
-# EVENT CLASS
+# GRAPHICS CLASS
 
-class Event:
+import pygame
+
+class Game:
 	'''
 	'''
 	def __init__(self) -> None:
