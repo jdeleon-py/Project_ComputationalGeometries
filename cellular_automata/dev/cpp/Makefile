@@ -16,3 +16,4 @@ grid.o: grid.cpp *.h
 
 clean:
 	rm -f *.o *.gch *~ cellular_automata
+
