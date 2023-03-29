@@ -1,12 +1,21 @@
-CXXFLAGS = --std=c++2a
+CXXFLAGS = --std=c++17
+SDLFLAGS = `/usr/bin/pkg-config sdl2 --cflags --libs` -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 
-all: cellular_automata
+all: test cellular_automata
 
-cellular_automata: main.o cell.o grid.o *.h
-	$(CXX) $(CXXFLAGS) main.o cell.o grid.o -o cellular_automata
+debug: CXXFLAGS += -g
+
+cellular_automata: cell.o grid.o renderwindow.o main.o *.h
+	$(CXX) $(CXXFLAGS) cell.o grid.o renderwindow.o main.o $(SDLFLAGS) -o cellular_automata
+
+test: test.o cell.o grid.o *.h
+	$(CXX) $(CXXFLAGS) test.o cell.o grid.o -o test
 
 main.o: main.cpp *.h
-	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o
+	$(CXX) $(CXXFLAGS) -c main.cpp $(SDLFLAGS) -o main.o
+
+test.o: test.cpp *.h
+	$(CXX) $(CXXFLAGS) -c test.cpp -o test.o
 
 cell.o: cell.cpp *.h
 	$(CXX) $(CXXFLAGS) -c cell.cpp -o cell.o
@@ -14,6 +23,9 @@ cell.o: cell.cpp *.h
 grid.o: grid.cpp *.h
 	$(CXX) $(CXXFLAGS) -c grid.cpp -o grid.o
 
+renderwindow.o: renderwindow.cpp *.h
+	$(CXX) $(CXXFLAGS) -c renderwindow.cpp $(SDLFLAGS) -o renderwindow.o
+
 clean:
-	rm -f *.o *.gch *~ cellular_automata
+	rm -f *.o *.gch *~ test cellular_automata
 

@@ -1,32 +1,35 @@
 // MAIN FILE
 
-#include <vector>
 #include "cell.h"
 #include "grid.h"
+#include "renderwindow.h"
 
-int main(void)
+int main(int argc, char* args[])
 {
-	std::cout << "Defining some cells..." << std::endl;
-	std::vector<Cell> cells
-	{
-		Cell(true),
-		Cell(true),
-		Cell(true),
-		Cell(true),
-		Cell(true),
-	};
-	for(Cell cell: cells) {std::cout << cell << std::endl;}
+	if(SDL_Init(SDL_INIT_VIDEO) > 0) {std::cout << "SDL_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;}
+	if(!(IMG_Init(IMG_INIT_PNG))) {std::cout << "IMG_init has failed. Error: " << SDL_GetError() << std::endl;}
 
-	std::cout << "Defining a grid of cells..." << std::endl;
-	Grid grid1;
-	std::cout << grid1 << std::endl;
-	std::cout << "Done initializing..." << std::endl;
-
+	RenderWindow window("John Conway's Game of Life", WIDTH, HEIGHT);
+	SDL_Event event;
 	bool running = true;
-	while(running)
+
+	while(running == true)
 	{
-		grid1.eval_state();
-		std::cout << grid1 << std::endl;
-		//for(int i = 0; i < 5000000; i++);
+		// Draw and update environment
+		window.draw();
+		window.grid.eval_state();
+
+		// Get our controls and events
+		while(SDL_PollEvent(&event))
+		{
+			if(event.type == SDL_QUIT) {running = false;}
+		}
+
+		// maintain a constant framerate
+		SDL_Delay(30);
 	}
+
+	window.cleanup();
+	SDL_Quit();
 }
+
