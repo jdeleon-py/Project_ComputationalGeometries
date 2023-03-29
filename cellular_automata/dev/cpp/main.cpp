@@ -4,6 +4,8 @@
 #include "grid.h"
 #include "renderwindow.h"
 
+// implement framerate calculation function to compare against python's framerate
+
 int main(int argc, char* args[])
 {
 	if(SDL_Init(SDL_INIT_VIDEO) > 0) {std::cout << "SDL_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;}
