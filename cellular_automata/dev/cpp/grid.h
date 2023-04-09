@@ -7,29 +7,29 @@
 #include <vector>
 #include "cell.h"
 
-#define DIM (const int)(128)
+#define DIM 256
 
 typedef std::vector<std::vector<Cell>> GridType;
 
 class Grid
 {
-	public:
-		Grid();
-		~Grid();
+public:
+	Grid();
+	~Grid();
 
-		GridType define_grid(bool init);
+	GridType define_grid(bool init);
 
-		void check_neighbors(int i, int j, bool border);
-		bool survival_rule(int i, int j);
-		inline bool underpopulation_rule(int i, int j) {return ((grid[i][j].neighbors < 2) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
-		inline bool overpopulation_rule(int i, int j)  {return ((grid[i][j].neighbors > 3) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
-		inline bool birth_rule(int i, int j)           {return ((grid[i][j].neighbors == 3) && (grid[i][j].get_state() == DEAD)) ? ALIVE : DEAD;}
+	void check_neighbors(int i, int j, bool border);
+	bool survival_rule(int i, int j);
+	inline bool underpopulation_rule(int i, int j) {return ((grid[i][j].neighbors < 2) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
+	inline bool overpopulation_rule(int i, int j)  {return ((grid[i][j].neighbors > 3) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
+	inline bool birth_rule(int i, int j)           {return ((grid[i][j].neighbors == 3) && (grid[i][j].get_state() == DEAD)) ? ALIVE : DEAD;}
 
-		void eval_state();
+	void eval_state();
 
-		friend std::ostream& operator<<(std::ostream& ost, Grid& g);
+	friend std::ostream& operator<<(std::ostream& ost, Grid& g);
 
-		GridType grid;
+	GridType grid;
 };
 
 #endif
