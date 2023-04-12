@@ -18,16 +18,18 @@ public:
 	~Grid();
 
 	GridType define_grid(bool init);
+	Cell get_cell(int i, int j);
 
 	void check_neighbors(int i, int j, bool border);
+	void eval_state();
+
+	friend std::ostream& operator<<(std::ostream& ost, Grid& g);
+
+private:
 	bool survival_rule(int i, int j);
 	inline bool underpopulation_rule(int i, int j) {return ((grid[i][j].neighbors < 2) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
 	inline bool overpopulation_rule(int i, int j)  {return ((grid[i][j].neighbors > 3) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
 	inline bool birth_rule(int i, int j)           {return ((grid[i][j].neighbors == 3) && (grid[i][j].get_state() == DEAD)) ? ALIVE : DEAD;}
-
-	void eval_state();
-
-	friend std::ostream& operator<<(std::ostream& ost, Grid& g);
 
 	GridType grid;
 };

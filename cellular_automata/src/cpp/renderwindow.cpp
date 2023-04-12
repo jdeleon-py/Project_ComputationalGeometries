@@ -33,9 +33,9 @@ void RenderWindow::draw()
 			if((row == 0) || (row == DIM -1) || (col == 0) || (col == DIM - 1))
 			{
 				//set grid[row][col] state to zero along borders
-				grid.grid[row][col].set_state(0);
+				grid.get_cell(row, col).set_state(0);
 			}
-			if(grid.grid[row][col].get_state() == 1)
+			if(grid.get_cell(row, col).get_state() == 1)
 			{
 				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 			}

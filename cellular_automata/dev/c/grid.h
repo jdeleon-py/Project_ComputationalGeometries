@@ -10,18 +10,13 @@
 
 #define DIM 256
 
-// typedef struct Cell** Grid;
+typedef struct Cell** Grid;
 
-struct Grid
-{
-	struct Cell** cells;
-};
+Grid define_grid(bool init);
+void destroy_grid(Grid grid);
+int check_neighbors(Grid cells, int i, int j);
 
-struct Grid* define_grid(bool init);
-void destroy_grid(struct Grid* grid);
-int check_neighbors(struct Cell** cells, int i, int j);
-
-int survival_rule(struct Cell** cell, int i, int j);
+int survival_rule(Grid cells, int i, int j);
 bool underpopulation_rule(struct Cell* cell, int i, int j);
 bool overpopulation_rule(struct Cell* cell, int i, int j);
 bool birth_rule(struct Cell* cell, int i, int j);

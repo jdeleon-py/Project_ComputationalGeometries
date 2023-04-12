@@ -2,23 +2,22 @@
 
 #include "grid.h"
 
-struct Grid* define_grid(bool init)
+Grid define_grid(bool init)
 {
-	struct Grid* new_grid;
-	struct Cell** cell_arr;
+	Grid cell_arr;
 
-	cell_arr = (struct Cell**)malloc(DIM * sizeof(struct Cell*));
+	cell_arr = (Grid)malloc(DIM * sizeof(struct Cell*));
 	for(int i = 0; i < DIM; i++)
 	{
 		cell_arr[i] = (struct Cell*)malloc(DIM * sizeof(struct Cell));
 		cell_arr[i] -> state = (init == true) ? define_state(1) : define_state(0);
+		cell_arr[i] = define_color(cell_arr[i]);
 	}
 
-	new_grid -> cells = cell_arr;
-	return new_grid;
+	return cell_arr;
 }
 
-void destory_grid(struct Cell** grid)
+void destory_grid(Grid grid)
 {
 	// freeing memory for 2D arr of cells
 	for(int i = 0; i < DIM; i++)
@@ -28,7 +27,7 @@ void destory_grid(struct Cell** grid)
 	free(grid);
 }
 
-int check_neighbors(struct Cell** cells, int i, int j)
+int check_neighbors(Grid cells, int i, int j)
 {
 	int neighbor_count = 0;
 
@@ -44,7 +43,7 @@ int check_neighbors(struct Cell** cells, int i, int j)
 	return neighbor_count;
 }
 
-int survival_rule(struct Cell** cells, int i, int j)
+int survival_rule(Grid cells, int i, int j)
 {
 	bool neighbors_cond = (cells[i][j].neighbors == 2) || (cells[i][j].neighbors == 3);
 	return (neighbors_cond && (cells[i][j].state == ALIVE)) ? ALIVE : DEAD;

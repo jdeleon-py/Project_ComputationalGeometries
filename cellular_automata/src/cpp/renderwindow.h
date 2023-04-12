@@ -17,17 +17,17 @@
 
 class RenderWindow
 {
-	public:
-		RenderWindow(const char* title, int width, int height);
-		SDL_Texture* LoadTexture(const char* p_filePath);
-		void draw();
-		void cleanup();
+public:
+	RenderWindow(const char* title, int width, int height);
+	SDL_Texture* LoadTexture(const char* p_filePath);
+	void draw();
+	void cleanup();
 
-		Grid grid;
+	Grid grid;
 
-	private:
-		SDL_Window* window = NULL;
-		SDL_Renderer* renderer = NULL;
+private:
+	SDL_Window* window = NULL;
+	SDL_Renderer* renderer = NULL;
 };
 
 #endif

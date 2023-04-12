@@ -7,7 +7,9 @@ Grid::Grid()
 	grid = define_grid(1);
 }
 
+
 Grid::~Grid() {}
+
 
 GridType Grid::define_grid(bool init)
 {
@@ -24,6 +26,10 @@ GridType Grid::define_grid(bool init)
 	return new_grid;
 }
 
+
+Cell Grid::get_cell(int i, int j) {return grid[i][j];}
+
+
 void Grid::check_neighbors(int i, int j, bool border)
 {
 	if(border == 1)
@@ -39,11 +45,13 @@ void Grid::check_neighbors(int i, int j, bool border)
 	}
 }
 
+
 bool Grid::survival_rule(int i, int j)
 {
 	bool neighbors_cond = ((grid[i][j].neighbors == 2) || (grid[i][j].neighbors == 3));
 	return (neighbors_cond && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;
 }
+
 
 void Grid::eval_state()
 {
@@ -62,6 +70,7 @@ void Grid::eval_state()
 	}
 	grid = grid_copy;
 }
+
 
 std::ostream& operator<<(std::ostream& ost, Grid& g)
 {
