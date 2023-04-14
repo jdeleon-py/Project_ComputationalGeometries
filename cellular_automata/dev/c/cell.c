@@ -10,7 +10,7 @@ int define_state(bool init)
 	return state;
 }
 
-struct Cell* define_color(struct Cell* cell)
+struct Color define_color(struct Cell* cell)
 {
 	struct Color new_color;
 
@@ -18,8 +18,7 @@ struct Cell* define_color(struct Cell* cell)
 	new_color.G = (cell -> state == ALIVE) * 255;
 	new_color.B = (cell -> state == ALIVE) * 255;
 
-	cell -> color = new_color;
-	return cell;
+	return new_color;
 }
 
 void print_cell() {}

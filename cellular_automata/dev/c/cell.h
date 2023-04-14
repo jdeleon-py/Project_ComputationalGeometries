@@ -26,7 +26,7 @@ struct Cell
 };
 
 int define_state(bool init);
-struct Cell* define_color(struct Cell* cell);
+struct Color define_color(struct Cell* cell);
 
 void print_cell();
 

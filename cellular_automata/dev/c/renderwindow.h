@@ -21,6 +21,7 @@ struct SDL_Image
 	SDL_Texture* texture;
 };
 
+struct SDL_Image* initialize_SDL();
 SDL_Window* define_window();
 SDL_Renderer* define_renderer();
 SDL_Texture* define_texture();

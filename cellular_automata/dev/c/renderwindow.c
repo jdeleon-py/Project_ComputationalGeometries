@@ -2,9 +2,9 @@
 
 #include "renderwindow.h"
 
-SDL_Image* initialize_SDL()
+struct SDL_Image* initialize_SDL()
 {
-	SDL_Image* new_image;
+	struct SDL_Image* new_image;
 	new_image = (struct SDL_Image*)malloc(sizeof(struct SDL_Image));
 
 	new_image -> window = define_window();

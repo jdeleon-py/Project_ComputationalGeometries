@@ -11,7 +11,7 @@ Grid define_grid(bool init)
 	{
 		cell_arr[i] = (struct Cell*)malloc(DIM * sizeof(struct Cell));
 		cell_arr[i] -> state = (init == true) ? define_state(1) : define_state(0);
-		cell_arr[i] = define_color(cell_arr[i]);
+		cell_arr[i] -> color = define_color(cell_arr[i]);
 	}
 
 	return cell_arr;
