@@ -53,6 +53,15 @@ bool Grid::survival_rule(int i, int j)
 }
 
 
+bool Grid::underpopulation_rule(int i, int j) {return ((grid[i][j].neighbors < 2) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
+
+
+bool Grid::overpopulation_rule(int i, int j)  {return ((grid[i][j].neighbors > 3) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
+
+
+bool Grid::birth_rule(int i, int j)           {return ((grid[i][j].neighbors == 3) && (grid[i][j].get_state() == DEAD)) ? ALIVE : DEAD;}
+
+
 void Grid::eval_state()
 {
 	// modify the already existing grid

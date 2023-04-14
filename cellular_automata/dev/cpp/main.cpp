@@ -13,6 +13,7 @@ int main(int argc, char* args[])
 
 	RenderWindow window("John Conway's Game of Life", WIDTH, HEIGHT);
 	SDL_Event event;
+	bool paused = false;
 	bool running = true;
 
 	while(running == true)
@@ -25,12 +26,28 @@ int main(int argc, char* args[])
 		while(SDL_PollEvent(&event))
 		{
 			if(event.type == SDL_QUIT) {running = false;}
+			if(event.type == SDL_KEYDOWN)
+			{
+				// if event type is 'x' then restart
+				// add features to zoom in/out?
+
+				// space bar pauses/unpauses sim
+				if(event.key.keysym.sym == SDLK_SPACE)
+				{
+					paused = !paused;
+					while(paused)
+					{
+						SDL_Delay(100);
+						if(event.key.keysym.sym == SDLK_SPACE) {paused = !paused;}
+					} //work in progress
+				}
+
+				// able to click around when paused to change states
+			}
 		}
-
 		// maintain a constant framerate
-		SDL_Delay(30);
+		SDL_Delay(50);
 	}
-
 	window.cleanup();
 	SDL_Quit();
 }

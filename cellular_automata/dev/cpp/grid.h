@@ -7,7 +7,7 @@
 #include <vector>
 #include "cell.h"
 
-#define DIM 256
+#define DIM 64
 
 typedef std::vector<std::vector<Cell>> GridType;
 
@@ -27,9 +27,9 @@ public:
 
 private:
 	bool survival_rule(int i, int j);
-	inline bool underpopulation_rule(int i, int j) {return ((grid[i][j].neighbors < 2) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
-	inline bool overpopulation_rule(int i, int j)  {return ((grid[i][j].neighbors > 3) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
-	inline bool birth_rule(int i, int j)           {return ((grid[i][j].neighbors == 3) && (grid[i][j].get_state() == DEAD)) ? ALIVE : DEAD;}
+	bool underpopulation_rule(int i, int j);
+	bool overpopulation_rule(int i, int j);
+	bool birth_rule(int i, int j);
 
 	GridType grid;
 };
