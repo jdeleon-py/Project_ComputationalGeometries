@@ -29,6 +29,7 @@ void RenderWindow::draw()
 	{
 		for(int col = 0; col < (DIM - 1); col++)
 		{
+			//Color c = grid.get_cell(row, col).color;
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 			if((row == 0) || (row == DIM -1) || (col == 0) || (col == DIM - 1))
 			{
@@ -44,6 +45,15 @@ void RenderWindow::draw()
 		}
 	}
 	SDL_RenderPresent(renderer);
+}
+
+void RenderWindow::click_update(SDL_Event event)
+{
+	int col = (int)(event.button.x / CELL_WIDTH);
+	int row = (int)(event.button.y / CELL_HEIGHT);
+	Cell cell = grid.get_cell(row, col);
+	(cell.get_state() == 0) ? cell.set_state(1) : cell.set_state(0);
+	//SDL_RenderPresent(renderer);
 }
 
 void RenderWindow::cleanup()

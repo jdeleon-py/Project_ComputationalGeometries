@@ -8,8 +8,8 @@
 
 int main(int argc, char* args[])
 {
-	if(SDL_Init(SDL_INIT_VIDEO) > 0) {std::cout << "SDL_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;}
-	if(!(IMG_Init(IMG_INIT_PNG))) {std::cout << "IMG_init has failed. Error: " << SDL_GetError() << std::endl;}
+	if(SDL_Init(SDL_INIT_VIDEO) > 0) {std::cout << "SDL_Init has failed. SDL_Error: " << SDL_GetError() << std::endl;}
+	if(!(IMG_Init(IMG_INIT_PNG))) {std::cout << "IMG_init has failed. SDL_Error: " << SDL_GetError() << std::endl;}
 
 	RenderWindow window("John Conway's Game of Life", WIDTH, HEIGHT);
 	SDL_Event event;
@@ -19,34 +19,37 @@ int main(int argc, char* args[])
 	while(running == true)
 	{
 		// Draw and update environment
-		window.draw();
-		window.grid.eval_state();
+		// (sim runs only when unpaused)
+		if(paused == false)
+		{
+			window.draw();
+			window.grid.eval_state();
+		}
 
 		// Get our controls and events
 		while(SDL_PollEvent(&event))
 		{
-			if(event.type == SDL_QUIT) {running = false;}
-			if(event.type == SDL_KEYDOWN)
+			switch(event.type)
 			{
-				// if event type is 'x' then restart
+				case SDL_QUIT:
+					running = false;
+					break;
+
+				case SDL_KEYDOWN:
+					if(event.key.keysym.sym == SDLK_SPACE) {paused = !paused;}
+					if(event.key.keysym.sym == SDLK_x) {window.grid = Grid();}
+					break;
+
 				// add features to zoom in/out?
 
-				// space bar pauses/unpauses sim
-				if(event.key.keysym.sym == SDLK_SPACE)
-				{
-					paused = !paused;
-					while(paused)
-					{
-						SDL_Delay(100);
-						if(event.key.keysym.sym == SDLK_SPACE) {paused = !paused;}
-					} //work in progress
-				}
-
 				// able to click around when paused to change states
+				case SDL_MOUSEBUTTONDOWN:
+					// todo: current implementation does not update the window
+					if(paused == true) {window.click_update(event);}
+					break;
 			}
 		}
-		// maintain a constant framerate
-		SDL_Delay(50);
+		SDL_Delay(32); // maintain constant framerate (~30 fps)
 	}
 	window.cleanup();
 	SDL_Quit();

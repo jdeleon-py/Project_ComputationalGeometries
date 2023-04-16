@@ -7,7 +7,7 @@
 #include <vector>
 #include "cell.h"
 
-#define DIM 64
+#define DIM 128
 
 typedef std::vector<std::vector<Cell>> GridType;
 
@@ -26,10 +26,10 @@ public:
 	friend std::ostream& operator<<(std::ostream& ost, Grid& g);
 
 private:
-	bool survival_rule(int i, int j);
-	bool underpopulation_rule(int i, int j);
-	bool overpopulation_rule(int i, int j);
-	bool birth_rule(int i, int j);
+	bool survival_rule(Cell cell);
+	bool underpopulation_rule(Cell cell);
+	bool overpopulation_rule(Cell cell);
+	bool birth_rule(Cell cell);
 
 	GridType grid;
 };
