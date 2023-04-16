@@ -13,15 +13,16 @@
 typedef struct Cell** Grid;
 
 Grid define_grid(bool init);
-void destroy_grid(Grid grid);
+void destroy_grid(Grid cells);
 int check_neighbors(Grid cells, int i, int j);
 
-int survival_rule(Grid cells, int i, int j);
-bool underpopulation_rule(struct Cell* cell, int i, int j);
-bool overpopulation_rule(struct Cell* cell, int i, int j);
-bool birth_rule(struct Cell* cell, int i, int j);
+bool survival_rule(struct Cell* cell);
+bool underpopulation_rule(struct Cell* cell);
+bool overpopulation_rule(struct Cell* cell);
+bool birth_rule(struct Cell* cell);
 
 // eval_state function
+Grid eval_state(Grid cells);
 
 void print_grid();
 

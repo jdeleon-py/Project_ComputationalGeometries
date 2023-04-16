@@ -34,7 +34,7 @@ void draw() {}
 void cleanup_SDL(struct SDL_Image* image)
 {
 	SDL_DestroyWindow(image -> window);
-	// destroy renderer
+	SDL_DestroyRenderer(image -> renderer);
 	free(image);	
 }
 
