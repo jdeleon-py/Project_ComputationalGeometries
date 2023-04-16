@@ -20,7 +20,10 @@ class RenderWindow
 public:
 	RenderWindow(const char* title, int width, int height);
 	SDL_Texture* LoadTexture(const char* p_filePath);
+	
+	void click_update(SDL_Event event);
 	void draw();
+
 	void cleanup();
 
 	Grid grid;

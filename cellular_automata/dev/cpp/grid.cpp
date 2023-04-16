@@ -46,20 +46,20 @@ void Grid::check_neighbors(int i, int j, bool border)
 }
 
 
-bool Grid::survival_rule(int i, int j)
+bool Grid::survival_rule(Cell cell)
 {
-	bool neighbors_cond = ((grid[i][j].neighbors == 2) || (grid[i][j].neighbors == 3));
-	return (neighbors_cond && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;
+	bool neighbors_cond = ((cell.neighbors == 2) || (cell.neighbors == 3));
+	return (neighbors_cond && (cell.get_state() == ALIVE)) ? ALIVE : DEAD;
 }
 
 
-bool Grid::underpopulation_rule(int i, int j) {return ((grid[i][j].neighbors < 2) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
+bool Grid::underpopulation_rule(Cell cell) {return ((cell.neighbors < 2) && (cell.get_state() == ALIVE)) ? true : false;}
 
 
-bool Grid::overpopulation_rule(int i, int j)  {return ((grid[i][j].neighbors > 3) && (grid[i][j].get_state() == ALIVE)) ? ALIVE : DEAD;}
+bool Grid::overpopulation_rule(Cell cell)  {return ((cell.neighbors > 3) && (cell.get_state() == ALIVE)) ? true : false;}
 
 
-bool Grid::birth_rule(int i, int j)           {return ((grid[i][j].neighbors == 3) && (grid[i][j].get_state() == DEAD)) ? ALIVE : DEAD;}
+bool Grid::birth_rule(Cell cell) {return ((cell.neighbors == 3) && (cell.get_state() == DEAD)) ? true : false;}
 
 
 void Grid::eval_state()
@@ -71,10 +71,10 @@ void Grid::eval_state()
 		for(int col = 1; col < (DIM - 1); col++)
 		{
 			check_neighbors(row, col, 1);
-			if(underpopulation_rule(row, col) == true)     {grid_copy[row][col].set_state(DEAD);}
-			else if(survival_rule(row, col) == true)       {grid_copy[row][col].set_state(ALIVE);}
-			else if(overpopulation_rule(row, col) == true) {grid_copy[row][col].set_state(DEAD);}
-			else if(birth_rule(row, col) == true)          {grid_copy[row][col].set_state(ALIVE);}
+			if(underpopulation_rule(grid[row][col]) == true)     {grid_copy[row][col].set_state(DEAD);}
+			else if(survival_rule(grid[row][col]) == true)       {grid_copy[row][col].set_state(ALIVE);}
+			else if(overpopulation_rule(grid[row][col]) == true) {grid_copy[row][col].set_state(DEAD);}
+			else if(birth_rule(grid[row][col]) == true)          {grid_copy[row][col].set_state(ALIVE);}
 		}
 	}
 	grid = grid_copy;
