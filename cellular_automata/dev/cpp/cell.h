@@ -15,21 +15,22 @@ struct Color
 
 class Cell
 {
-	public:
-		Cell(bool init);
+public:
+	Cell(bool init);
 
-		int define_state();
-		Color define_color();
-		inline int get_state() {return state;}
-		inline void set_state(int new_state) {state = new_state;}
+	int define_state();
+	Color define_color();
+	inline int get_state() {return state;}
+	inline void set_state(int new_state) {state = new_state;}
 
-		friend std::ostream& operator<<(std::ostream& ost, Cell& cell);
+	friend std::ostream& operator<<(std::ostream& ost, Cell& cell);
 
-		int neighbors = 0;
-	private:
-		int state;
-		Color color;
-		bool _init;
+	int neighbors = 0;
+
+private:
+	int state;
+	Color color;
+	bool _init;
 };
 
 #endif
