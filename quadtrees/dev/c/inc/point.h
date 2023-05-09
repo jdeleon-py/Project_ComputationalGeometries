@@ -14,7 +14,6 @@ typedef struct Point
 } Point;
 
 Point* build_point(unsigned int x, unsigned int y);
-
 void print_point(Point* point);
 void destroy_point(Point* point);
 

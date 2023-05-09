@@ -9,25 +9,25 @@
 #include <stdbool.h>
 #include "point.h"
 
-#define NODE_CAPACITY 4
+#define NODE_CAPACITY 5
 
 typedef struct Sector
 {
 	Point* center;
 	unsigned int radius;
-};
+} Sector;
 
 typedef struct QuadTree
 {
 	bool divided;
-	Point** points;
+	Point* points[NODE_CAPACITY];
 	Sector* boundary;
 
-	QuadTree* nw;
-	QuadTree* ne;
-	QuadTree* sw;
-	QuadTree* se;
-};
+	struct QuadTree* nw;
+	struct QuadTree* ne;
+	struct QuadTree* sw;
+	struct QuadTree* se;
+} QuadTree;
 
 
 // SECTOR API PROTO
@@ -38,10 +38,10 @@ void destroy_sector(Sector* sector);
 
 // QUADTREE API PROTO
 QuadTree* build_quadtree(Sector* boundary);
-int query_points(Point* arr[]);
+int query_points(QuadTree* qtree);
 void insert(QuadTree* qtree, Point* point);
 void subdivide(QuadTree* qtree);
-void print_qtree(QuadTree* qtree);
+void print_quadtree(QuadTree* qtree);
 void destroy_quadtree(QuadTree* qtree);
 
 #endif
