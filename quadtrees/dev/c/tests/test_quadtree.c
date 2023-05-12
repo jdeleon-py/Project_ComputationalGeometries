@@ -29,8 +29,6 @@ int main(int argc, char* argv[])
 		int x = generate_coordinate();
 		int y = generate_coordinate();
 		Point* p = build_point(x, y);
-		printf("---Inserting point: ");
-		print_point(p);
 		insert(qt, p);
 	}
 

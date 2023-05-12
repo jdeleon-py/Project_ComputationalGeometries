@@ -72,7 +72,15 @@ QuadTree* build_quadtree(Sector* boundary)
 
 void insert(QuadTree* qtree, Point* point)
 {
+	if(qtree == NULL) {return;}
 	if(!contains_point(qtree -> boundary, point)) {return;}
+	if(qtree -> boundary -> radius <= 1)
+	{
+		printf("Cannot add point: ");
+		print_point(point);
+		destroy_point(point);
+		return;
+	}
 
 	int point_count = query_points(qtree);
 	if(point_count < NODE_CAPACITY)
@@ -86,12 +94,6 @@ void insert(QuadTree* qtree, Point* point)
 	else if(contains_point(qtree -> ne -> boundary, point)) {insert(qtree -> ne, point);}
 	else if(contains_point(qtree -> sw -> boundary, point)) {insert(qtree -> sw, point);}
 	else if(contains_point(qtree -> se -> boundary, point)) {insert(qtree -> se, point);}
-	else
-	{
-		printf("Cannot add point: ");
-		print_point(point);
-		return;
-	}
 }
 
 // function to count how many points exist in a qtree
@@ -117,24 +119,22 @@ void subdivide(QuadTree* qtree)
 	centery = qtree -> boundary -> center -> y;
 	rad = qtree -> boundary -> radius;
 
-	if(rad > 1)
-	{
-		Point* nw_center = build_point(centerx - (rad / 2), centery - (rad / 2));
-		Point* ne_center = build_point(centerx + (rad / 2), centery - (rad / 2));
-		Point* sw_center = build_point(centerx - (rad / 2), centery + (rad / 2));
-		Point* se_center = build_point(centerx + (rad / 2), centery + (rad / 2));
-		
-		Sector* nw_sector = build_sector(nw_center, rad / 2);
-		Sector* ne_sector = build_sector(ne_center, rad / 2);
-		Sector* sw_sector = build_sector(sw_center, rad / 2);
-		Sector* se_sector = build_sector(se_center, rad / 2);
-		
-		qtree -> nw = build_quadtree(nw_sector);
-		qtree -> ne = build_quadtree(ne_sector);
-		qtree -> sw = build_quadtree(sw_sector);
-		qtree -> se = build_quadtree(se_sector);
-		qtree -> divided = true;
-	}
+	if(rad <= 1) {return;}
+	Point* nw_center = build_point(centerx - (rad / 2), centery - (rad / 2));
+	Point* ne_center = build_point(centerx + (rad / 2), centery - (rad / 2));
+	Point* sw_center = build_point(centerx - (rad / 2), centery + (rad / 2));
+	Point* se_center = build_point(centerx + (rad / 2), centery + (rad / 2));
+
+	Sector* nw_sector = build_sector(nw_center, rad / 2);
+	Sector* ne_sector = build_sector(ne_center, rad / 2);
+	Sector* sw_sector = build_sector(sw_center, rad / 2);
+	Sector* se_sector = build_sector(se_center, rad / 2);
+
+	qtree -> nw = build_quadtree(nw_sector);
+	qtree -> ne = build_quadtree(ne_sector);
+	qtree -> sw = build_quadtree(sw_sector);
+	qtree -> se = build_quadtree(se_sector);
+	qtree -> divided = true;
 }
 
 void print_quadtree(QuadTree* qtree)
@@ -153,7 +153,6 @@ void print_quadtree(QuadTree* qtree)
 		print_quadtree(qtree -> ne);
 		print_quadtree(qtree -> sw);
 		print_quadtree(qtree -> se);
-		printf("\n");
 	}
 }
 
