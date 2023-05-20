@@ -12,9 +12,7 @@ int main(int argc, char* argv[])
 	{
 		for(int x = 0; x < WIDTH; x++)
 		{
-			Site* pix = build_site();
-			pix -> z.real = x;
-			pix -> z.imag = y;
+			Site* pix = build_site(x, y);
 			pix -> iterations = mandelbrot(pix);
 			char sym = (pix -> iterations < MAX_ITERATIONS) ? '#' : ' ';
 			printf("%c", sym);

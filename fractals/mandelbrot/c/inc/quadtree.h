@@ -10,6 +10,7 @@
 
 #include "mandelbrot.h"
 #include "color.h"
+#include "file.h"
 
 #define NODE_CAPACITY 5
 
@@ -21,7 +22,8 @@ typedef struct Sector
 	Color* avg_color;
 	Color* std_color;
 
-	Site** zplane;
+	//Site* zplane[DIM][DIM];
+	Site* corners[4]; // [nw, ne, sw, se]
 } Sector;
 
 typedef struct QuadTree
@@ -46,9 +48,12 @@ void destroy_sector(Sector* sector);
 // QUADTREE APIS
 QuadTree* build_quadtree(Sector* boundary);
 
-int query_points(QuadTree* qtree);
 void insert(QuadTree* qtree, Site* pixel);
 void subdivide(QuadTree* qtree);
+
+int query_points(QuadTree* qtree);
+void query_iters(QuadTree* qtree);
+void query_color(QuadTree* qtree);
 void query_quadtree(QuadTree* qtree, int level);
 
 void print_quadtree(QuadTree* qtree);

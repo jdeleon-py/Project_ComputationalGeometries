@@ -71,7 +71,7 @@ void draw_site(SDL_Object* image, Site* site)
 	{
 		SDL_SetRenderDrawColor(image -> renderer, 0, 0, 0, 255);
 	}
-	SDL_RenderDrawPoint(image -> renderer, site -> z.real, site -> z.imag);
+	SDL_RenderDrawPoint(image -> renderer, site -> x, site -> y);
 }
 
 void draw_line_V(SDL_Object* image, unsigned int cx, unsigned int cy, unsigned int r)

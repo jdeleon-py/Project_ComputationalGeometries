@@ -3,7 +3,7 @@
 
 #include "mandelbrot.h"
 
-Site* build_site()
+Site* build_site(unsigned int x, unsigned int y)
 {
 	Site* new_site = NULL;
 
@@ -13,11 +13,8 @@ Site* build_site()
 		printf("Error allocating a site!\n");
 		return NULL;
 	}
-	new_site -> z.real = 0;
-	new_site -> z.imag = 0;
-	new_site -> color.R = 0;
-	new_site -> color.G = 0;
-	new_site -> color.B = 0;
+	new_site -> x = x;
+	new_site -> y = y;
 	new_site -> iterations = 0;
 	return new_site;
 }
@@ -36,19 +33,17 @@ void destroy_site(Site* site)
 	free(site);
 }
 
-Site** build_zplane()
+/*
+Site* build_zplane()
 {
-	Site** new_zplane = NULL;
+	Site* new_zplane[DIM][DIM];
 
-	new_zplane = (Site**)malloc(DIM_TEST * sizeof(Site*));
-	if(new_zplane == NULL)
+	for(int y = 0; y < DIM; y++)
 	{
-		printf("Error allocating a z-plane!\n");
-		return NULL;
-	}
-	for(int i = 0; i < DIM_TEST; i++)
-	{
-		new_zplane[i] = build_site();
+		for(int x = 0; x < DIM; x++)
+		{
+			new_zplane[x][y] = build_site(x, y);
+		}
 	}
 	return new_zplane;
 }
@@ -58,15 +53,16 @@ void print_zplane(Site** zplane) {}
 void destroy_zplane(Site** zplane)
 {
 	if(zplane == NULL) {return;}
-	for(int i = 0; i < DIM_TEST; i++)
+	for(int i = 0; i < DIM; i++)
 	{
 		Site* temp = zplane[i];
 		destroy_site(temp);
 	}
 	free(zplane);
 }
+*/
 
-long double scale_x(long double pix_x)
+long double scale_x(unsigned int pix_x)
 {
 	long double scale_factor;
 
@@ -74,7 +70,7 @@ long double scale_x(long double pix_x)
 	return X_MIN + pix_x / scale_factor;
 }
 
-long double scale_y(long double pix_y)
+long double scale_y(unsigned int pix_y)
 {
 	long double scale_factor;
 	
@@ -94,12 +90,12 @@ int mandelbrot(Site* pixel)
 	iter.real = 0;
 	iter.imag = 0;
 
-	x0 = scale_x(pixel -> z.real);
-	y0 = scale_y(pixel -> z.imag);
+	pixel -> z.real = scale_x(pixel -> x);
+	pixel -> z.imag = scale_y(pixel -> y);
 	while(z_magnitude(iter) < 4 && pixel -> iterations < MAX_ITERATIONS)
 	{
-		x_temp = x0 + ((iter.real * iter.real) - (iter.imag * iter.imag));
-		iter.imag = y0 + (2 * iter.real * iter.imag);
+		x_temp = pixel -> z.real + ((iter.real * iter.real) - (iter.imag * iter.imag));
+		iter.imag = pixel -> z.imag + (2 * iter.real * iter.imag);
 		iter.real = x_temp;
 		pixel -> iterations++;
 	}

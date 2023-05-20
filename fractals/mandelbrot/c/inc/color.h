@@ -20,8 +20,10 @@ extern const Color map_magma[];
 extern const Color map_inferno[];
 extern const Color map_viridis[];
 
+Color* build_color();
 Color map_color_pixel(const Color map[], int iters);
 void print_color(Color color);
+void destroy_color(Color* color);
 
 #endif
 

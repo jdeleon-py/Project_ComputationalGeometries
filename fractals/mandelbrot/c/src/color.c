@@ -61,6 +61,22 @@ const Color map_inferno[MAX_COLORS] =
 
 const Color map_viridis[1] = {{0, 0, 0}};
 
+Color* build_color()
+{
+	Color* new_color = NULL;
+	new_color = (Color*)malloc(sizeof(Color));
+
+	if(new_color == NULL)
+	{
+		printf("Error allocating color!\n");
+		return NULL;
+	}
+	new_color -> R = 0;
+	new_color -> G = 0;
+	new_color -> B = 0;
+	return new_color;	
+}
+
 Color map_color_pixel(const Color map[], int iters)
 {
 	int map_index;
@@ -73,4 +89,15 @@ void print_color(Color color)
 {
 	printf("(%d, %d, %d)\n", color.R, color.G, color.B);
 }
+
+void destroy_color(Color* color)
+{
+	if(color == NULL)
+	{
+		printf("Warning... cannot deallocate null ptr.\n");
+		return;
+	}
+	free(color);
+}
+
 

@@ -8,6 +8,22 @@
 // ui functions:
 // - click mouse to insert point
 
+void render_mandelbrot(SDL_Object* window)
+{
+	for(int y = 0; y < HEIGHT; y++)
+	{
+		for(int x = 0; x < WIDTH; x++)
+		{
+			Site* pix = build_site(x, y);
+			pix -> iterations = mandelbrot(pix); 
+			draw_site(window, pix);
+			destroy_site(pix);
+		}
+		SDL_RenderPresent(window -> renderer);
+	}
+	printf("Render complete!\n");
+}
+
 int main(int argc, char* argv[])
 {
 	/*
@@ -18,24 +34,9 @@ int main(int argc, char* argv[])
 	SDL_Event event;
 
 	window = initialize_SDL();
-
 	SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
 	SDL_RenderClear(window -> renderer);
-
-	for(int y = 0; y < HEIGHT; y++)
-	{
-		for(int x = 0; x < WIDTH; x++)
-		{
-			Site* pix = build_site();
-			pix -> z.real = x;
-			pix -> z.imag = y;
-			pix -> iterations = mandelbrot(pix); 
-			draw_site(window, pix);
-			SDL_RenderPresent(window -> renderer);
-			destroy_site(pix);
-		}
-	}
-	printf("Render complete!\n");
+	render_mandelbrot(window);
 
 	running = true;
 	while(running == true)
@@ -44,9 +45,7 @@ int main(int argc, char* argv[])
 		{
 			if(event.type == SDL_QUIT) {running = false;}
 		}
-
 		// update game state
-
 
 		// draw to window
 		SDL_RenderPresent(window -> renderer);

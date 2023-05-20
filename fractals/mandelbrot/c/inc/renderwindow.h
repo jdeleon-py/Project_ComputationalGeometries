@@ -12,7 +12,7 @@
 #include "mandelbrot.h"
 #include "color.h"
 
-#define DIM 600 //window width and height will be DIM (multiple of 2^n) pixels (for now)
+//#define DIM 512 //window width and height will be DIM (multiple of 2^n) pixels (for now)
 
 typedef struct SDL_Object
 {
