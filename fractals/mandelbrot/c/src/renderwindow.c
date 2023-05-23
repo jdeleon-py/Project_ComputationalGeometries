@@ -107,9 +107,9 @@ void draw_point(SDL_Object* image, Point* point)
 }
 */
 
-void draw_site(SDL_Object* image, Site* site)
+void draw_site(SDL_Object* image, Site* site, int offset)
 {
-	if(site -> iterations < MAX_ITERATIONS)
+	if(site -> iterations < (MAX_ITERATIONS + offset))
 	{
 		Color color = map_color_pixel(map_inferno, site -> iterations);
 		//int color = 255 - (256 / (site -> iterations));

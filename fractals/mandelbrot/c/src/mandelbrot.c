@@ -113,7 +113,7 @@ long double z_magnitude(Complex z)
 	return (z.real * z.real) + (z.imag * z.imag);
 }
 
-int mandelbrot(Dimensions* map, Site* pixel)
+int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 {
 	long double x0, y0, x_temp;
 	Complex iter;
@@ -122,7 +122,7 @@ int mandelbrot(Dimensions* map, Site* pixel)
 
 	pixel -> z.real = scale_x(map, pixel -> x);
 	pixel -> z.imag = scale_y(map, pixel -> y);
-	while(z_magnitude(iter) < 4 && pixel -> iterations < MAX_ITERATIONS)
+	while(z_magnitude(iter) < 4 && pixel -> iterations < (MAX_ITERATIONS + iter_offset))
 	{
 		x_temp = pixel -> z.real + ((iter.real * iter.real) - (iter.imag * iter.imag));
 		iter.imag = pixel -> z.imag + (2 * iter.real * iter.imag);

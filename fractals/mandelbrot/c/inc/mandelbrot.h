@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "color.h"
 
-#define MAX_ITERATIONS   100
+#define MAX_ITERATIONS   10
 #define DIM              512
 
 #define WIDTH            DIM
@@ -75,6 +75,6 @@ void destroy_zplane(Site** zplane);
 // Mandelbrot API's
 long double scale_x(Dimensions* map, unsigned int pix_x);
 long double scale_y(Dimensions* map, unsigned int pix_y);
-int mandelbrot(Dimensions* map, Site* pixel);
+int mandelbrot(Dimensions* map, Site* pixel, int iter_offset);
 
 #endif

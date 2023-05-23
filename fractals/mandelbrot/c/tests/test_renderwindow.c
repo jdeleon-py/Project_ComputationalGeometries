@@ -13,16 +13,16 @@
 // ui functions:
 // - click mouse to insert point
 
-void render_mandelbrot(Dimensions* map, SDL_Object* window)
+void render_mandelbrot(Dimensions* map, SDL_Object* window, int offset)
 {
-	SDL_RenderClear(window -> renderer);
+	//SDL_RenderClear(window -> renderer); //leave commented for visual effect
 	for(int y = 0; y < HEIGHT; y++)
 	{
 		for(int x = 0; x < WIDTH; x++)
 		{
 			Site* pix = build_site(x, y);
-			pix -> iterations = mandelbrot(map, pix); 
-			draw_site(window, pix);
+			pix -> iterations = mandelbrot(map, pix, offset); 
+			draw_site(window, pix, offset);
 			destroy_site(pix);
 		}
 		SDL_RenderPresent(window -> renderer);
@@ -44,8 +44,9 @@ int main(int argc, char* argv[])
 	window = initialize_SDL();
 	SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
 	print_map(map_dim);
-	render_mandelbrot(map_dim, window);
+	render_mandelbrot(map_dim, window, 0);
 
+	int offset = 0;
 	dragging = false;
 	running = true;
 	while(running == true)
@@ -53,11 +54,20 @@ int main(int argc, char* argv[])
 		while(SDL_PollEvent(&event))
 		{
 			if(event.type == SDL_QUIT) {running = false;}
-			if(click_and_drag(event, map_dim, &dragging))
+			else if(click_and_drag(event, map_dim, &dragging))
 			{
 				printf("New map generated!\n");
 				print_map(map_dim);
-				render_mandelbrot(map_dim, window);
+				render_mandelbrot(map_dim, window, offset);
+			}
+			else if(event.type == SDL_KEYDOWN)
+			{
+				if(event.key.keysym.sym == SDLK_RETURN)
+				{
+					offset += 500;
+					printf("Rendering with %d escape iterations...\n", MAX_ITERATIONS + offset);
+					render_mandelbrot(map_dim, window, offset);
+				}
 			}
 		}
 		// update game state
