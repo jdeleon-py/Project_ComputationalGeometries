@@ -8,13 +8,8 @@
 #include <stdlib.h>
 #include "color.h"
 
-#define MAX_ITERATIONS   5000
+#define MAX_ITERATIONS   100
 #define DIM              512
-
-#define X_MIN             -2
-#define X_MAX              1
-#define Y_MIN           -1.5
-#define Y_MAX            1.5
 
 #define WIDTH            DIM
 #define HEIGHT           DIM
@@ -31,6 +26,14 @@
  * -> z_(n+1) = (x^2 + y^2 + x_c) + j(2xy + y_c)
  * -> if mag(z_(n+1)) > threshold, then can assume divergence occurs at z_n
  */
+
+typedef struct Dimensions
+{
+	long double x_min;
+	long double x_max;
+	long double y_min;
+	long double y_max;
+} Dimensions;
 
 typedef struct Complex
 {
@@ -54,6 +57,11 @@ typedef struct Site
 // Complex number handling
 long double z_magnitude(Complex z);
 
+// Mandelbrot Map Handling
+Dimensions* build_map(long double x_min, long double x_max, long double y_min, long double y_max);
+void print_map(Dimensions* map);
+void destroy_map(Dimensions* map);
+
 // Generalized site handling
 Site* build_site(unsigned int x, unsigned int y);
 void print_site(Site* site);
@@ -65,8 +73,8 @@ void print_zplane(Site** zplane);
 void destroy_zplane(Site** zplane);
 
 // Mandelbrot API's
-long double scale_x(unsigned int pix_x);
-long double scale_y(unsigned int pix_y);
-int mandelbrot(Site* pixel);
+long double scale_x(Dimensions* map, unsigned int pix_x);
+long double scale_y(Dimensions* map, unsigned int pix_y);
+int mandelbrot(Dimensions* map, Site* pixel);
 
 #endif

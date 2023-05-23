@@ -50,6 +50,54 @@ SDL_Object* define_texture(SDL_Object* image, char* filename)
 	return image;
 }
 
+bool click_and_drag(SDL_Event event, Dimensions* map, bool* dragging)
+{
+	unsigned int px0, px1, py0, py1;
+	long double mx0, mx1, my0, my1;
+	Dimensions* temp_map = map;
+	switch(event.type)
+	{
+		case SDL_MOUSEBUTTONDOWN:
+			if(event.button.button == SDL_BUTTON_LEFT)
+			{
+				px0 = event.button.x;
+				py0 = event.button.y;
+				mx0 = scale_x(map, px0);
+				my0 = scale_y(map, py0);
+				temp_map -> x_min = mx0;
+				temp_map -> y_min = my0;
+            	*dragging = true;        
+			}
+			break;
+
+		case SDL_MOUSEBUTTONUP:
+			if (event.button.button == SDL_BUTTON_LEFT)
+			{
+				*dragging = false;  // Stop dragging
+				px1 = event.button.x;
+				mx1 = scale_x(map, px1);
+				temp_map -> x_max = mx1;
+				my1 = temp_map -> y_min + (temp_map -> x_max - temp_map -> x_min);
+				temp_map -> y_max = my1;
+			}
+			map = temp_map;
+			return true;
+
+		case SDL_MOUSEMOTION:
+			// If dragging, update the object's position
+			/*
+			if(*dragging == true)
+			{
+				printf("position of cursor: (%d, %d)\n", event.button.x, event.button.y);
+			}
+			*/
+			break;
+
+		default: break;
+    }
+    return false;
+}
+
 /*
 void draw_point(SDL_Object* image, Point* point)
 {

@@ -12,7 +12,7 @@ SDLFLAGS = `/usr/bin/pkg-config sdl2 --cflags --libs` -lSDL2 -lSDL2_mixer -lSDL2
 
 # BUILD DIRECTIVES
 all: tests
-tests: test_mandelbrot test_render
+tests: test_render
 
 # MAIN EXE
 

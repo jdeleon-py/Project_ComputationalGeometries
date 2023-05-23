@@ -3,6 +3,36 @@
 
 #include "mandelbrot.h"
 
+Dimensions* build_map(long double x_min, long double x_max, long double y_min, long double y_max)
+{
+	Dimensions* new_map = NULL;
+	new_map = (Dimensions*)malloc(sizeof(Dimensions));
+	
+	if(new_map == NULL)
+	{
+		printf("Error allocating map!\n");
+		return NULL;
+	}
+	new_map -> x_min = x_min;
+	new_map -> x_max = x_max;
+	new_map -> y_min = y_min;
+	new_map -> y_max = y_max;
+	return new_map;
+}
+
+void print_map(Dimensions* map)
+{
+	printf("=== NW: (%Lf, %Lf)\n", map -> x_min, map -> y_min);
+	printf("=== NE: (%Lf, %Lf)\n", map -> x_max, map -> y_min);
+	printf("=== SW: (%Lf, %Lf)\n", map -> x_min, map -> y_max);
+	printf("=== SE: (%Lf, %Lf)\n", map -> x_max, map -> y_max);
+}
+
+void destroy_map(Dimensions* map)
+{
+	free(map);
+}
+
 Site* build_site(unsigned int x, unsigned int y)
 {
 	Site* new_site = NULL;
@@ -62,20 +92,20 @@ void destroy_zplane(Site** zplane)
 }
 */
 
-long double scale_x(unsigned int pix_x)
+long double scale_x(Dimensions* map, unsigned int pix_x)
 {
 	long double scale_factor;
 
-	scale_factor = (long double)((WIDTH - 1) / (X_MAX - X_MIN));
-	return X_MIN + pix_x / scale_factor;
+	scale_factor = (long double)((WIDTH - 1) / (map -> x_max - map -> x_min));
+	return (map -> x_min) + pix_x / scale_factor;
 }
 
-long double scale_y(unsigned int pix_y)
+long double scale_y(Dimensions* map, unsigned int pix_y)
 {
 	long double scale_factor;
 	
-	scale_factor = (long double)((HEIGHT - 1) / (Y_MAX - Y_MIN));
-	return Y_MIN + pix_y / scale_factor;
+	scale_factor = (long double)((HEIGHT - 1) / (map -> y_max - map -> y_min));
+	return (map -> y_min) + pix_y / scale_factor;
 }
 
 long double z_magnitude(Complex z)
@@ -83,15 +113,15 @@ long double z_magnitude(Complex z)
 	return (z.real * z.real) + (z.imag * z.imag);
 }
 
-int mandelbrot(Site* pixel)
+int mandelbrot(Dimensions* map, Site* pixel)
 {
 	long double x0, y0, x_temp;
 	Complex iter;
 	iter.real = 0;
 	iter.imag = 0;
 
-	pixel -> z.real = scale_x(pixel -> x);
-	pixel -> z.imag = scale_y(pixel -> y);
+	pixel -> z.real = scale_x(map, pixel -> x);
+	pixel -> z.imag = scale_y(map, pixel -> y);
 	while(z_magnitude(iter) < 4 && pixel -> iterations < MAX_ITERATIONS)
 	{
 		x_temp = pixel -> z.real + ((iter.real * iter.real) - (iter.imag * iter.imag));

@@ -233,8 +233,11 @@ void query_node_leaf(QuadTree* qtree)
 	if(qtree -> boundary -> radius == 1)
 	{
 		printf("Leaf node found...\n");
-		printf("=== Boundary - Center: (#, #), Radius: #\n");
+		print_sector(qtree -> boundary);
 		printf("=== to be continued...\n");
+		printf("\n");
+
+		print_corners(qtree -> boundary);
 		printf("\n");
 	}
 }
@@ -244,6 +247,12 @@ void query_node_n(QuadTree* qtree, int level) {}
 
 // function to determine the depth level of the selected pixel
 void query_depth {}
+
+void print_corners(Sector* sector)
+{
+	printf("NW Corner: ");
+	print_point(sector -> corners[0]);
+}
 
 
 
