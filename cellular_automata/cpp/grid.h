@@ -7,7 +7,7 @@
 #include <vector>
 #include "cell.h"
 
-#define DIM 128
+#define DIM 256
 
 typedef std::vector<std::vector<Cell>> GridType;
 
