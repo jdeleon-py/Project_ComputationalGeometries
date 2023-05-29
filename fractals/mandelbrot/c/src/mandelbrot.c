@@ -43,8 +43,8 @@ Site* build_site(unsigned int x, unsigned int y)
 		printf("Error allocating a site!\n");
 		return NULL;
 	}
-	new_site -> x = x;
-	new_site -> y = y;
+	new_site -> pix.x = x;
+	new_site -> pix.y = y;
 	new_site -> iterations = 0;
 	return new_site;
 }
@@ -62,35 +62,6 @@ void destroy_site(Site* site)
 	if(site == NULL) {return;}
 	free(site);
 }
-
-/*
-Site* build_zplane()
-{
-	Site* new_zplane[DIM][DIM];
-
-	for(int y = 0; y < DIM; y++)
-	{
-		for(int x = 0; x < DIM; x++)
-		{
-			new_zplane[x][y] = build_site(x, y);
-		}
-	}
-	return new_zplane;
-}
-
-void print_zplane(Site** zplane) {}
-
-void destroy_zplane(Site** zplane)
-{
-	if(zplane == NULL) {return;}
-	for(int i = 0; i < DIM; i++)
-	{
-		Site* temp = zplane[i];
-		destroy_site(temp);
-	}
-	free(zplane);
-}
-*/
 
 long double scale_x(Dimensions* map, unsigned int pix_x)
 {
@@ -120,8 +91,8 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 	iter.real = 0;
 	iter.imag = 0;
 
-	pixel -> z.real = scale_x(map, pixel -> x);
-	pixel -> z.imag = scale_y(map, pixel -> y);
+	pixel -> z.real = scale_x(map, pixel -> pix.x);
+	pixel -> z.imag = scale_y(map, pixel -> pix.y);
 	while(z_magnitude(iter) < 4 && pixel -> iterations < (MAX_ITERATIONS + iter_offset))
 	{
 		x_temp = pixel -> z.real + ((iter.real * iter.real) - (iter.imag * iter.imag));

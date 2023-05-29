@@ -50,22 +50,15 @@ SDL_Object* define_texture(SDL_Object* image, char* filename)
 	return image;
 }
 
-bool click_and_drag(SDL_Event event, Dimensions* map, bool* dragging)
+bool click_and_drag(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p_stop, bool* dragging)
 {
-	unsigned int px0, px1, py0, py1;
-	long double mx0, mx1, my0, my1;
-	Dimensions* temp_map = map;
 	switch(event.type)
 	{
 		case SDL_MOUSEBUTTONDOWN:
 			if(event.button.button == SDL_BUTTON_LEFT)
 			{
-				px0 = event.button.x;
-				py0 = event.button.y;
-				mx0 = scale_x(map, px0);
-				my0 = scale_y(map, py0);
-				temp_map -> x_min = mx0;
-				temp_map -> y_min = my0;
+				p_start -> x = event.button.x;
+				p_start -> y = event.button.y;
             	*dragging = true;        
 			}
 			break;
@@ -74,23 +67,19 @@ bool click_and_drag(SDL_Event event, Dimensions* map, bool* dragging)
 			if (event.button.button == SDL_BUTTON_LEFT)
 			{
 				*dragging = false;  // Stop dragging
-				px1 = event.button.x;
-				mx1 = scale_x(map, px1);
-				temp_map -> x_max = mx1;
-				my1 = temp_map -> y_min + (temp_map -> x_max - temp_map -> x_min);
-				temp_map -> y_max = my1;
+				p_stop -> x = event.button.x;
+				p_stop -> y = p_start -> y + (p_stop -> x - p_start -> x);
+				draw_zoom_window(image, event, p_start, p_stop);
+				SDL_RenderPresent(image -> renderer);
 			}
-			map = temp_map;
 			return true;
 
 		case SDL_MOUSEMOTION:
-			// If dragging, update the object's position
-			/*
+			// If dragging, draw the window encompassing the selected region
 			if(*dragging == true)
 			{
 				printf("position of cursor: (%d, %d)\n", event.button.x, event.button.y);
 			}
-			*/
 			break;
 
 		default: break;
@@ -98,74 +87,28 @@ bool click_and_drag(SDL_Event event, Dimensions* map, bool* dragging)
     return false;
 }
 
-/*
-void draw_point(SDL_Object* image, Point* point)
+void draw_zoom_window(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p_stop)
 {
-	//SDL_RenderSetScale(image -> renderer, 2, 2); // Increase scale for thicker points
 	SDL_SetRenderDrawColor(image -> renderer, 255, 255, 255, 255);
-	SDL_RenderDrawPoint(image -> renderer, point -> x, point -> y);
+	SDL_RenderDrawLine(image -> renderer, p_start -> x, p_start -> y, p_start -> x, p_stop -> y);
+	SDL_RenderDrawLine(image -> renderer, p_start -> x, p_start -> y, p_stop -> x, p_start -> y);
+	SDL_RenderDrawLine(image -> renderer, p_stop -> x, p_start -> y, p_stop -> x, p_stop -> y);
+	SDL_RenderDrawLine(image -> renderer, p_start -> x, p_stop -> y, p_stop -> x, p_stop -> y);
 }
-*/
 
 void draw_site(SDL_Object* image, Site* site, int offset)
 {
 	if(site -> iterations < (MAX_ITERATIONS + offset))
 	{
 		Color color = map_color_pixel(map_inferno, site -> iterations);
-		//int color = 255 - (256 / (site -> iterations));
 		SDL_SetRenderDrawColor(image -> renderer, color.R, color.G, color.B, 255);
 	}
 	else
 	{
 		SDL_SetRenderDrawColor(image -> renderer, 0, 0, 0, 255);
 	}
-	SDL_RenderDrawPoint(image -> renderer, site -> x, site -> y);
+	SDL_RenderDrawPoint(image -> renderer, site -> pix.x, site -> pix.y);
 }
-
-void draw_line_V(SDL_Object* image, unsigned int cx, unsigned int cy, unsigned int r)
-{
-	SDL_SetRenderDrawColor(image -> renderer, 255, 255, 255, 255);
-	SDL_RenderDrawLine(image -> renderer, cx, cy - r, cx, cy + r);
-}
-
-void draw_line_H(SDL_Object* image, unsigned int cx, unsigned int cy, unsigned int r)
-{
-	SDL_SetRenderDrawColor(image -> renderer, 255, 255, 255, 255);
-	SDL_RenderDrawLine(image -> renderer, cx - r, cy, cx + r, cy);
-}
-
-/*
-void draw_qtree(SDL_Object* image, QuadTree* qtree)
-{
-	unsigned int centerx, centery, radius;
-	int point_num;
-
-	centerx = qtree -> boundary -> center -> x;
-	centery = qtree -> boundary -> center -> y;
-	radius = qtree -> boundary -> radius;
-
-	point_num = query_points(qtree);
-	for(int i = 0; i < point_num; i++)
-	{
-		Point* p = qtree -> points[i];
-		draw_point(image, p);
-	}
-
-	if(qtree -> divided == true)
-	{
-		// drawing a vertical qtree boundary line
-		draw_line_V(image, centerx, centery, radius);
-
-		// drawing a horizontal qtree boundary line
-		draw_line_H(image, centerx, centery, radius);
-
-		draw_qtree(image, qtree -> nw);
-		draw_qtree(image, qtree -> ne);
-		draw_qtree(image, qtree -> sw);
-		draw_qtree(image, qtree -> se);
-	}
-}
-*/
 
 void cleanup_SDL(SDL_Object* image)
 {

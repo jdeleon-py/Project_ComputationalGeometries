@@ -27,14 +27,9 @@ SDL_Object* define_window(SDL_Object* image, const char* title);
 SDL_Object* define_renderer(SDL_Object* image);
 SDL_Object* define_texture(SDL_Object* image, char* filename);
 
-bool click_and_drag(SDL_Event event, Dimensions* map, bool* dragging);
-
-//void draw_point(SDL_Object* image, Point* point);
 void draw_site(SDL_Object* image, Site* site, int offset);
-void draw_line_V(SDL_Object* image, unsigned int cx, unsigned int cy, unsigned int r);
-void draw_line_H(SDL_Object* image, unsigned int cx, unsigned int cy, unsigned int r);
-//void draw_qtree();
-
+void draw_zoom_window(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p_stop);
+bool click_and_drag(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p_stop, bool* dragging);
 void cleanup_SDL(SDL_Object* image);
 
 #endif

@@ -53,9 +53,24 @@ int main(int argc, char* argv[])
 	{
 		while(SDL_PollEvent(&event))
 		{
+			Pixel p_start, p_stop;
+			Complex z_start, z_stop;
+
 			if(event.type == SDL_QUIT) {running = false;}
-			else if(click_and_drag(event, map_dim, &dragging))
+			else if(click_and_drag(window, event, &p_start, &p_stop, &dragging))
 			{
+				SDL_RenderPresent(window -> renderer);
+
+				z_start.real = scale_x(map_dim, p_start.x);
+				z_start.imag = scale_y(map_dim, p_start.y);
+				z_stop.real = scale_x(map_dim, p_stop.x);
+				z_stop.imag = scale_y(map_dim, p_stop.y);
+
+				map_dim -> x_min = z_start.real;
+				map_dim -> x_max = z_stop.real;
+				map_dim -> y_min = z_start.imag;
+				map_dim -> y_max = z_stop.imag;
+
 				printf("New map generated!\n");
 				print_map(map_dim);
 				render_mandelbrot(map_dim, window, offset);
@@ -73,7 +88,7 @@ int main(int argc, char* argv[])
 		// update game state
 
 		// draw to window
-		SDL_RenderPresent(window -> renderer);
+		//SDL_RenderPresent(window -> renderer);
 	}
 
 	destroy_map(map_dim);

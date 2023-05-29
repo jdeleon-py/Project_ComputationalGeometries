@@ -35,6 +35,12 @@ typedef struct Dimensions
 	long double y_max;
 } Dimensions;
 
+typedef struct Pixel
+{
+	unsigned int x;
+	unsigned int y;
+} Pixel;
+
 typedef struct Complex
 {
 	long double real;
@@ -44,17 +50,16 @@ typedef struct Complex
 // QUADTREE NODE (PIXEL)
 typedef struct Site
 {
-	unsigned int x;
-	unsigned int y;
-	Complex z;
-
+	Pixel pix;   // for window coordinates
+	Complex z;   // for mandelbrot coordinates
 	Color color;
+
 	int iterations;
 } Site;
 
 // note that the most time is spent calculating along the edges of the curve
 
-// Complex number handling
+// Complex Number Handling
 long double z_magnitude(Complex z);
 
 // Mandelbrot Map Handling
@@ -62,15 +67,10 @@ Dimensions* build_map(long double x_min, long double x_max, long double y_min, l
 void print_map(Dimensions* map);
 void destroy_map(Dimensions* map);
 
-// Generalized site handling
+// Generalized Site Handling
 Site* build_site(unsigned int x, unsigned int y);
 void print_site(Site* site);
 void destroy_site(Site* site);
-
-// Z-Plane Handling
-Site* build_zplane();
-void print_zplane(Site** zplane);
-void destroy_zplane(Site** zplane);
 
 // Mandelbrot API's
 long double scale_x(Dimensions* map, unsigned int pix_x);
