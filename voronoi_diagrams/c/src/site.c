@@ -2,6 +2,22 @@
 
 #include "site.h"
 
+Pixel* build_pixel(unsigned int x, unsigned int y)
+{
+	Pixel* new_pixel = NULL;
+	new_pixel = (Pixel*)malloc(sizeof(Pixel));
+	
+	if(new_pixel == NULL)
+	{
+		printf("Error allocating a pixel!\n");
+		return NULL;
+	}
+	new_pixel -> x = x;
+	new_pixel -> y = y;
+	return new_pixel;
+}
+	
+
 Site* build_site(unsigned int x, unsigned int y, bool vor_node)
 {
 	Site* new_site = NULL;
@@ -13,8 +29,7 @@ Site* build_site(unsigned int x, unsigned int y, bool vor_node)
 		return NULL;
 	}
 
-	new_site -> x = x;
-	new_site -> y = y;
+	new_site -> pixel = build_pixel(x, y);
 	new_site -> vor_node = vor_node;
 
 	if(vor_node == true) // is a voronoi site
@@ -29,9 +44,14 @@ Site* build_site(unsigned int x, unsigned int y, bool vor_node)
 	return new_site; 
 }
 
+void print_pixel(Pixel* pixel)
+{
+	printf("Pixel === (%d, %d)", pixel -> x, pixel -> y);
+}
+
 void print_site(Site* site)
 {
-	printf("Site -> (%d, %d) -> &%p\n", site -> x, site -> y, site);
+	printf("Site -> (%d, %d) -> &(%p)\n", site -> pixel -> x, site -> pixel -> y, site);
 	printf("Type: \n");
 	if(site -> vor_node == true)
 	{
@@ -41,13 +61,19 @@ void print_site(Site* site)
 	else
 	{
 		printf("--- QT (Corner) Node ---\n");
-		printf("--- Closest Voronoi Site: &%p with min dist: %d\n", site -> closest_site, site -> min_distance);
+		printf("--- Closest Voronoi Site: &(%p) with min dist: %f\n", site -> closest_site, site -> min_distance);
 	}
 	printf("\n");
 }
 
+void destroy_pixel(Pixel* pixel)
+{
+	free(pixel);
+}
+
 void destroy_site(Site* site)
 {
+	destroy_pixel(site -> pixel);
 	free(site);
 }
 
@@ -55,10 +81,21 @@ double get_distance(Site* corner, Site* vor_site)
 {
 	if(corner == NULL || vor_site == NULL) return 0;
 
-	int dx = abs(corner -> x - vor_site -> x);
-	int dy = abs(corner -> y - vor_site -> y);
+	int dx = abs(corner -> pixel -> x - vor_site -> pixel -> x);
+	int dy = abs(corner -> pixel -> y - vor_site -> pixel -> y);
 	double dist = sqrt((dx * dx) + (dy * dy));
 	return dist;
+}
+
+// returns true if both sites are in the same location
+bool site_check(Site* s1, Site* s2)
+{
+	if(s1 == NULL || s2 == NULL) return false;
+
+	bool cond_x, cond_y;
+	cond_x = s1 -> pixel -> x == s2 -> pixel -> x;
+	cond_y = s1 -> pixel -> y == s2 -> pixel -> y;
+	return (cond_x && cond_y) ? true : false;
 }
 
 Color generate_color()

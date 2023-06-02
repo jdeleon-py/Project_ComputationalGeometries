@@ -8,7 +8,15 @@
 #include <stdbool.h>
 #include <math.h>
 
+#define VOR_NUM      500
 #define MAX_DISTANCE 10000
+
+// pixel
+typedef struct Pixel
+{
+	unsigned int x;
+	unsigned int y;
+} Pixel;
 
 // color
 typedef struct Color
@@ -28,20 +36,24 @@ typedef struct Site
 {
 	bool vor_node;
 
-	unsigned int x;
-	unsigned int y;
+	Pixel* pixel;
 	Color color;
 	
-	unsigned int min_distance;
+	double min_distance;
 	struct Site* closest_site;
 } Site;
 
 // Site Handling API's
 Site* build_site(unsigned int x, unsigned int y, bool vor_node);
+bool site_check(Site* s1, Site* s2);
+void print_pixel(Pixel* pixel);
 void print_site(Site* site);
 void destroy_site(Site* site);
 
+// Utilities
+Pixel* build_pixel();
 double get_distance(Site* corner, Site* vor_site);
 Color generate_color();
+void destroy_pixel(Pixel* pixel);
 
 #endif
