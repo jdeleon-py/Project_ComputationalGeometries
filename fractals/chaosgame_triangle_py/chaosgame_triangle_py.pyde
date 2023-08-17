@@ -1,3 +1,6 @@
+import shape
+import chaos
+
 def setup():
     size(600, 600)
     global ax, bx, cx, x

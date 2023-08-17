@@ -1,6 +1,6 @@
 # PIXEL (BASE) CLASS
 
-import math
+import numpy as np
 
 class Pixel:
 	'''
@@ -26,7 +26,7 @@ class Pixel:
 
 	@staticmethod
 	def distance(corner: object, point: object) -> float:
-		return math.sqrt(sum([(i - j) ** 2 for i, j in zip(corner.coordinates, point.coordinates)]))
+		return np.linalg.norm(np.array(corner.coordinates) - np.array(point.coordinates))
 
 
 if __name__ == "__main__":

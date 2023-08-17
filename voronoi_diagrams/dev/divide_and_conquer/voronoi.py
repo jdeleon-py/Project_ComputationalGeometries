@@ -34,7 +34,7 @@ if __name__ == "__main__":
 	import random
 	from point import Point
 
-	points = [Point(x = random.randint(0, 2048), y = random.randint(0, 2048)) for _ in range(0, 300)]
-	vor = Voronoi(width = 2048, height = 2048, points = points)
+	points = [Point(x = random.randint(0, 512), y = random.randint(0, 512)) for _ in range(0, 50)]
+	vor = Voronoi(width = 512, height = 512, points = points)
 	vor.construct()
 	vor.image.show()

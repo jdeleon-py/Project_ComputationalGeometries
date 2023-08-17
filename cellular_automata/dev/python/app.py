@@ -16,7 +16,7 @@ class App:
 if __name__ == "__main__":
 	root = Tk()
 	root.geometry("500x500")
-	root.wm_title('Cellular Automata Simulator')
+	root.wm_title('Cellular Automata (Game of Life) Simulator')
 	app = App(master = root)
 
 	root.mainloop()
