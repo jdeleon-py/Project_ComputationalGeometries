@@ -39,21 +39,25 @@ void corner_scan(Sector* sector, Site* vor_sites[])
 		{
 			sector -> corners[NW] -> closest_site = vor_sites[i];
 			sector -> corners[NW] -> min_distance = nw_dist;
+			sector -> corners[NW] -> color = vor_sites[i] -> color;
 		}
 		if(ne_dist < sector -> corners[NE] -> min_distance)
 		{
 			sector -> corners[NE] -> closest_site = vor_sites[i];
 			sector -> corners[NE] -> min_distance = ne_dist;
+			sector -> corners[NE] -> color = vor_sites[i] -> color;
 		}
 		if(sw_dist < sector -> corners[SW] -> min_distance)
 		{
 			sector -> corners[SW] -> closest_site = vor_sites[i];
 			sector -> corners[SW] -> min_distance = sw_dist;
+			sector -> corners[SW] -> color = vor_sites[i] -> color;
 		}
 		if(se_dist < sector -> corners[SE] -> min_distance)
 		{
 			sector -> corners[SE] -> closest_site = vor_sites[i];
 			sector -> corners[SE] -> min_distance = se_dist;
+			sector -> corners[SE] -> color = vor_sites[i] -> color;
 		}
 	}		
 }
@@ -139,6 +143,34 @@ void subdivide(QuadTree* qtree)
 	qtree -> sw = build_quadtree(sw_sector);
 	qtree -> se = build_quadtree(se_sector);
 	qtree -> divided = true;
+}
+
+size_t get_site_size(Site* site)
+{
+	if(site == NULL) return 0;
+
+	size_t size_bytes = sizeof(*site);
+	return size_bytes;
+}
+
+size_t get_sector_size(Sector* sector)
+{
+	if(sector == NULL) return 0;
+
+	size_t size_bytes = sizeof(*sector);
+	return size_bytes;
+}
+
+size_t get_qtree_size(QuadTree* qtree)
+{
+	if(qtree == NULL) return 0;
+
+	size_t size_bytes = sizeof(*qtree);
+	size_bytes += get_qtree_size(qtree -> nw);
+	size_bytes += get_qtree_size(qtree -> ne);
+	size_bytes += get_qtree_size(qtree -> sw);
+	size_bytes += get_qtree_size(qtree -> se);
+	return size_bytes;
 }
 
 void print_quadtree(QuadTree* qtree)

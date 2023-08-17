@@ -79,39 +79,6 @@ void draw_line_H(SDL_Object* image, unsigned int cx, unsigned int cy, unsigned i
 	SDL_RenderDrawLine(image -> renderer, cx - r, cy, cx + r, cy);
 }
 
-/*
-void draw_qtree(SDL_Object* image, QuadTree* qtree)
-{
-	unsigned int centerx, centery, radius;
-	int point_num;
-
-	centerx = qtree -> boundary -> center -> x;
-	centery = qtree -> boundary -> center -> y;
-	radius = qtree -> boundary -> radius;
-
-	point_num = query_points(qtree);
-	for(int i = 0; i < point_num; i++)
-	{
-		Point* p = qtree -> points[i];
-		draw_point(image, p);
-	}
-
-	if(qtree -> divided == true)
-	{
-		// drawing a vertical qtree boundary line
-		draw_line_V(image, centerx, centery, radius);
-
-		// drawing a horizontal qtree boundary line
-		draw_line_H(image, centerx, centery, radius);
-
-		draw_qtree(image, qtree -> nw);
-		draw_qtree(image, qtree -> ne);
-		draw_qtree(image, qtree -> sw);
-		draw_qtree(image, qtree -> se);
-	}
-}
-*/
-
 void draw_voronoi(SDL_Object* image, QuadTree* qtree, Site* vor_sites[])
 {
 	if(qtree == NULL)
@@ -125,31 +92,31 @@ void draw_voronoi(SDL_Object* image, QuadTree* qtree, Site* vor_sites[])
 	{
 		// draw nw
 		Pixel* nw_cell_pos = qtree -> boundary -> corners[NW] -> pixel;
-		Color nw_cell_color = qtree -> boundary -> corners[NW] -> closest_site -> color;
+		Color nw_cell_color = qtree -> boundary -> corners[NW] -> color;
 		SDL_SetRenderDrawColor(image -> renderer, nw_cell_color.R, nw_cell_color.G, nw_cell_color.B, 255);
 		SDL_RenderDrawPoint(image -> renderer, nw_cell_pos -> x, nw_cell_pos -> y);
-		//SDL_RenderPresent(image -> renderer);
+		SDL_RenderPresent(image -> renderer);
 
 		// draw ne
 		Pixel* ne_cell_pos = qtree -> boundary -> corners[NE] -> pixel;
-		Color ne_cell_color = qtree -> boundary -> corners[NE] -> closest_site -> color;
+		Color ne_cell_color = qtree -> boundary -> corners[NE] -> color;
 		SDL_SetRenderDrawColor(image -> renderer, ne_cell_color.R, ne_cell_color.G, ne_cell_color.B, 255);
 		SDL_RenderDrawPoint(image -> renderer, ne_cell_pos -> x, ne_cell_pos -> y);
-		//SDL_RenderPresent(image -> renderer);
+		SDL_RenderPresent(image -> renderer);
 
 		// draw sw
 		Pixel* sw_cell_pos = qtree -> boundary -> corners[SW] -> pixel;
-		Color sw_cell_color = qtree -> boundary -> corners[SW] -> closest_site -> color;
+		Color sw_cell_color = qtree -> boundary -> corners[SW] -> color;
 		SDL_SetRenderDrawColor(image -> renderer, sw_cell_color.R, sw_cell_color.G, sw_cell_color.B, 255);
 		SDL_RenderDrawPoint(image -> renderer, sw_cell_pos -> x, sw_cell_pos -> y);
-		//SDL_RenderPresent(image -> renderer);
+		SDL_RenderPresent(image -> renderer);
 
 		// draw se
 		Pixel* se_cell_pos = qtree -> boundary -> corners[SE] -> pixel;
-		Color se_cell_color = qtree -> boundary -> corners[SE] -> closest_site -> color;
+		Color se_cell_color = qtree -> boundary -> corners[SE] -> color;
 		SDL_SetRenderDrawColor(image -> renderer, se_cell_color.R, se_cell_color.G, se_cell_color.B, 255);
 		SDL_RenderDrawPoint(image -> renderer, se_cell_pos -> x, se_cell_pos -> y);
-		//SDL_RenderPresent(image -> renderer);
+		SDL_RenderPresent(image -> renderer);
 		return;
 	}
 	else if(corner_check(qtree -> boundary) == true)
@@ -163,14 +130,14 @@ void draw_voronoi(SDL_Object* image, QuadTree* qtree, Site* vor_sites[])
 		{
 			for(int y = y_min; y < y_max; y++)
 			{
-				Color site_color = qtree -> boundary -> corners[0] -> closest_site -> color;
+				Color site_color = qtree -> boundary -> corners[0] -> color;
 				SDL_SetRenderDrawColor(image -> renderer, site_color.R, site_color.G, site_color.B, 255);
 				SDL_RenderDrawPoint(image -> renderer, x, y);
 				//SDL_RenderPresent(image -> renderer);
 			}
 			//SDL_RenderPresent(image -> renderer);
 		}
-		//SDL_RenderPresent(image -> renderer);
+		SDL_RenderPresent(image -> renderer);
 		return;
 	}
 	else if(qtree -> divided == false)

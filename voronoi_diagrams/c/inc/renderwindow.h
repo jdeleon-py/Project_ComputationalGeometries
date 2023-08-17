@@ -12,7 +12,7 @@
 #include "site.h"
 #include "quadtree.h"
 
-#define DIM 2048 //window width and height will be DIM (multiple of 2^n) pixels (for now)
+#define DIM 1024 //window width and height will be DIM (multiple of 2^n) pixels (for now)
 
 typedef struct SDL_Object
 {

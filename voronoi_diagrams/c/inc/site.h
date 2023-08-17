@@ -1,4 +1,5 @@
 // VORONOI PIXEL (SITE) HEADER FILE
+// - JAMES DELEON
 
 #ifndef __SITE_H__
 #define __SITE_H__
@@ -6,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
+// "external" C library (included in makefile with -lm flag)
 #include <math.h>
 
 #define VOR_NUM      500
@@ -49,6 +52,15 @@ bool site_check(Site* s1, Site* s2);
 void print_pixel(Pixel* pixel);
 void print_site(Site* site);
 void destroy_site(Site* site);
+
+// TODO
+/*
+ idea for voronoi digram interactions
+ 
+ - color gradient based on site coordinates
+ - click to adjust qt and voronoi diagram in real time
+*/
+
 
 // Utilities
 Pixel* build_pixel();

@@ -2,8 +2,6 @@
 
 #include "site.h"
 
-#define VOR_NUM 10
-
 int main(int argc, char* argv[])
 {
 	Site* vor_nodes[VOR_NUM];

@@ -42,4 +42,12 @@ void subdivide(QuadTree* qtree);
 void print_quadtree(QuadTree* qtree);
 void destroy_quadtree(QuadTree* qtree);
 
+size_t get_site_size(Site* site);
+size_t get_sector_size(Sector* sector);
+size_t get_qtree_size(QuadTree* qtree);
+
+// query_pixel -> traverses qtree given a pixel location, returns sector info (color)
+// is_leaf_node -> given a pixel location, return true if pixel is in leaf node
+// query_depth -> given a qtree, return depth of quadtree
+
 #endif
