@@ -93,7 +93,7 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 
 	pixel -> z.real = scale_x(map, pixel -> pix.x);
 	pixel -> z.imag = scale_y(map, pixel -> pix.y);
-	while(z_magnitude(iter) < 4 && pixel -> iterations < (MAX_ITERATIONS + iter_offset))
+	while(z_magnitude(iter) < 2 && pixel -> iterations < (MAX_ITERATIONS + iter_offset))
 	{
 		x_temp = pixel -> z.real + ((iter.real * iter.real) - (iter.imag * iter.imag));
 		iter.imag = pixel -> z.imag + (2 * iter.real * iter.imag);

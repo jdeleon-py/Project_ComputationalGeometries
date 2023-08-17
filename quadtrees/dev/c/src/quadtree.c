@@ -76,6 +76,7 @@ void insert(QuadTree* qtree, Point* point)
 	if(!contains_point(qtree -> boundary, point)) {return;}
 	if(qtree -> boundary -> radius <= 1)
 	{
+		printf("QTree at maximum resolution and capacity. ");
 		printf("Cannot add point: ");
 		print_point(point);
 		destroy_point(point);
@@ -94,6 +95,11 @@ void insert(QuadTree* qtree, Point* point)
 	else if(contains_point(qtree -> ne -> boundary, point)) {insert(qtree -> ne, point);}
 	else if(contains_point(qtree -> sw -> boundary, point)) {insert(qtree -> sw, point);}
 	else if(contains_point(qtree -> se -> boundary, point)) {insert(qtree -> se, point);}
+	else
+	{
+		printf("Unexpected error!\n");
+		return;
+	}
 }
 
 // function to count how many points exist in a qtree
@@ -119,7 +125,6 @@ void subdivide(QuadTree* qtree)
 	centery = qtree -> boundary -> center -> y;
 	rad = qtree -> boundary -> radius;
 
-	if(rad <= 1) {return;}
 	Point* nw_center = build_point(centerx - (rad / 2), centery - (rad / 2));
 	Point* ne_center = build_point(centerx + (rad / 2), centery - (rad / 2));
 	Point* sw_center = build_point(centerx - (rad / 2), centery + (rad / 2));

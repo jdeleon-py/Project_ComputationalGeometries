@@ -7,20 +7,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "point.h"
+//#include "point.h"
+//#include "pixel.h"
 
 #define NODE_CAPACITY 5
 
+typedef struct Site
+{
+	unsigned int x;
+	unsigned int y;
+	bool gridlocked; // determines whether to treat this site as an independent particle?
+} Site;
+
 typedef struct Sector
 {
-	Point* center;
+	Site* center;
 	unsigned int radius;
+	Site* corners[4];
 } Sector;
 
 typedef struct QuadTree
 {
 	bool divided;
-	Point* points[NODE_CAPACITY];
+	Site* particles[NODE_CAPACITY];
 	Sector* boundary;
 
 	struct QuadTree* nw;
@@ -29,14 +38,18 @@ typedef struct QuadTree
 	struct QuadTree* se;
 } QuadTree;
 
+// SITE API PROTOTYPES
+Site* build_site(unsigned int x, unsigned int y, bool grid);
+void print_site(Site* pixel);
+void destroy_site(Site* pixel);
 
-// SECTOR API PROTO
-Sector* build_sector(Point* center, unsigned int radius);
-bool contains_point(Sector* sector, Point* point);
+// SECTOR API PROTOTYPES
+Sector* build_sector(Site* center, unsigned int radius);
+bool contains_point(Sector* sector, Site* point);
 void print_sector(Sector* sector);
 void destroy_sector(Sector* sector);
 
-// QUADTREE API PROTO
+// QUADTREE API PROTOTYPES
 QuadTree* build_quadtree(Sector* boundary);
 int query_points(QuadTree* qtree);
 void insert(QuadTree* qtree, Point* point);

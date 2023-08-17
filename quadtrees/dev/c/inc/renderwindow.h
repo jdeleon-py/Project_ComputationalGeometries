@@ -12,7 +12,7 @@
 #include "point.h"
 #include "quadtree.h"
 
-#define DIM 512 //window width and height will be DIM pixels (for now)
+#define DIM 512 //window width and height will be DIM (multiple of 2^n) pixels (for now)
 
 typedef struct SDL_Object
 {
@@ -26,6 +26,8 @@ SDL_Object* initialize_SDL();
 SDL_Object* define_window(SDL_Object* image, const char* title);
 SDL_Object* define_renderer(SDL_Object* image);
 SDL_Object* define_texture(SDL_Object* image, char* filename);
+
+bool click_and_drag(SDL_Event event, Dimensions* map, bool* dragging);
 
 void draw_point(SDL_Object* image, Point* point);
 void draw_line_V(SDL_Object* image, unsigned int cx, unsigned int cy, unsigned int r);

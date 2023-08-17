@@ -78,11 +78,9 @@ void draw_qtree(SDL_Object* image, QuadTree* qtree)
 	centery = qtree -> boundary -> center -> y;
 	radius = qtree -> boundary -> radius;
 
-	if(radius <= 1) {return;}
 	point_num = query_points(qtree);
 	for(int i = 0; i < point_num; i++)
 	{
-		//draw_point();
 		Point* p = qtree -> points[i];
 		draw_point(image, p);
 	}
