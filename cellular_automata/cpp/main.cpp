@@ -1,10 +1,11 @@
 // MAIN FILE
+// - JAMES DELEON
 
 #include "cell.h"
 #include "grid.h"
 #include "renderwindow.h"
 
-// implement framerate calculation function to compare against python's framerate
+void input_text(std::string text);
 
 int main(int argc, char* args[])
 {
@@ -15,7 +16,10 @@ int main(int argc, char* args[])
 	SDL_Event event;
 	bool paused = false;
 	bool running = true;
+	std::string text = "";
+	int x, y, row, col;
 
+	SDL_StartTextInput();
 	while(running == true)
 	{
 		// Draw and update environment
@@ -38,6 +42,31 @@ int main(int argc, char* args[])
 				case SDL_KEYDOWN:
 					if(event.key.keysym.sym == SDLK_SPACE) {paused = !paused;}
 					if(event.key.keysym.sym == SDLK_x) {window.grid = Grid();}
+					// handling text input
+					if(event.key.keysym.sym == SDLK_BACKSPACE && text.length() > 0)
+					{
+						text = text.substr(0, text.length() - 1);
+						system("clear");
+						// add a menu?
+						std::cout << ">> ";
+						std::cout << text << std::endl;
+					}
+					if(event.key.keysym.sym == SDLK_RETURN && text.length() > 0)
+					{
+						text = "";
+						system("clear");
+						std::cout << ">> ";
+						text += event.text.text;
+						std::cout << text << std::endl;
+					}
+					break;
+				
+				case SDL_TEXTINPUT:
+					system("clear");
+					// add a menu?
+					std::cout << ">> ";
+					text += event.text.text;
+					std::cout << text << std::endl;
 					break;
 
 				// add features to zoom in/out?
@@ -45,12 +74,19 @@ int main(int argc, char* args[])
 				// able to click around when paused to change states
 				case SDL_MOUSEBUTTONDOWN:
 					// todo: current implementation does not update the window
-					if(paused == true) {window.click_update(event);}
+					x = event.motion.x;
+					y = event.motion.y;
+					window.grid.get_cell(x, y).set_state(1);
+					std::cout << "(" << x << "," << y << ")" << std::endl;
 					break;
+
+				default: break;
 			}
 		}
 		SDL_Delay(32); // maintain constant framerate (~30 fps)
 	}
+
+	SDL_StopTextInput();
 	window.cleanup();
 	SDL_Quit();
 }

@@ -1,5 +1,8 @@
-#ifndef __CELL_H
-#define __CELL_H
+// CELL HEADER FILE
+// - JAMES DELEON
+
+#ifndef __CELL_H__
+#define __CELL_H__
 
 #include <iostream>
 #include <random>

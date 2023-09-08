@@ -1,17 +1,16 @@
 // RENDERWINDOW HEADER FILE
+// - JAMES DELEON
 
-#ifndef __RENDERWINDOW_H
-#define __RENDERWINDOW_H
+#ifndef __RENDERWINDOW_H__
+#define __RENDERWINDOW_H__
 
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
 #include "grid.h"
 
-
 #define WIDTH  		512
 #define HEIGHT 		512
-
 #define CELL_WIDTH	(int)(WIDTH / DIM)
 #define CELL_HEIGHT	(int)(HEIGHT / DIM)
 
@@ -23,7 +22,6 @@ public:
 	
 	void click_update(SDL_Event event);
 	void draw();
-
 	void cleanup();
 
 	Grid grid;

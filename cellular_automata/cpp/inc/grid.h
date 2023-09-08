@@ -1,13 +1,14 @@
 // GRID HEADER FILE
+// - JAMES DELEON
 
-#ifndef __GRID_H
-#define __GRID_H
+#ifndef __GRID_H__
+#define __GRID_H__
 
 #include <iostream>
 #include <vector>
 #include "cell.h"
 
-#define DIM 256
+#define DIM 128
 
 typedef std::vector<std::vector<Cell>> GridType;
 

@@ -1,4 +1,5 @@
 // RENDERWINDOW SOURCE FILE
+// - JAMES DELEON
 
 #include "renderwindow.h"
 
@@ -10,7 +11,6 @@ RenderWindow::RenderWindow(const char* title, int width, int height)
 		std::cout << "Window failed to initialize! Error: " << SDL_GetError() << std::endl;
 	}
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
 	grid = Grid();
 }
 
@@ -31,7 +31,7 @@ void RenderWindow::draw()
 		{
 			//Color c = grid.get_cell(row, col).color;
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-			if((row == 0) || (row == DIM -1) || (col == 0) || (col == DIM - 1))
+			if((row == 0) || (row == DIM - 1) || (col == 0) || (col == DIM - 1))
 			{
 				//set grid[row][col] state to zero along borders
 				grid.get_cell(row, col).set_state(0);
@@ -53,7 +53,6 @@ void RenderWindow::click_update(SDL_Event event)
 	int row = (int)(event.button.y / CELL_HEIGHT);
 	Cell cell = grid.get_cell(row, col);
 	(cell.get_state() == 0) ? cell.set_state(1) : cell.set_state(0);
-	//SDL_RenderPresent(renderer);
 }
 
 void RenderWindow::cleanup()
