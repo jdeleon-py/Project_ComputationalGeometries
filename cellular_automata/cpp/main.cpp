@@ -1,11 +1,18 @@
-// MAIN FILE
+// CELLULAR AUTOMATA MAIN PROGRAM FILE
 // - JAMES DELEON
 
 #include "cell.h"
 #include "grid.h"
 #include "renderwindow.h"
 
-void input_text(std::string text);
+void cli_handler(std::string& text)
+{
+	system("clear");
+	// add a menu?
+	std::cout << ">> ";
+	text += event.text.text;
+	std::cout << text << std::endl;
+}
 
 int main(int argc, char* args[])
 {
@@ -17,7 +24,6 @@ int main(int argc, char* args[])
 	bool paused = false;
 	bool running = true;
 	std::string text = "";
-	int x, y, row, col;
 
 	SDL_StartTextInput();
 	while(running == true)
@@ -31,7 +37,7 @@ int main(int argc, char* args[])
 		}
 
 		// Get our controls and events
-		while(SDL_PollEvent(&event))
+		while(SDL_PollEvent(&event) != 0)
 		{
 			switch(event.type)
 			{
@@ -40,33 +46,23 @@ int main(int argc, char* args[])
 					break;
 
 				case SDL_KEYDOWN:
-					if(event.key.keysym.sym == SDLK_SPACE) {paused = !paused;}
+					if(event.key.keysym.sym == SDLK_p) {paused = !paused;}
 					if(event.key.keysym.sym == SDLK_x) {window.grid = Grid();}
 					// handling text input
 					if(event.key.keysym.sym == SDLK_BACKSPACE && text.length() > 0)
 					{
 						text = text.substr(0, text.length() - 1);
-						system("clear");
-						// add a menu?
-						std::cout << ">> ";
-						std::cout << text << std::endl;
+						cli_handler(text);
 					}
 					if(event.key.keysym.sym == SDLK_RETURN && text.length() > 0)
 					{
 						text = "";
-						system("clear");
-						std::cout << ">> ";
-						text += event.text.text;
-						std::cout << text << std::endl;
+						cli_handler(text);
 					}
 					break;
 				
 				case SDL_TEXTINPUT:
-					system("clear");
-					// add a menu?
-					std::cout << ">> ";
-					text += event.text.text;
-					std::cout << text << std::endl;
+					cli_handler(text);
 					break;
 
 				// add features to zoom in/out?
@@ -74,10 +70,7 @@ int main(int argc, char* args[])
 				// able to click around when paused to change states
 				case SDL_MOUSEBUTTONDOWN:
 					// todo: current implementation does not update the window
-					x = event.motion.x;
-					y = event.motion.y;
-					window.grid.get_cell(x, y).set_state(1);
-					std::cout << "(" << x << "," << y << ")" << std::endl;
+					click_update(event);
 					break;
 
 				default: break;
@@ -91,3 +84,4 @@ int main(int argc, char* args[])
 	SDL_Quit();
 }
 
+/* END FILE */

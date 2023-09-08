@@ -1,5 +1,5 @@
-// GRID HEADER FILE
-// - JAMES DELEON
+// CA GRID HEADER FILE
+// - AMES DELEON
 
 #ifndef __GRID_H__
 #define __GRID_H__
@@ -36,3 +36,5 @@ private:
 };
 
 #endif
+
+/* END FILE */

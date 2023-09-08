@@ -1,4 +1,5 @@
 // SDL2 MOUSE CLICK TEST
+// - JAMES DELEON
 
 #include <iostream>
 #include <vector>
@@ -36,7 +37,7 @@ int main(int argc, char* argv[])
 			if(event.button.button == SDL_BUTTON_RIGHT)
 			{
 				std::cout << "Right Button!" << std::endl;
-                                std::cout << "Coordinates: (" << x << ", " << y << ")" << std::endl;
+				std::cout << "Coordinates: (" << x << ", " << y << ")" << std::endl;
 			}
 			std::cout << std::endl;
 		}
@@ -49,3 +50,5 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
+
+/* END FILE */

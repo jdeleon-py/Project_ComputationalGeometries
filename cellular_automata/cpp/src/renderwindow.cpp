@@ -60,3 +60,5 @@ void RenderWindow::cleanup()
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 }
+
+/* END FILE */

@@ -1,4 +1,5 @@
-// GRID SOURCE FILE
+// CA GRID SOURCE FILE
+// - JAMES DELEON
 
 #include "grid.h"
 
@@ -7,9 +8,7 @@ Grid::Grid()
 	grid = define_grid(1);
 }
 
-
 Grid::~Grid() {}
-
 
 GridType Grid::define_grid(bool init)
 {
@@ -26,9 +25,7 @@ GridType Grid::define_grid(bool init)
 	return new_grid;
 }
 
-
 Cell Grid::get_cell(int i, int j) {return grid[i][j];}
-
 
 void Grid::check_neighbors(int i, int j, bool border)
 {
@@ -45,22 +42,17 @@ void Grid::check_neighbors(int i, int j, bool border)
 	}
 }
 
-
 bool Grid::survival_rule(Cell cell)
 {
 	bool neighbors_cond = ((cell.neighbors == 2) || (cell.neighbors == 3));
 	return (neighbors_cond && (cell.get_state() == ALIVE)) ? ALIVE : DEAD;
 }
 
-
 bool Grid::underpopulation_rule(Cell cell) {return ((cell.neighbors < 2) && (cell.get_state() == ALIVE)) ? true : false;}
-
 
 bool Grid::overpopulation_rule(Cell cell)  {return ((cell.neighbors > 3) && (cell.get_state() == ALIVE)) ? true : false;}
 
-
 bool Grid::birth_rule(Cell cell) {return ((cell.neighbors == 3) && (cell.get_state() == DEAD)) ? true : false;}
-
 
 void Grid::eval_state()
 {
@@ -80,7 +72,6 @@ void Grid::eval_state()
 	grid = grid_copy;
 }
 
-
 std::ostream& operator<<(std::ostream& ost, Grid& g)
 {
 	for(int i = 0; i < DIM; i++)
@@ -96,3 +87,5 @@ std::ostream& operator<<(std::ostream& ost, Grid& g)
 	}
 	return ost;
 }
+
+/* END FILE */
