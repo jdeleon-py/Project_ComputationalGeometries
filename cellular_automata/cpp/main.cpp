@@ -17,6 +17,7 @@ int main(int argc, char* args[])
 	std::string text = "";
 
 	SDL_StartTextInput();
+	window.cli_handler(event, text);
 	while(running == true)
 	{
 		// Draw and update environment
@@ -28,6 +29,7 @@ int main(int argc, char* args[])
 		}
 
 		// Get our controls and events
+		//TODO: how can i get rid of error chars on cli at start?
 		while(SDL_PollEvent(&event) != 0)
 		{
 			switch(event.type)
@@ -37,8 +39,9 @@ int main(int argc, char* args[])
 					break;
 
 				case SDL_KEYDOWN:
-					if(event.key.keysym.sym == SDLK_p) {paused = !paused;}
-					if(event.key.keysym.sym == SDLK_x) {window.grid = Grid();}
+					//TODO: if a functional key is a char, how can that letter not show up as text on the cli?
+					if(event.key.keysym.sym == SDLK_1) {paused = !paused;}
+					if(event.key.keysym.sym == SDLK_0) {window.grid = Grid();}
 					if(event.key.keysym.sym == SDLK_BACKSPACE && text.length() > 0)
 					{
 						text = text.substr(0, text.length() - 1);
@@ -59,7 +62,7 @@ int main(int argc, char* args[])
 
 				// able to click around when paused to change states
 				case SDL_MOUSEBUTTONDOWN:
-					// todo: current implementation does not update the window
+					//TODO: current implementation does not update the window
 					window.click_update(event);
 					break;
 

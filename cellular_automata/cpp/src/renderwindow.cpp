@@ -58,8 +58,7 @@ void RenderWindow::click_update(SDL_Event event)
 void RenderWindow::cli_handler(SDL_Event event, std::string& text)
 {
 	system("clear");
-	//TODO: add a menu
-	window.cli_display();
+	cli_display();
 	text += (event.key.keysym.sym != SDLK_BACKSPACE) ? event.text.text : "";
 	std::cout << ">> " << text << std::endl;
 }
@@ -67,9 +66,10 @@ void RenderWindow::cli_handler(SDL_Event event, std::string& text)
 void RenderWindow::cli_display()
 {
 	std::cout << ">> Welcome to John Conway's Game of Life." << std::endl;
-	std::cout << "Choose from the options below:" << std::endl;
-	std::cout << "- Pause sim by pressing 'p'" << std::endl;
-	std::cout << "- Create new sim by pressing 'x'" << std::endl;
+	std::cout << ">> Choose from the options below:" << std::endl;
+	std::cout << ">>   0) Create new simulation" << std::endl;
+	std::cout << ">>   1) Pause/unpause current simulation" << std::endl;
+	std::cout << std::endl;
 }
 
 void RenderWindow::cleanup()
