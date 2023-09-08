@@ -55,6 +55,14 @@ void RenderWindow::click_update(SDL_Event event)
 	(cell.get_state() == 0) ? cell.set_state(1) : cell.set_state(0);
 }
 
+void RenderWindow::cli_handler(SDL_Event event, std::string& text)
+{
+	system("clear");
+	//TODO: add a menu
+	text += (event.key.keysym.sym != SDLK_BACKSPACE) ? event.text.text : "";
+	std::cout << ">> " << text << std::endl;
+}
+
 void RenderWindow::cleanup()
 {
 	SDL_DestroyRenderer(renderer);

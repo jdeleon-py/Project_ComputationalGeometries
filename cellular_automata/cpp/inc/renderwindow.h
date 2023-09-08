@@ -21,6 +21,7 @@ public:
 	SDL_Texture* LoadTexture(const char* p_filePath);
 	
 	void click_update(SDL_Event event);
+	void cli_handler(SDL_Event event, std::string& text);
 	void draw();
 	void cleanup();
 
