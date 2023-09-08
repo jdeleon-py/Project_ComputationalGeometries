@@ -1,4 +1,4 @@
-// RENDERWINDOW HEADER FILE
+// CA RENDERWINDOW HEADER FILE
 // - JAMES DELEON
 
 #ifndef __RENDERWINDOW_H__
@@ -28,6 +28,8 @@ public:
 	Grid grid;
 
 private:
+	void cli_display();
+
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
 };

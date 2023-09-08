@@ -48,11 +48,20 @@ bool Grid::survival_rule(Cell cell)
 	return (neighbors_cond && (cell.get_state() == ALIVE)) ? ALIVE : DEAD;
 }
 
-bool Grid::underpopulation_rule(Cell cell) {return ((cell.neighbors < 2) && (cell.get_state() == ALIVE)) ? true : false;}
+bool Grid::underpopulation_rule(Cell cell)
+{
+	return ((cell.neighbors < 2) && (cell.get_state() == ALIVE)) ? true : false;
+}
 
-bool Grid::overpopulation_rule(Cell cell)  {return ((cell.neighbors > 3) && (cell.get_state() == ALIVE)) ? true : false;}
+bool Grid::overpopulation_rule(Cell cell) 
+{
+	return ((cell.neighbors > 3) && (cell.get_state() == ALIVE)) ? true : false;
+}
 
-bool Grid::birth_rule(Cell cell) {return ((cell.neighbors == 3) && (cell.get_state() == DEAD)) ? true : false;}
+bool Grid::birth_rule(Cell cell) 
+{
+	return ((cell.neighbors == 3) && (cell.get_state() == DEAD)) ? true : false;
+}
 
 void Grid::eval_state()
 {

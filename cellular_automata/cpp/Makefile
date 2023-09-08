@@ -51,3 +51,4 @@ test_mouseclick.o: $(TEST_DIR)/test_mouseclick.cpp $(INC_DIR)/*.h
 clean:
 	rm -f *.o *.gch *~ test cellular_automata test_mouseclick
 
+# END FILE

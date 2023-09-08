@@ -1,4 +1,4 @@
-// RENDERWINDOW SOURCE FILE
+// CA RENDERWINDOW SOURCE FILE
 // - JAMES DELEON
 
 #include "renderwindow.h"
@@ -61,6 +61,11 @@ void RenderWindow::cli_handler(SDL_Event event, std::string& text)
 	//TODO: add a menu
 	text += (event.key.keysym.sym != SDLK_BACKSPACE) ? event.text.text : "";
 	std::cout << ">> " << text << std::endl;
+}
+
+void RenderWindow::cli_display()
+{
+
 }
 
 void RenderWindow::cleanup()
