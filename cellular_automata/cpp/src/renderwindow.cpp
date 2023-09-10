@@ -49,16 +49,16 @@ void RenderWindow::draw()
 
 void RenderWindow::click_update(SDL_Event event)
 {
-	//TODO: THIS WHOLE FUNCTION
 	int col = event.motion.x / CELL_WIDTH;
-	int row = event.motion.y / CELL_HEIGHT; // Window dim has 4x resolution than CA cells
-	//std::cout << std::to_string(x) << ", " << std::to_string(y) << std::endl;
-	Cell cell = grid.get_cell(row, col);
-	std::cout << "Mouse Click: (" << std::to_string(col) << "," << std::to_string(row) << ")" << std::endl;
-	std::cout << cell << std::endl;
-	//(cell.get_state() == 0) ? cell.set_state(1) : cell.set_state(0);
-	grid.toggle_cell(row, col); // it works!
-	
+	int row = event.motion.y / CELL_HEIGHT;
+
+	//std::cout << "Mouse Click: (" << std::to_string(col) << "," << std::to_string(row) << ")" << std::endl;
+	toggle_cell(row, col);
+}
+
+void RenderWindow::toggle_cell(int i, int j)
+{
+	(grid.get_cell(i, j).get_state() == 0) ? grid.get_cell(i, j).set_state(1) : grid.get_cell(i, j).set_state(0);
 }
 
 void RenderWindow::cli_handler(SDL_Event event, std::string& text)

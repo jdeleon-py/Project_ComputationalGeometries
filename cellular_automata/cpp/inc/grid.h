@@ -20,7 +20,6 @@ public:
 
 	GridType define_grid(bool init);
 	Cell get_cell(int i, int j);
-	void toggle_cell(int i, int j);
 
 	void check_neighbors(int i, int j, bool border);
 	void eval_state();

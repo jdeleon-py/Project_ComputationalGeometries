@@ -60,9 +60,8 @@ int main(int argc, char* args[])
 
 				// add features to zoom in/out?
 
-				// able to click around when paused to change states
+				// able to click around when paused to toggle states
 				case SDL_MOUSEBUTTONDOWN:
-					//TODO: current implementation does not update the window
 					window.click_update(event);
 					break;
 

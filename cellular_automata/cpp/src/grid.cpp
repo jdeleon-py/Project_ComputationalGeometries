@@ -12,6 +12,9 @@ Grid::~Grid() {}
 
 GridType Grid::define_grid(bool init)
 {
+// TODO: remove init param in place of if statement in this function
+// TODO if(init == true) {Cell cell; cell.state = 0;}
+// TODO: move this function to constructor
 	GridType new_grid;
 	for(int i = 0; i < DIM; i++)
 	{
@@ -26,11 +29,6 @@ GridType Grid::define_grid(bool init)
 }
 
 Cell Grid::get_cell(int i, int j) {return grid[i][j];}
-
-void Grid::toggle_cell(int i, int j)
-{
-	(grid[i][j].get_state() == 0) ? grid[i][j].set_state(1) : grid[i][j].set_state(0);
-}
 
 void Grid::check_neighbors(int i, int j, bool border)
 {
