@@ -27,6 +27,11 @@ GridType Grid::define_grid(bool init)
 
 Cell Grid::get_cell(int i, int j) {return grid[i][j];}
 
+void Grid::toggle_cell(int i, int j)
+{
+	(grid[i][j].get_state() == 0) ? grid[i][j].set_state(1) : grid[i][j].set_state(0);
+}
+
 void Grid::check_neighbors(int i, int j, bool border)
 {
 	if(border == 1)

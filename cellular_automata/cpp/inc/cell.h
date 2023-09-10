@@ -22,7 +22,7 @@ public:
 	Cell(bool init);
 
 	inline int get_state() {return state;}
-	inline void set_state(int new_state) {state = new_state;}
+	void set_state(int new_state);
 
 	friend std::ostream& operator<<(std::ostream& ost, Cell& cell);
 

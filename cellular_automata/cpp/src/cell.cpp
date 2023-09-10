@@ -21,6 +21,12 @@ int Cell::define_state()
 	else {return DEAD;}
 }
 
+void Cell::set_state(int new_state)
+{
+	state = new_state;
+	color = define_color();
+}
+
 Color Cell::define_color()
 {
 	return state == ALIVE ? Color({255, 255, 255}) : Color({0, 0, 0});
