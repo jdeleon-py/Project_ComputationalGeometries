@@ -21,6 +21,11 @@ public:
 	GridType define_grid(bool init);
 	Cell get_cell(int i, int j);
 
+	// click cell operations
+	void toggle_cell(int i, int j);
+	inline void set_cell(int i, int j) {grid[i][j].set_state(1);}   // make cell alive
+	inline void clear_cell(int i, int j) {grid[i][j].set_state(0);} // make cell dead
+
 	void check_neighbors(int i, int j, bool border);
 	void eval_state();
 

@@ -53,12 +53,7 @@ void RenderWindow::click_update(SDL_Event event)
 	int row = event.motion.y / CELL_HEIGHT;
 
 	//std::cout << "Mouse Click: (" << std::to_string(col) << "," << std::to_string(row) << ")" << std::endl;
-	toggle_cell(row, col);
-}
-
-void RenderWindow::toggle_cell(int i, int j)
-{
-	(grid.get_cell(i, j).get_state() == 0) ? grid.get_cell(i, j).set_state(1) : grid.get_cell(i, j).set_state(0);
+	grid.toggle_cell(row, col);
 }
 
 void RenderWindow::cli_handler(SDL_Event event, std::string& text)

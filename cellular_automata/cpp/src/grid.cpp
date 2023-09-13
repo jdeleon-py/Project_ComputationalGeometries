@@ -12,9 +12,7 @@ Grid::~Grid() {}
 
 GridType Grid::define_grid(bool init)
 {
-// TODO: remove init param in place of if statement in this function
-// TODO if(init == true) {Cell cell; cell.state = 0;}
-// TODO: move this function to constructor
+// TODO: remove init param in place of if statement
 	GridType new_grid;
 	for(int i = 0; i < DIM; i++)
 	{
@@ -64,6 +62,11 @@ bool Grid::overpopulation_rule(Cell cell)
 bool Grid::birth_rule(Cell cell) 
 {
 	return ((cell.neighbors == 3) && (cell.get_state() == DEAD)) ? true : false;
+}
+
+void Grid::toggle_cell(int i, int j)
+{
+	(grid[i][j].get_state() == 0) ? grid[i][j].set_state(1) : grid[i][j].set_state(0);
 }
 
 void Grid::eval_state()

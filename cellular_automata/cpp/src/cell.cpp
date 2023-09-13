@@ -11,14 +11,12 @@ Cell::Cell(bool init) : _init{init}
 
 int Cell::define_state()
 {
-	if(_init == 1)
-	{
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<int> dis(0, 1);
-		return dis(gen) ? ALIVE : DEAD;
-	}
-	else {return DEAD;}
+	if(_init == 0) return DEAD;
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> dis(0, 1);
+	return dis(gen) ? ALIVE : DEAD;
 }
 
 void Cell::set_state(int new_state)

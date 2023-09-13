@@ -22,9 +22,6 @@ public:
 	
 	// click cell operations
 	void click_update(SDL_Event event);
-	void toggle_cell(int i, int j);
-	inline void set_cell(int i, int j) {grid.get_cell(i, j).set_state(1);}   // make cell alive
-	inline void clear_cell(int i, int j) {grid.get_cell(i, j).set_state(0);} // make cell dead
 
 	void cli_handler(SDL_Event event, std::string& text);
 	void draw();

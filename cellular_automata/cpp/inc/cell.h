@@ -29,7 +29,7 @@ public:
 	int neighbors = 0;
 
 private:
-	int define_state(); // TODO: move to constructor?
+	int define_state();    // TODO: move to constructor?
 	Color define_color(); // TODO: move to constructor?
 
 	int state;
