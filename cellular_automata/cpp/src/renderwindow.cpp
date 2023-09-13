@@ -70,6 +70,11 @@ void RenderWindow::cli_display()
 	std::cout << ">> Choose from the options below:" << std::endl;
 	std::cout << ">>   0) Create new simulation" << std::endl;
 	std::cout << ">>   1) Pause/unpause current simulation" << std::endl;
+	std::cout << ">>   2) Simulate with Moore Neighborhood" << std::endl;
+	std::cout << ">>   3) Simulate with Von Neumann Neighborhood" << std::endl;
+	std::cout << ">>   4) Design a custom neighborhood" << std::endl;
+	std::cout << ">>   5) Zoom in" << std::endl;
+	std::cout << ">>   6) Zoom out" << std::endl;
 	std::cout << std::endl;
 }
 
