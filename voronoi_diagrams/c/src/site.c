@@ -150,6 +150,11 @@ bool site_check(Site* s1, Site* s2)
 	return (cond_x && cond_y) ? true : false;
 }
 
+/*
+ * - assigns a RGB color at random
+ *
+ * - returns a color object, where attributes R,G,B have a random assignment between 0 and 255
+*/
 Color generate_color()
 {
 	Color new_color;
