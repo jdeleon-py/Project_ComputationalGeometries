@@ -29,6 +29,8 @@ typedef struct QuadTree
 	struct QuadTree* se;
 } QuadTree;
 
+// Note: functional descriptors are found in associated source files
+
 // SECTOR API PROTOTYPES
 Sector* build_sector(Pixel* center, unsigned int radius);
 bool corner_check(Sector* sector);
@@ -51,3 +53,5 @@ size_t get_qtree_size(QuadTree* qtree);
 // query_depth -> given a qtree, return depth of quadtree
 
 #endif
+
+/* END FILE */

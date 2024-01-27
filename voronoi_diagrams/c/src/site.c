@@ -2,6 +2,12 @@
 
 #include "site.h"
 
+/*
+ * - allocates a pixel object
+ *
+ * - parameters: x and y coordinates, where 0 <= x,y <= WINDOW DIM
+ * - returns: pixel object
+*/
 Pixel* build_pixel(unsigned int x, unsigned int y)
 {
 	Pixel* new_pixel = NULL;
@@ -16,8 +22,21 @@ Pixel* build_pixel(unsigned int x, unsigned int y)
 	new_pixel -> y = y;
 	return new_pixel;
 }
-	
 
+/*
+ * - allocates a voronoi/QT site object
+ * - pixels can be identified as:
+ * 		- a voronoi node (center pixels of voronoi polygons)
+ * 		- a QT Node corner pixel
+ *
+ * Sites will be the defining node of the QT data structure
+ * A QT sector will consist of 4 site pixels (corners)
+ *
+ * parameters: 
+ * 		- x and y coordinates, where x,y are unsigned
+ *		- boolean detecting a voronoi node, else it is a QT corner pixel
+ * returns: site object
+*/
 Site* build_site(unsigned int x, unsigned int y, bool vor_node)
 {
 	Site* new_site = NULL;
@@ -31,24 +50,36 @@ Site* build_site(unsigned int x, unsigned int y, bool vor_node)
 
 	new_site -> pixel = build_pixel(x, y);
 	new_site -> vor_node = vor_node;
-
 	if(vor_node == true) // is a voronoi site
 	{
+		// assigns a random color that all "near" corner sites will copy
 		new_site -> color = generate_color();
 	}
 	else // is a QT corner
 	{
+		// is a QT corner with a closest distance voronoi site
 		new_site -> min_distance = MAX_DISTANCE;
 		new_site -> closest_site = NULL;
 	}
 	return new_site; 
 }
 
+/*
+ * - prints content of pixel object: 
+ * 		- coordinates
+*/
 void print_pixel(Pixel* pixel)
 {
 	printf("Pixel === (%d, %d)", pixel -> x, pixel -> y);
 }
 
+/*
+ * - prints content of site object:
+ *		- coordinates
+ *		- type of node (QT corner or Voronoi site)
+ *		- if node is a voronoi node, print color
+ *		- if node is a QT corner, print closest site address with distance to that site
+*/
 void print_site(Site* site)
 {
 	printf("Site -> (%d, %d) -> &(%p)\n", site -> pixel -> x, site -> pixel -> y, site);
@@ -66,17 +97,32 @@ void print_site(Site* site)
 	printf("\n");
 }
 
+/*
+ * - deallocates pixel object
+*/
 void destroy_pixel(Pixel* pixel)
 {
 	free(pixel);
 }
 
+/*
+ * - deallocates site object
+ * - intermediately deallocates pixel object
+*/
 void destroy_site(Site* site)
 {
 	destroy_pixel(site -> pixel);
 	free(site);
 }
 
+/*
+ * - calculates the euclidean distance between QT corner site and a voronoi site
+ * - parameters:
+ *		- confirmed QT corner site pixel
+ *		- confirmed voronoi site pixel
+ * - returns:
+ *		- euclidean distance as a double precision float value
+*/
 double get_distance(Site* corner, Site* vor_site)
 {
 	if(corner == NULL || vor_site == NULL) return 0;
@@ -87,7 +133,13 @@ double get_distance(Site* corner, Site* vor_site)
 	return dist;
 }
 
-// returns true if both sites are in the same location
+/*
+ * - boolean check between coordinates of two sites
+ *
+ * - parameters:
+ *		- sites 1 and 2
+ * - returns true if sites 1 and 2 are in the same location
+*/
 bool site_check(Site* s1, Site* s2)
 {
 	if(s1 == NULL || s2 == NULL) return false;
@@ -108,3 +160,5 @@ Color generate_color()
 	new_color.B = (rand() % (upper - lower + 1)) + lower;
 	return new_color;
 }
+
+/* END FILE */

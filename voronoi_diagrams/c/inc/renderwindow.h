@@ -21,6 +21,8 @@ typedef struct SDL_Object
 	SDL_Texture* texture;
 } SDL_Object;
 
+// Note: functional descriptions are found in associated source files
+
 SDL_Object* initialize_SDL();
 
 SDL_Object* define_window(SDL_Object* image, const char* title);
@@ -37,3 +39,5 @@ void draw_voronoi(SDL_Object* image, QuadTree* qtree, Site* vor_sites[]);
 void cleanup_SDL(SDL_Object* image);
 
 #endif
+
+/* END FILE */

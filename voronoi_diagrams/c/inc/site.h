@@ -29,12 +29,7 @@ typedef struct Color
 	unsigned int B;
 } Color;
 
-// pixels can be identified as:
-// - a voronoi node (center pixels of voronoi polygons)
-// - a QT Node corner pixel
-//
-// Sites will be the defining node of the QT data structure
-// A QT sector will consist of 4 site pixels (corners)
+// voronoi site
 typedef struct Site
 {
 	bool vor_node;
@@ -45,6 +40,8 @@ typedef struct Site
 	double min_distance;
 	struct Site* closest_site;
 } Site;
+
+// Note: functional descriptors are found in associated source files
 
 // Site Handling API's
 Site* build_site(unsigned int x, unsigned int y, bool vor_node);
@@ -61,7 +58,6 @@ void destroy_site(Site* site);
  - click to adjust qt and voronoi diagram in real time
 */
 
-
 // Utilities
 Pixel* build_pixel();
 double get_distance(Site* corner, Site* vor_site);
@@ -69,3 +65,5 @@ Color generate_color();
 void destroy_pixel(Pixel* pixel);
 
 #endif
+
+/* END FILE */

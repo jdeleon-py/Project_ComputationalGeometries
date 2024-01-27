@@ -199,3 +199,5 @@ void destroy_quadtree(QuadTree* qtree)
 
 	free(qtree);	
 }
+
+/* END FILE */
