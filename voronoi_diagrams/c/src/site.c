@@ -154,6 +154,7 @@ bool site_check(Site* s1, Site* s2)
  * - assigns a RGB color at random
  *
  * - returns a color object, where attributes R,G,B have a random assignment between 0 and 255
+ * - TODO: add/identify seed to random number generator
 */
 Color generate_color()
 {

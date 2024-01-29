@@ -52,7 +52,7 @@ void destroy_site(Site* site);
 
 // TODO
 /*
- idea for voronoi digram interactions
+ idea for voronoi diagram interactions
  
  - color gradient based on site coordinates
  - click to adjust qt and voronoi diagram in real time
