@@ -12,7 +12,10 @@ These experiments demonstrate the simulation of a Mandelbrot set.
 
 ### Power Iteration Algorithm
 
-$$ z_{n + 1} = z_n^2 + c $$
+** The Power Iteration Algorithm **
+```math
+z_{n + 1} = z_n^2 + c
+```
 
 ```c
 int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
