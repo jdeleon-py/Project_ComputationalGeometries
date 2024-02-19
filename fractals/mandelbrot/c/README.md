@@ -12,9 +12,10 @@ These experiments demonstrate the simulation of a Mandelbrot set.
 
 ### Power Iteration Algorithm
 
-** The Power Iteration Algorithm **
 ```math
 z_{n + 1} = z_n^2 + c
+
+\text{where c is a complex constant.}
 ```
 
 ```c
