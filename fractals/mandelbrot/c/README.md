@@ -4,8 +4,15 @@ These experiments demonstrate the simulation of a Mandelbrot set.
 ## Description and Theory
 <!--This section describes the mathematical nature of fractal sets, exclusively pertaining to Mandelbrot sets but encompassing Julia sets as well.-->
 
+### Julia Sets
+### Mandelbrot Set
+
 ## Algorithmic Methodology
 <!--This section details the power iteration methodology necessary to measure the convergence tendancies for coordinates on a map.-->
+
+### Power Iteration Algorithm
+
+$$ z_{n + 1} = z_n^2 + c $$
 
 ```c
 int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
@@ -38,3 +45,7 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 
 ## Task List
 <!--This section lists out certain tasks that have yet to be completed in the development of this project.-->
+* [ ] Demonstrate using the Mariani-Silver Algorithm
+* [ ] Make a .gif animation that continuously zooms into the canvas up to a certain point
+
+## Resources
