@@ -116,3 +116,5 @@ void cleanup_SDL(SDL_Object* image)
 	SDL_DestroyRenderer(image -> renderer);
 	free(image);
 }
+
+/* END FILE */

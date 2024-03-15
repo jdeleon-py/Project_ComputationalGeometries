@@ -1,4 +1,5 @@
 // COLOR HANDLING HEADER FILE
+// - JAMES DELEON
 
 #ifndef __COLOR_H__
 #define __COLOR_H__
@@ -27,3 +28,4 @@ void destroy_color(Color* color);
 
 #endif
 
+/* END FILE */

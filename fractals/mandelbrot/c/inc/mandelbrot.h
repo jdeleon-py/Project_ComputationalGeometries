@@ -14,19 +14,7 @@
 #define WIDTH            DIM
 #define HEIGHT           DIM
 
-/* MANDELBROT MATH
- * -> let n be the range of iterative calculations
- * -> z_(n+1) = z_n^2 + c
- * -> where z = x + jy
- * -> where c corresponds to the current pixel's location (complex a+bj)
- * -> where z_0 = 0
- *
- * -> z_(n+1) = (x + jy)^2 + c
- * -> z_(n+1) = (x^2 + y^2) + 2xyj + (x_c + jy_c)
- * -> z_(n+1) = (x^2 + y^2 + x_c) + j(2xy + y_c)
- * -> if mag(z_(n+1)) > threshold, then can assume divergence occurs at z_n
- */
-
+/* CANVAS STRUCTURE DEFINITION */
 typedef struct Dimensions
 {
 	long double x_min;
@@ -35,26 +23,32 @@ typedef struct Dimensions
 	long double y_max;
 } Dimensions;
 
+/* PIXEL STRUCTURE DEFINITION */
 typedef struct Pixel
 {
 	unsigned int x;
 	unsigned int y;
 } Pixel;
 
+/* COMPLEX NUMBER DEFINITION */
 typedef struct Complex
 {
+	// Complex z = (real) + j(imag);
 	long double real;
 	long double imag;
 } Complex;
 
-// QUADTREE NODE (PIXEL)
+/* 
+ * CANVAS NODE STRUCTURE DEFINITION
+ * - every pixel on the canvas is a site node 
+*/
 typedef struct Site
 {
 	Pixel pix;   // for window coordinates
 	Complex z;   // for mandelbrot coordinates
 	Color color;
 
-	int iterations;
+	int iterations; // power iteration convergence parameter
 } Site;
 
 // note that the most time is spent calculating along the edges of the curve
@@ -78,3 +72,5 @@ long double scale_y(Dimensions* map, unsigned int pix_y);
 int mandelbrot(Dimensions* map, Site* pixel, int iter_offset);
 
 #endif
+
+/* END FILE */

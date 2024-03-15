@@ -14,9 +14,8 @@ These experiments demonstrate the simulation of a Mandelbrot set.
 
 ```math
 z_{n + 1} = z_n^2 + c
-
-\text{where c is a complex constant.}
 ```
+where c is a complex constant.
 
 ```c
 int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
@@ -39,6 +38,24 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 }
 ```
 
+```c
+long double scale_x(Dimensions* map, unsigned int pix_x)
+{
+	long double scale_factor;
+
+	scale_factor = (long double)((WIDTH - 1) / (map -> x_max - map -> x_min));
+	return (map -> x_min) + pix_x / scale_factor;
+}
+
+long double scale_y(Dimensions* map, unsigned int pix_y)
+{
+	long double scale_factor;
+	
+	scale_factor = (long double)((HEIGHT - 1) / (map -> y_max - map -> y_min));
+	return (map -> y_min) + pix_y / scale_factor;
+}
+```
+
 ## Results
 <!--This section displays outputs.-->
 
@@ -50,6 +67,8 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 ## Task List
 <!--This section lists out certain tasks that have yet to be completed in the development of this project.-->
 * [ ] Demonstrate using the Mariani-Silver Algorithm
+* [ ] Demonstrate using algorithms involving Perturbation Theory
 * [ ] Make a .gif animation that continuously zooms into the canvas up to a certain point
+* [ ] Modify the equation to visualize Julia Sets
 
 ## Resources

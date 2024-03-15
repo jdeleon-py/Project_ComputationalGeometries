@@ -29,9 +29,6 @@ test_render: color.o mandelbrot.o renderwindow.o test_renderwindow.o $(INC_DIR)/
 color.o: $(SRC_DIR)/color.c $(INC_DIR)/*.h
 	gcc -c $(CFLAGS) $(SRC_DIR)/color.c -o color.o
 
-#file.o: $(SRC_DIR)/file.c $(INC_DIR)/*.h
-#	gcc -c $(CFLAGS) $(SRC_DIR)/file.c -o file.o
-
 # SRC COMPILE
 mandelbrot.o: $(SRC_DIR)/mandelbrot.c $(INC_DIR)/*.h
 	gcc -c $(CFLAGS) $(SRC_DIR)/mandelbrot.c -o mandelbrot.o

@@ -1,10 +1,13 @@
 // COLOR HANDLING SOURCE FILE
+// - JAMES DELEON
 
 #include "color.h"
 #include "mandelbrot.h"
 
+/* MAGMA COLOR MAP */
 const Color map_magma[1] = {{0,0,0}};
 
+/* INFERNO COLOR MAP */
 const Color map_inferno[MAX_COLORS] =
 {
 	{0, 0, 0},			// Black
@@ -59,8 +62,12 @@ const Color map_inferno[MAX_COLORS] =
 	{255, 255, 142}
 };
 
+/* VIRIDIS COLOR MAP */
 const Color map_viridis[1] = {{0, 0, 0}};
 
+/*
+ * allocation function for a color structure
+*/
 Color* build_color()
 {
 	Color* new_color = NULL;
@@ -77,6 +84,11 @@ Color* build_color()
 	return new_color;	
 }
 
+/*
+ * this function maps a color to a pixel based on the number of 
+ * convergence iterations needed
+ * uses modulo arithmetic to wrap around the defined color map
+*/
 Color map_color_pixel(const Color map[], int iters)
 {
 	int map_index;
@@ -85,11 +97,17 @@ Color map_color_pixel(const Color map[], int iters)
 	return map[map_index];
 }
 
+/*
+ * prints the RGB components of the color object
+*/
 void print_color(Color color)
 {
 	printf("(%d, %d, %d)\n", color.R, color.G, color.B);
 }
 
+/*
+ * deallocation for a color structure
+*/
 void destroy_color(Color* color)
 {
 	if(color == NULL)
@@ -100,4 +118,4 @@ void destroy_color(Color* color)
 	free(color);
 }
 
-
+/* END FILE */

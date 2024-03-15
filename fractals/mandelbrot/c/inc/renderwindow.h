@@ -33,3 +33,5 @@ bool click_and_drag(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p
 void cleanup_SDL(SDL_Object* image);
 
 #endif
+
+/* END FILE */

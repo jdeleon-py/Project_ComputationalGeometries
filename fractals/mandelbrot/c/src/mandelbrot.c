@@ -3,6 +3,9 @@
 
 #include "mandelbrot.h"
 
+/*
+ * allocation function for a canvas object
+*/
 Dimensions* build_map(long double x_min, long double x_max, long double y_min, long double y_max)
 {
 	Dimensions* new_map = NULL;
@@ -20,6 +23,9 @@ Dimensions* build_map(long double x_min, long double x_max, long double y_min, l
 	return new_map;
 }
 
+/*
+ * prints dimensions of a canvas object
+*/
 void print_map(Dimensions* map)
 {
 	printf("=== NW: (%Lf, %Lf)\n", map -> x_min, map -> y_min);
@@ -28,6 +34,9 @@ void print_map(Dimensions* map)
 	printf("=== SE: (%Lf, %Lf)\n", map -> x_max, map -> y_max);
 }
 
+/*
+ * deallocation of a canvas object
+*/
 void destroy_map(Dimensions* map)
 {
 	free(map);
@@ -79,11 +88,28 @@ long double scale_y(Dimensions* map, unsigned int pix_y)
 	return (map -> y_min) + pix_y / scale_factor;
 }
 
+/*
+ * computes the magnitude of a complex number
+ * z = x + jy
+ * |z|^2 = (x + jy)(x - jy) = (x^2 + y^2)
+*/
 long double z_magnitude(Complex z)
 {
 	return (z.real * z.real) + (z.imag * z.imag);
 }
 
+/* MANDELBROT MATH
+ * -> let n be the range of iterative calculations
+ * -> z_(n+1) = z_n^2 + c
+ * -> where z = x + jy
+ * -> where c corresponds to the current pixel's location (complex a+bj)
+ * -> where z_0 = 0
+ *
+ * -> z_(n+1) = (x + jy)^2 + c
+ * -> z_(n+1) = (x^2 + y^2) + 2xyj + (x_c + jy_c)
+ * -> z_(n+1) = (x^2 + y^2 + x_c) + j(2xy + y_c)
+ * -> if mag(z_(n+1)) > threshold, then can assume divergence occurs at z_n
+*/
 int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 {
 	long double x0, y0, x_temp;
@@ -103,4 +129,4 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 	return pixel -> iterations;
 }
 
-
+/* END FILE */
