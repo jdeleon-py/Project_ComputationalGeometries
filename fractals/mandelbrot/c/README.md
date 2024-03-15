@@ -73,5 +73,8 @@ long double scale_y(Dimensions* map, unsigned int pix_y)
 
 ## Resources
 [Article: Julia and Mandelbrot Sets](https://e.math.cornell.edu/people/belk/dynamicalsystems/NotesJuliaMandelbrot.pdf)
+
 [Coding Train: Mandelbrot Set](https://www.youtube.com/watch?v=6z7GQewK-Ks&pp=ygUZbWFuZGVsYnJvdCBzZXQgc2ltdWxhdGlvbg%3D%3D)
-[Medium: Mariani-Silver Algorithm](https://ricomariani.medium.com/the-mariani-silver-algorithm-for-drawing-the-mandelbrot-set-a71e31bc20b6)
+
+[Medium: Mariani-Silver Algorithm](https://ricomariani.medium.com/
+the-mariani-silver-algorithm-for-drawing-the-mandelbrot-set-a71e31bc20b6)
