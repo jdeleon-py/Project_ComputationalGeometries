@@ -112,10 +112,8 @@ long double z_magnitude(Complex z)
 */
 int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 {
-	long double x0, y0, x_temp;
-	Complex iter;
-	iter.real = 0;
-	iter.imag = 0;
+	long double x_temp;
+	Complex iter = {0, 0};
 
 	pixel -> z.real = scale_x(map, pixel -> pix.x);
 	pixel -> z.imag = scale_y(map, pixel -> pix.y);

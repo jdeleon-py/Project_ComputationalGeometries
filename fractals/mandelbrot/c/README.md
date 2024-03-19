@@ -20,10 +20,8 @@ where c is a complex constant.
 ```c
 int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 {
-	long double x0, y0, x_temp;
-	Complex iter;
-	iter.real = 0;
-	iter.imag = 0;
+	long double x_temp;
+	Complex iter = {0, 0};
 
 	pixel -> z.real = scale_x(map, pixel -> pix.x);
 	pixel -> z.imag = scale_y(map, pixel -> pix.y);
@@ -69,6 +67,7 @@ long double scale_y(Dimensions* map, unsigned int pix_y)
 * [ ] Demonstrate using the Mariani-Silver Algorithm
 * [ ] Demonstrate using algorithms involving Perturbation Theory
 * [ ] Make a .gif animation that continuously zooms into the canvas up to a certain point
+* [ ] Use an image compression technique (Huffman Code) to save encoded maps to a database
 * [ ] Modify the equation to visualize Julia Sets
 
 ## Resources
@@ -77,3 +76,5 @@ long double scale_y(Dimensions* map, unsigned int pix_y)
 [Coding Train: Mandelbrot Set](https://www.youtube.com/watch?v=6z7GQewK-Ks&pp=ygUZbWFuZGVsYnJvdCBzZXQgc2ltdWxhdGlvbg%3D%3D)
 
 [Medium: Mariani-Silver Algorithm](https://ricomariani.medium.com/the-mariani-silver-algorithm-for-drawing-the-mandelbrot-set-a71e31bc20b6)
+
+[3B1B: Julia Sets and Holomorphic Dynamics](https://www.youtube.com/watch?v=LqbZpur38nw&t=467s)
