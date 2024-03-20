@@ -27,7 +27,7 @@ SDL_Object* define_window(SDL_Object* image, const char* title);
 SDL_Object* define_renderer(SDL_Object* image);
 SDL_Object* define_texture(SDL_Object* image, char* filename);
 
-void draw_site(SDL_Object* image, Site* site, int offset);
+void draw_site(SDL_Object* image, Site* site);
 void draw_zoom_window(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p_stop);
 bool click_and_drag(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p_stop, bool* dragging);
 void cleanup_SDL(SDL_Object* image);
