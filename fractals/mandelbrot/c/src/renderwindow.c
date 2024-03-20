@@ -96,9 +96,9 @@ void draw_zoom_window(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel*
 	SDL_RenderDrawLine(image -> renderer, p_start -> x, p_stop -> y, p_stop -> x, p_stop -> y);
 }
 
-void draw_site(SDL_Object* image, Site* site, int offset)
+void draw_site(SDL_Object* image, Site* site)
 {
-	if(site -> iterations < (MAX_ITERATIONS + offset))
+	if(site -> iterations < MAX_ITERATIONS)
 	{
 		Color color = map_color_pixel(map_inferno, site -> iterations);
 		SDL_SetRenderDrawColor(image -> renderer, color.R, color.G, color.B, 255);

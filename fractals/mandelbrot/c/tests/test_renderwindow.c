@@ -22,7 +22,7 @@ void render_mandelbrot(Dimensions* map, SDL_Object* window, int offset)
 		{
 			Site* pix = build_site(x, y);
 			pix -> iterations = mandelbrot(map, pix, offset); 
-			draw_site(window, pix, offset);
+			draw_site(window, pix);
 			destroy_site(pix);
 		}
 		SDL_RenderPresent(window -> renderer);
@@ -39,6 +39,7 @@ void render_julia(Dimensions* map, SDL_Object* window, Complex seed)
 		{
 			Site* pix = build_site(x, y);
 			pix -> iterations = julia(map, pix, seed);
+			draw_site(window, pix);
 			destroy_site(pix);
 		}
 		SDL_RenderPresent(window -> renderer);
@@ -91,7 +92,8 @@ int main(int argc, char* argv[])
 
 				printf("New map generated!\n");
 				print_map(map_dim);
-				render_mandelbrot(map_dim, window, offset);
+				//render_mandelbrot(map_dim, window);
+				render_julia(map_dim, window, seed);
 			}
 			else if(event.type == SDL_KEYDOWN)
 			{

@@ -8,13 +8,9 @@
 #include <stdlib.h>
 #include "color.h"
 
-<<<<<<< HEAD
-#define MAX_ITERATIONS   1000
+
+#define MAX_ITERATIONS   500
 #define DIM              512
-=======
-#define MAX_ITERATIONS   50000
-#define DIM              100
->>>>>>> b59da6b49d8d8c5b0a320cbf0432dfe7a66d87c0
 
 #define WIDTH            DIM
 #define HEIGHT           DIM
