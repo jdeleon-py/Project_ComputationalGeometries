@@ -30,6 +30,22 @@ void render_mandelbrot(Dimensions* map, SDL_Object* window, int offset)
 	printf("Render complete!\n");
 }
 
+void render_julia(Dimensions* map, SDL_Object* window, Complex seed)
+{
+	// seed value corresponds to constant c of the power iteration (z^2 + c)
+	for(int y = 0; y < HEIGHT; y++)
+	{
+		for(int x = 0; x < WIDTH; x++)
+		{
+			Site* pix = build_site(x, y);
+			pix -> iterations = julia(map, pix, seed);
+			destroy_site(pix);
+		}
+		SDL_RenderPresent(window -> renderer);
+	}
+	printf("Render complete.\n");
+}
+
 int main(int argc, char* argv[])
 {
 	/*
@@ -44,7 +60,9 @@ int main(int argc, char* argv[])
 	window = initialize_SDL();
 	SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
 	print_map(map_dim);
-	render_mandelbrot(map_dim, window, 0);
+	//render_mandelbrot(map_dim, window, 0);
+	Complex seed = {-0.123, 0.745}; // Douady Rabbit Julia Set
+	render_julia(map_dim, window, seed);
 
 	int offset = 0;
 	dragging = false;

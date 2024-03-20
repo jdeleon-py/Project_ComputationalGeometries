@@ -25,6 +25,7 @@ Dimensions* build_map(long double x_min, long double x_max, long double y_min, l
 
 /*
  * prints dimensions of a canvas object
+ * each parameter defines the boundary of the map
 */
 void print_map(Dimensions* map)
 {
@@ -42,6 +43,10 @@ void destroy_map(Dimensions* map)
 	free(map);
 }
 
+/*
+ * allocation of a pixel site
+ * each pixel in a map consists of (x,y) coordinates and an convergence iteration counter
+*/
 Site* build_site(unsigned int x, unsigned int y)
 {
 	Site* new_site = NULL;
@@ -66,12 +71,19 @@ void print_site(Site* site)
 	printf("%c", sym);
 }
 
+/*
+ * deallocation of a pixel site object
+*/
 void destroy_site(Site* site)
 {
 	if(site == NULL) {return;}
 	free(site);
 }
 
+/*
+ * quantizes x-range of map into WIDTH = DIM intervals
+ * Ex. for the Mandelbrot root (-2, 1) -> (0, 511)
+*/
 long double scale_x(Dimensions* map, unsigned int pix_x)
 {
 	long double scale_factor;
@@ -80,6 +92,10 @@ long double scale_x(Dimensions* map, unsigned int pix_x)
 	return (map -> x_min) + pix_x / scale_factor;
 }
 
+/*
+ * quantizes y-range of map into HEIGHT = DIM intervals
+ * Ex. for the Mandelbrot root (-1.5, 1.5) -> (0, 511)
+*/
 long double scale_y(Dimensions* map, unsigned int pix_y)
 {
 	long double scale_factor;
@@ -127,4 +143,23 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 	return pixel -> iterations;
 }
 
+int julia(Dimensions* map, Site* pixel, Complex seed)
+{
+	Complex iter;
+	pixel -> z.real = scale_x(map, pixel -> pix.x);
+	pixel -> z.imag = scale_y(map, pixel -> pix.y);
+	
+	iter.real = pixel -> z.real;
+	iter.imag = pixel -> z.imag;
+	long double x_temp, y_temp;
+	while(z_magnitude(iter) < 2 && pixel -> iterations < MAX_ITERATIONS)
+	{
+		x_temp = seed.real + (iter.real * iter.real) - (iter.imag * iter.imag);
+		y_temp = seed.imag + (2 * iter.real * iter.imag);
+		iter.real = x_temp;
+		iter.imag = y_temp;
+		pixel -> iterations++;
+	}
+	return pixel -> iterations;
+}
 /* END FILE */

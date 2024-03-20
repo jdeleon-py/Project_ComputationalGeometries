@@ -1,19 +1,21 @@
-// MANDELBROT ENGINE TEST FILE
+// JULIA ENGINE TEST FILE
 // - JAMES DELEON
 
 #include "mandelbrot.h"
 
 int main(int argc, char* argv[])
 {
-	Dimensions* map = build_map(-2, 1, -1.5, 1.5);
+	Dimensions* map = build_map(-1.5, 1.5, -1.5, 1.5);
 	int iterations = 0;
 
+	// seed value corresponds to constant c of the power iteration (z^2 + c)
 	for(int y = 0; y < HEIGHT; y++)
 	{
 		for(int x = 0; x < WIDTH; x++)
 		{
 			Site* pix = build_site(x, y);
-			pix -> iterations = mandelbrot(map, pix, iterations);
+			Complex seed = {-0.123, 0.745}; // Douady Rabbit Julia Set
+			pix -> iterations = julia(map, pix, seed);
 			char sym = (pix -> iterations < MAX_ITERATIONS) ? '#' : ' ';
 			printf("%c", sym);
 			destroy_site(pix);
