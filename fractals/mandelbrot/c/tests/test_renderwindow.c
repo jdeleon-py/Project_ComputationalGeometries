@@ -39,6 +39,7 @@ void render_julia(Dimensions* map, SDL_Object* window, Complex seed)
 		{
 			Site* pix = build_site(x, y);
 			pix -> iterations = julia(map, pix, seed);
+			draw_site(window, pix, seed);
 			destroy_site(pix);
 		}
 		SDL_RenderPresent(window -> renderer);
