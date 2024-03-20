@@ -12,13 +12,17 @@ SDLFLAGS = `/usr/bin/pkg-config sdl2 --cflags --libs` -lSDL2 -lSDL2_mixer -lSDL2
 
 # BUILD DIRECTIVES
 all: tests
-tests: test_render
+tests: test_mandelbrot test_julia test_render
 
 # MAIN EXE
 
 # TEST EXE
 test_mandelbrot: color.o mandelbrot.o test_mandelbrot.o $(INC_DIR)/*.h
 	gcc $(CFLAGS) color.o mandelbrot.o test_mandelbrot.o -o test_mandelbrot
+	echo "Success."
+
+test_julia: color.o mandelbrot.o test_julia.o $(INC_DIR)/*.h
+	gcc $(CFLAGS) color.o mandelbrot.o test_julia.o -o test_julia
 	echo "Success."
 
 test_render: color.o mandelbrot.o renderwindow.o test_renderwindow.o $(INC_DIR)/*.h
@@ -39,10 +43,13 @@ renderwindow.o: $(SRC_DIR)/renderwindow.c $(INC_DIR)/*.h
 test_mandelbrot.o: $(TEST_DIR)/test_mandelbrot.c $(INC_DIR)/*.h
 	gcc -c $(CFLAGS) $(TEST_DIR)/test_mandelbrot.c -o test_mandelbrot.o
 
+test_julia.o: $(TEST_DIR)/test_julia.c $(INC_DIR)/*.h
+	gcc -c $(CFLAGS) $(TEST_DIR)/test_julia.c -o test_julia.o
+
 test_renderwindow.o: $(TEST_DIR)/test_renderwindow.c $(INC_DIR)/*.h
 	gcc -c $(CFLAGS) $(TEST_DIR)/test_renderwindow.c $(SDLFLAGS) -o test_renderwindow.o
 
 # HOUSEKEEPING
 clean:
-	rm -f *.o *.gch *~ test_mandelbrot test_render
+	rm -f *.o *.gch *~ test_mandelbrot test_julia test_render
 

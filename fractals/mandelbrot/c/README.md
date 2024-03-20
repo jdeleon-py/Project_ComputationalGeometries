@@ -37,6 +37,10 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 ```
 
 ```c
+/*
+ * quantizes x-range of map into WIDTH = DIM intervals
+ * Ex. for the Mandelbrot root (-2, 1) -> (0, 511)
+*/
 long double scale_x(Dimensions* map, unsigned int pix_x)
 {
 	long double scale_factor;
@@ -45,6 +49,10 @@ long double scale_x(Dimensions* map, unsigned int pix_x)
 	return (map -> x_min) + pix_x / scale_factor;
 }
 
+/*
+ * quantizes y-range of map into HEIGHT = DIM intervals
+ * Ex. for the Mandelbrot root (-1.5, 1.5) -> (0, 511)
+*/
 long double scale_y(Dimensions* map, unsigned int pix_y)
 {
 	long double scale_factor;

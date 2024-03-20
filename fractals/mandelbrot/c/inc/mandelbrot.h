@@ -8,8 +8,8 @@
 #include <stdlib.h>
 #include "color.h"
 
-#define MAX_ITERATIONS   100
-#define DIM              512
+#define MAX_ITERATIONS   50000
+#define DIM              100
 
 #define WIDTH            DIM
 #define HEIGHT           DIM
@@ -17,25 +17,20 @@
 /* CANVAS STRUCTURE DEFINITION */
 typedef struct Dimensions
 {
-	long double x_min;
-	long double x_max;
-	long double y_min;
-	long double y_max;
+	long double x_min, x_max, y_min, y_max;
 } Dimensions;
 
 /* PIXEL STRUCTURE DEFINITION */
 typedef struct Pixel
 {
-	unsigned int x;
-	unsigned int y;
+	unsigned int x, y;
 } Pixel;
 
 /* COMPLEX NUMBER DEFINITION */
 typedef struct Complex
 {
 	// Complex z = (real) + j(imag);
-	long double real;
-	long double imag;
+	long double real, imag;
 } Complex;
 
 /* 
@@ -70,6 +65,7 @@ void destroy_site(Site* site);
 long double scale_x(Dimensions* map, unsigned int pix_x);
 long double scale_y(Dimensions* map, unsigned int pix_y);
 int mandelbrot(Dimensions* map, Site* pixel, int iter_offset);
+int julia(Dimensions* map, Site* pixel, Complex seed);
 
 #endif
 
