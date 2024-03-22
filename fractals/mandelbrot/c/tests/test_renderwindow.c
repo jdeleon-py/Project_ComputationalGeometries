@@ -9,10 +9,6 @@
 #define Y_MIN           -1.5
 #define Y_MAX            1.5
 
-// this file will display a window and ui functions
-// ui functions:
-// - click mouse to insert point
-
 void render_mandelbrot(Dimensions* map, SDL_Object* window, int offset)
 {
 	//SDL_RenderClear(window -> renderer); //leave commented for visual effect
