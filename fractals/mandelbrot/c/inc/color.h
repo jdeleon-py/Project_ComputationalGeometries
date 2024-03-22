@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_COLORS 32
+#define MAX_COLORS 64
 
 typedef struct Color
 {
