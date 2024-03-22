@@ -9,7 +9,7 @@
 #include "color.h"
 
 
-#define MAX_ITERATIONS   500
+#define MAX_ITERATIONS   5000
 #define DIM              512
 
 #define WIDTH            DIM
