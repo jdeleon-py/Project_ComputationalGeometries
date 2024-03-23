@@ -1,11 +1,11 @@
-# Mandelbrot Visualization
-These experiments demonstrate the simulation of a Mandelbrot set.
+# Mandelbrot/Julia Visualization
+These experiments demonstrate the simulation of Mandelbrot and Julia sets.
 
 ## Description and Theory
 <!--This section describes the mathematical nature of fractal sets, exclusively pertaining to Mandelbrot sets but encompassing Julia sets as well.-->
 
-### Julia Sets
-### Mandelbrot Set
+### The Julia Set
+### The Mandelbrot Set
 
 ## Algorithmic Methodology
 <!--This section details the power iteration methodology necessary to measure the convergence tendancies for coordinates on a map.-->
@@ -30,6 +30,26 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 		x_temp = pixel -> z.real + ((iter.real * iter.real) - (iter.imag * iter.imag));
 		iter.imag = pixel -> z.imag + (2 * iter.real * iter.imag);
 		iter.real = x_temp;
+		pixel -> iterations++;
+	}
+	return pixel -> iterations;
+}
+```
+
+```c
+int julia(Dimensions* map, Site* pixel, Complex seed)
+{
+	Complex iter;
+	long double x_temp, y_temp;
+	
+	iter.real = scale_x(map, pixel -> pix.x);
+	iter.imag = scale_y(map, pixel -> pix.y);
+	while(z_magnitude(iter) < 2 && pixel -> iterations < MAX_ITERATIONS)
+	{
+		x_temp = seed.real + (iter.real * iter.real) - (iter.imag * iter.imag);
+		y_temp = seed.imag + (2 * iter.real * iter.imag);
+		iter.real = x_temp;
+		iter.imag = y_temp;
 		pixel -> iterations++;
 	}
 	return pixel -> iterations;
@@ -76,7 +96,7 @@ long double scale_y(Dimensions* map, unsigned int pix_y)
 * [ ] Demonstrate using algorithms involving Perturbation Theory
 * [ ] Make a .gif animation that continuously zooms into the canvas up to a certain point
 * [ ] Use an image compression technique (Huffman Code) to save encoded maps to a database
-* [ ] Modify the equation to visualize Julia Sets
+* [X] Modify the equation to visualize Julia Sets
 
 ## Resources
 [Article: Julia and Mandelbrot Sets](https://e.math.cornell.edu/people/belk/dynamicalsystems/NotesJuliaMandelbrot.pdf)

@@ -1,4 +1,4 @@
-// MANDELBROT ENGINE HEADER FILE
+// MANDELBROT/JULIA ENGINE HEADER FILE
 // - JAMES DELEON
 
 #ifndef __MANDELBROT_H__
@@ -8,9 +8,8 @@
 #include <stdlib.h>
 #include "color.h"
 
-
-#define MAX_ITERATIONS   500
-#define DIM              512
+#define MAX_ITERATIONS   100
+#define DIM              100
 
 #define WIDTH            DIM
 #define HEIGHT           DIM
@@ -47,12 +46,16 @@ typedef struct Site
 	int iterations; // power iteration convergence parameter
 } Site;
 
-// note that the most time is spent calculating along the edges of the curve
+/*
+ * functional descriptions are found in corresponding src file
+ *
+ * note that the most time is spent calculating along the edges of the curve
+*/
 
 // Complex Number Handling
 long double z_magnitude(Complex z);
 
-// Mandelbrot Map Handling
+// Mandelbrot/Julia Map Handling
 Dimensions* build_map(long double x_min, long double x_max, long double y_min, long double y_max);
 void print_map(Dimensions* map);
 void destroy_map(Dimensions* map);
@@ -62,7 +65,7 @@ Site* build_site(unsigned int x, unsigned int y);
 void print_site(Site* site);
 void destroy_site(Site* site);
 
-// Mandelbrot API's
+// Mandelbrot/Julia API's
 long double scale_x(Dimensions* map, unsigned int pix_x);
 long double scale_y(Dimensions* map, unsigned int pix_y);
 int mandelbrot(Dimensions* map, Site* pixel, int iter_offset);

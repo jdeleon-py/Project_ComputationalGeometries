@@ -1,4 +1,4 @@
-// MANDELBROT ENGINE SOURCE FILE
+// MANDELBROT/JULIA ENGINE SOURCE FILE
 // - JAMES DELEON
 
 #include "mandelbrot.h"
@@ -82,7 +82,7 @@ void destroy_site(Site* site)
 
 /*
  * quantizes x-range of map into WIDTH = DIM intervals
- * Ex. for the Mandelbrot root (-2, 1) -> (0, 511)
+ * Ex. for the Mandelbrot root map (-2, 1) -> (0, 511)
 */
 long double scale_x(Dimensions* map, unsigned int pix_x)
 {
@@ -94,7 +94,7 @@ long double scale_x(Dimensions* map, unsigned int pix_x)
 
 /*
  * quantizes y-range of map into HEIGHT = DIM intervals
- * Ex. for the Mandelbrot root (-1.5, 1.5) -> (0, 511)
+ * Ex. for the Mandelbrot root map (-1.5, 1.5) -> (0, 511)
 */
 long double scale_y(Dimensions* map, unsigned int pix_y)
 {
@@ -143,15 +143,25 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 	return pixel -> iterations;
 }
 
+/* JULIA MATH
+ * -> let n be the range of iterative calculations
+ * -> z_(n+1) = n_n^2 + c
+ * -> where z = x + jy
+ * -> where c corresponds to a constant seed value (complex a+bj)
+ * -> where z_0 = pixel coordinates
+ *
+ * -> z_(n+1) = (x + jy)^2 + c
+ * -> z_(n+1) = (x^2 + y^2) + 2xyj + (x_c + jy_c)
+ * -> z_(n+1) = (x^2 + y^2 + x_c) + j(2xy + y_c)
+ * -> if mag(z_(n+1)) > threshold, then can assume divergence occurs at z_n
+*/
 int julia(Dimensions* map, Site* pixel, Complex seed)
 {
 	Complex iter;
-	pixel -> z.real = scale_x(map, pixel -> pix.x);
-	pixel -> z.imag = scale_y(map, pixel -> pix.y);
-	
-	iter.real = pixel -> z.real;
-	iter.imag = pixel -> z.imag;
 	long double x_temp, y_temp;
+	
+	iter.real = scale_x(map, pixel -> pix.x);
+	iter.imag = scale_y(map, pixel -> pix.y);
 	while(z_magnitude(iter) < 2 && pixel -> iterations < MAX_ITERATIONS)
 	{
 		x_temp = seed.real + (iter.real * iter.real) - (iter.imag * iter.imag);

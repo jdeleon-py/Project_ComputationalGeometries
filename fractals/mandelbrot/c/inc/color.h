@@ -11,9 +11,7 @@
 
 typedef struct Color
 {
-	unsigned int R;
-	unsigned int G;
-	unsigned int B;
+	uint8_t R, G, B;
 } Color;
 
 // colormaps with range of 50 pixels
