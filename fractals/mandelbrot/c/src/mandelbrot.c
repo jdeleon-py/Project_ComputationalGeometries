@@ -133,7 +133,7 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
 
 	pixel -> z.real = scale_x(map, pixel -> pix.x);
 	pixel -> z.imag = scale_y(map, pixel -> pix.y);
-	while(z_magnitude(iter) < 2 && pixel -> iterations < (MAX_ITERATIONS + iter_offset))
+	while(z_magnitude(iter) < 10 && pixel -> iterations < (MAX_ITERATIONS + iter_offset))
 	{
 		x_temp = pixel -> z.real + ((iter.real * iter.real) - (iter.imag * iter.imag));
 		iter.imag = pixel -> z.imag + (2 * iter.real * iter.imag);
@@ -155,14 +155,14 @@ int mandelbrot(Dimensions* map, Site* pixel, int iter_offset)
  * -> z_(n+1) = (x^2 + y^2 + x_c) + j(2xy + y_c)
  * -> if mag(z_(n+1)) > threshold, then can assume divergence occurs at z_n
 */
-int julia(Dimensions* map, Site* pixel, Complex seed)
+int julia(Dimensions* map, Site* pixel, Complex seed, int iter_offset)
 {
 	Complex iter;
 	long double x_temp, y_temp;
 	
 	iter.real = scale_x(map, pixel -> pix.x);
 	iter.imag = scale_y(map, pixel -> pix.y);
-	while(z_magnitude(iter) < 2 && pixel -> iterations < MAX_ITERATIONS)
+	while(z_magnitude(iter) < 2 && pixel -> iterations < (MAX_ITERATIONS + iter_offset))
 	{
 		x_temp = seed.real + (iter.real * iter.real) - (iter.imag * iter.imag);
 		y_temp = seed.imag + (2 * iter.real * iter.imag);

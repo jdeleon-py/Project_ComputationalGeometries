@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 		{
 			Site* pix = build_site(x, y);
 			Complex seed = {-0.123, 0.745}; // Douady Rabbit Julia Set
-			pix -> iterations = julia(map, pix, seed);
+			pix -> iterations = julia(map, pix, seed, 0);
 			char sym = (pix -> iterations < MAX_ITERATIONS) ? '#' : ' ';
 			printf("%c", sym);
 			destroy_site(pix);

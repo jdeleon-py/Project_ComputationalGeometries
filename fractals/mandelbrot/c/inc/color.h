@@ -5,6 +5,7 @@
 #define __COLOR_H__
 
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 
 #define MAX_COLORS 64
