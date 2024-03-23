@@ -3,6 +3,7 @@
 
 #include "mandelbrot.h"
 
+// modify DIM macro in mandelbrot.h to 100 for clearer visualization
 int main(int argc, char* argv[])
 {
 	Dimensions* map = build_map(-1.5, 1.5, -1.5, 1.5);

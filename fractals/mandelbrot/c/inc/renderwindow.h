@@ -32,6 +32,12 @@ void draw_zoom_window(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel*
 bool click_and_drag(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p_stop, bool* dragging);
 void cleanup_SDL(SDL_Object* image);
 
+/* TODO: exe variations
+ * - julia/mandelbrot side-by-side
+ * - mandelbrot/julia explore/zoom
+ * - mandelbrot zoom gif
+*/
+
 #endif
 
 /* END FILE */

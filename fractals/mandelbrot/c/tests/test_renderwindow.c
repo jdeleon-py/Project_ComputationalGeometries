@@ -4,8 +4,8 @@
 #include "renderwindow.h"
 #include "mandelbrot.h"
 
-#define X_MIN             -2
-#define X_MAX              1
+#define X_MIN           -1.5
+#define X_MAX            1.5
 #define Y_MIN           -1.5
 #define Y_MAX            1.5
 
@@ -17,7 +17,7 @@ void render_mandelbrot(Dimensions* map, SDL_Object* window, int offset)
 		for(int x = 0; x < WIDTH; x++)
 		{
 			Site* pix = build_site(x, y);
-			pix -> iterations = mandelbrot(map, pix, offset); 
+			pix -> iterations = mandelbrot(map, pix, offset);
 			draw_site(window, pix);
 			destroy_site(pix);
 		}
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 	SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
 	print_map(map_dim);
 	//render_mandelbrot(map_dim, window, 0);
-	Complex seed = {-0.123, 0.745}; // Douady Rabbit Julia Set
+	Complex seed = {0.37, 0.16};
 	render_julia(map_dim, window, seed);
 
 	int offset = 0;
