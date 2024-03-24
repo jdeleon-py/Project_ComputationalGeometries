@@ -20,19 +20,21 @@ void render_julia(Dimensions* map, SDL_Object* window, Complex seed, int offset)
 
 int main(int argc, char* argv[])
 {
-	/*
-	* TODO: add functions to move around environment while zoomed in
-	*/
 	SDL_Object* window = NULL;
 	Dimensions* map_dim = NULL;
 	bool running, dragging;
+	long double seed_re, seed_im;
 	SDL_Event event;
+
+	// user prompt for a complex seed value
+	printf("Input a complex number 'Re(z) Im(z)' for rendering:\n");
+	scanf("%Lf %Lf", &seed_re, &seed_im);
+	Complex seed = {seed_re, seed_im};
 
 	map_dim = build_map(X_MIN, X_MAX, Y_MIN, Y_MAX);
 	window = initialize_SDL();
 	SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
 	print_map(map_dim);
-	Complex seed = {0.37, 0.16};
 	render_julia(map_dim, window, seed, 0);
 
 	int offset = 0;

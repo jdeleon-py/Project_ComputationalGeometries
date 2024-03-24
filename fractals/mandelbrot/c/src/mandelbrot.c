@@ -162,7 +162,7 @@ int julia(Dimensions* map, Site* pixel, Complex seed, int iter_offset)
 	
 	iter.real = scale_x(map, pixel -> pix.x);
 	iter.imag = scale_y(map, pixel -> pix.y);
-	while(z_magnitude(iter) < 2 && pixel -> iterations < (MAX_ITERATIONS + iter_offset))
+	while(z_magnitude(iter) < 10 && pixel -> iterations < (MAX_ITERATIONS + iter_offset))
 	{
 		x_temp = seed.real + (iter.real * iter.real) - (iter.imag * iter.imag);
 		y_temp = seed.imag + (2 * iter.real * iter.imag);

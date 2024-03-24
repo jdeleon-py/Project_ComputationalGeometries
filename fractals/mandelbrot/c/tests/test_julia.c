@@ -3,11 +3,21 @@
 
 #include "mandelbrot.h"
 
-// modify DIM macro in mandelbrot.h to 100 for clearer visualization
+/*
+ * NOTES FOR USER: 
+ * - modify DIM macro in mandelbrot.h to 100 for clearer visualization
+ * - input a complex seed value for rendering (Re(z), Im(z))
+ * 
+*/
 int main(int argc, char* argv[])
 {
 	Dimensions* map = build_map(-1.5, 1.5, -1.5, 1.5);
 	int iterations = 0;
+	long double seed_re, seed_im;
+
+	// user prompt for a complex seed value
+	printf("Input a complex number 'Re(z) Im(z)' for rendering:\n");
+	scanf("%Lf %Lf", &seed_re, &seed_im);
 
 	// seed value corresponds to constant c of the power iteration (z^2 + c)
 	for(int y = 0; y < HEIGHT; y++)
@@ -15,7 +25,7 @@ int main(int argc, char* argv[])
 		for(int x = 0; x < WIDTH; x++)
 		{
 			Site* pix = build_site(x, y);
-			Complex seed = {-0.123, 0.745}; // Douady Rabbit Julia Set
+			Complex seed = {seed_re, seed_im}; // Douady Rabbit Julia Set
 			pix -> iterations = julia(map, pix, seed, 0);
 			char sym = (pix -> iterations < MAX_ITERATIONS) ? '#' : ' ';
 			printf("%c", sym);
