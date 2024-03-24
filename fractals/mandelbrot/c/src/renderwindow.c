@@ -59,7 +59,7 @@ bool click_and_drag(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p
 			{
 				p_start -> x = event.button.x;
 				p_start -> y = event.button.y;
-            	*dragging = true;        
+				*dragging = true;        
 			}
 			break;
 
