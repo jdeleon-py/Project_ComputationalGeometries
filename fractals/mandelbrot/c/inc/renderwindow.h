@@ -19,6 +19,7 @@ typedef struct SDL_Object
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	SDL_Texture* texture;
+	SDL_Surface* surface;
 } SDL_Object;
 
 SDL_Object* initialize_SDL();
@@ -29,6 +30,7 @@ SDL_Object* define_renderer(SDL_Object* image);
 SDL_Object* define_texture(SDL_Object* image, char* filename);
 
 void draw_site(SDL_Object* image, Site* site, int offset);
+void save_img(SDL_Object* image, char* file_out);
 
 // MJ_RENDER UTILITIES
 void mj_click_point(SDL_Object* image, SDL_Event event, Pixel* pix);

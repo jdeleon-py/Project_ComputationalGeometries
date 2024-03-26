@@ -12,6 +12,7 @@ SDL_Object* initialize_SDL()
 	new_image = define_window(new_image, title);
 	new_image = define_renderer(new_image);
 	new_image = define_texture(new_image, "placeholder.txt");
+	new_image -> surface = NULL;
 	return new_image;
 }
 
@@ -52,6 +53,7 @@ SDL_Object* define_texture(SDL_Object* image, char* filename)
 
 bool click_and_drag(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p_stop, bool* dragging)
 {
+	int p;
 	switch(event.type)
 	{
 		case SDL_MOUSEBUTTONDOWN:
@@ -71,7 +73,7 @@ bool click_and_drag(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p
 				p_stop -> y = p_start -> y + (p_stop -> x - p_start -> x);
 				draw_zoom_window(image, event, p_start, p_stop);
 				SDL_RenderPresent(image -> renderer);
-				// save image to png file
+				//save_img(image, "out.bmp");
 			}
 			return true;
 
@@ -111,6 +113,12 @@ void draw_site(SDL_Object* image, Site* site, int offset)
 	SDL_RenderDrawPoint(image -> renderer, site -> pix.x, site -> pix.y);
 }
 
+void save_img(SDL_Object* image, char* file_out)
+{
+	image -> surface = SDL_GetWindowSurface(image -> window);
+	SDL_SaveBMP(image -> surface, file_out);
+}
+
 // MJ_RENDER UTILITIES
 void mj_click_point(SDL_Object* image, SDL_Event event, Pixel* pix)
 {
@@ -142,6 +150,7 @@ void cleanup_SDL(SDL_Object* image)
 {
 	SDL_DestroyWindow(image -> window);
 	SDL_DestroyRenderer(image -> renderer);
+	SDL_FreeSurface(image -> surface);
 	free(image);
 }
 
