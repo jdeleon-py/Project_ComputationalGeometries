@@ -59,18 +59,19 @@ bool click_and_drag(SDL_Object* image, SDL_Event event, Pixel* p_start, Pixel* p
 			{
 				p_start -> x = event.button.x;
 				p_start -> y = event.button.y;
-				*dragging = true;        
+				*dragging = true; // start dragging the cursor
 			}
 			break;
 
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button == SDL_BUTTON_LEFT)
 			{
-				*dragging = false;  // Stop dragging
+				*dragging = false; // Stop dragging the cursor
 				p_stop -> x = event.button.x;
 				p_stop -> y = p_start -> y + (p_stop -> x - p_start -> x);
 				draw_zoom_window(image, event, p_start, p_stop);
 				SDL_RenderPresent(image -> renderer);
+				// save image to png file
 			}
 			return true;
 
@@ -108,6 +109,33 @@ void draw_site(SDL_Object* image, Site* site, int offset)
 		SDL_SetRenderDrawColor(image -> renderer, 0, 0, 0, 255);
 	}
 	SDL_RenderDrawPoint(image -> renderer, site -> pix.x, site -> pix.y);
+}
+
+// MJ_RENDER UTILITIES
+void mj_click_point(SDL_Object* image, SDL_Event event, Pixel* pix)
+{
+	/*
+	 * - event check for a mouseclick
+	*/
+	bool is_clicked = false;
+	switch(event.type)
+	{
+		case SDL_MOUSEBUTTONDOWN:
+			if(event.button.button == SDL_BUTTON_LEFT)
+			{
+				pix -> x = event.button.x;
+				pix -> y = event.button.y;
+				is_clicked = true;
+			}
+			break;
+		default: break;
+	}
+	if(is_clicked == true)
+	{
+		// draw region where pixel has been clicked
+		SDL_SetRenderDrawColor(image -> renderer, 255, 255, 255, 255);
+
+	}
 }
 
 void cleanup_SDL(SDL_Object* image)
