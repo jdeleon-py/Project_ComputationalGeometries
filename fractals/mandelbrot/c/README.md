@@ -85,11 +85,6 @@ long double scale_y(Dimensions* map, unsigned int pix_y)
 ## Results
 <!--This section displays outputs.-->
 
-![IMG 1](etc/img1.png)
-![IMG 2](etc/img2.png)
-![IMG 3](etc/img3.png)
-![IMG 4](etc/img4.png)
-
 ## Task List
 <!--This section lists out certain tasks that have yet to be completed in the development of this project.-->
 * [ ] Demonstrate using the Mariani-Silver Algorithm
