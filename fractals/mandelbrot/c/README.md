@@ -85,6 +85,19 @@ long double scale_y(Dimensions* map, unsigned int pix_y)
 ## Results
 <!--This section displays outputs.-->
 
+### Mandelbrot Set
+![IMG 1](etc/mandelbrot_out/m1_img1.png)
+![IMG 2](etc/mandelbrot_out/m1_img2.png)
+![IMG 3](etc/mandelbrot_out/m1_img3.png)
+![IMG 4](etc/mandelbrot_out/m1_img4.png)
+![IMG 5](etc/mandelbrot_out/m1_img5.png)
+
+### Julia Set
+![Seed: -0.835 - j0.2321](etc/julia_out/j_n0835_n02321.png)
+![Seed: 0.37 + j0.16](etc/julia_out/j_037_016.png)
+![Seed: 0.285 + j0.01](etc/julia_out/j_0285_001.png)
+![Seed: 0 + j](etc/julia_out/j_000_1j.png)
+
 ## Task List
 <!--This section lists out certain tasks that have yet to be completed in the development of this project.-->
 * [ ] Demonstrate using the Mariani-Silver Algorithm
