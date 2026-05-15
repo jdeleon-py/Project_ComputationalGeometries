@@ -2,25 +2,28 @@
 
 # VPATH = src:inc
 
-CFLAGS = -g
-SDLFLAGS = `/usr/bin/pkg-config sdl2 --cflags --libs` -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
+CFLAGS = -g -I/opt/homebrew/include/SDL2
+SDLFLAGS = -L/opt/homebrew/lib -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
 all: cellular_automata
 
 cellular_automata: cell.o grid.o renderwindow.o main.o *.h
-	gcc $(CFLAGS) cell.o grid.o renderwindow.o main.o $(SDLFLAGS) -o cellular_automata
+	gcc $(CFLAGS) cell.o grid.o renderwindow.o main.o -o cellular_automata $(SDLFLAGS)
 
 main.o: main.c *.h
-	gcc -c $(CFLAGS) -c main.c $(SDLFLAGS) -o main.o
+	gcc -c $(CFLAGS) -c main.c -o main.o
 
 cell.o: cell.c *.h
 	gcc -c $(CFLAGS) cell.c -o cell.o
+	echo "Success."
 
 grid.o: grid.c *.h
 	gcc -c $(CFLAGS) grid.c -o grid.o
+	echo "Success."
 
 renderwindow.o: renderwindow.c *.h
-	gcc -c $(CFLAGS) renderwindow.c $(SDLFLAGS) -o renderwindow.o
+	gcc -c $(CFLAGS) renderwindow.c -o renderwindow.o $(SDLFLAGS)
+	echo "Success."
 
 clean:
 	rm -f *.o *.gch *~ cellular_automata

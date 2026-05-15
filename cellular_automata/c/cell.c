@@ -4,13 +4,10 @@
 
 int define_state(bool init)
 {
-	srand(time(NULL)); // seed generator with current time
-
-	int state = (init == true) ? rand() % 2 : DEAD;
-	return state;
+	return (init == true) ? rand() % 2 : DEAD;
 }
 
-struct Color define_color(struct Cell* cell)
+struct Color define_color(Cell* cell)
 {
 	struct Color new_color;
 
@@ -21,4 +18,7 @@ struct Color define_color(struct Cell* cell)
 	return new_color;
 }
 
-void print_cell() {}
+void print_cell(Cell* cell)
+{
+	printf("State: %d, Color: (%d, %d, %d)\n", cell -> state, cell -> color.R, cell -> color.B, cell -> color.G);
+}

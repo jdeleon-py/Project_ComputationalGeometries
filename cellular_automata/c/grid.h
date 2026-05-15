@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include "cell.h"
 
-#define DIM 256
+#define DIM 128
 
 typedef struct Cell** Grid;
 
@@ -20,6 +20,8 @@ bool survival_rule(struct Cell* cell);
 bool underpopulation_rule(struct Cell* cell);
 bool overpopulation_rule(struct Cell* cell);
 bool birth_rule(struct Cell* cell);
+
+void toggle_cell(Grid cells, int i, int j);
 
 // eval_state function
 Grid eval_state(Grid cells);

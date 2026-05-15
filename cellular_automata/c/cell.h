@@ -10,24 +10,24 @@
 
 enum State {DEAD, ALIVE};
 
-struct Color
+typedef struct Color
 {
 	unsigned int R;
 	unsigned int G;
 	unsigned int B;
-};
+} Color;
 
-struct Cell
+typedef struct Cell
 {
 	int state;
 	int neighbors;
 	struct Color color;
 	bool init;
-};
+} Cell;
 
 int define_state(bool init);
 struct Color define_color(struct Cell* cell);
 
-void print_cell();
+void print_cell(Cell* cell);
 
 #endif
