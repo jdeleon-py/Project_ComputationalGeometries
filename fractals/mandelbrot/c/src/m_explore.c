@@ -15,6 +15,8 @@
  * - press 'return' key to enhance the image's resolution
 */
 
+static Uint32 color_to_argb(Color color);
+static Uint32 mandelbrot_pixel_color(Dimensions* map, int x, int y, int offset);
 void render_mandelbrot(Dimensions* map, SDL_Object* window, int offset);
 
 int main(int argc, char* argv[])
@@ -28,6 +30,7 @@ int main(int argc, char* argv[])
 	map_dim = build_map(X_MIN, X_MAX, Y_MIN, Y_MAX);
 	window = initialize_SDL();
 	SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
+	SDL_RenderClear(window -> renderer);
 	print_map(map_dim);
 	render_mandelbrot(map_dim, window, offset);
 
@@ -77,18 +80,62 @@ int main(int argc, char* argv[])
 
 void render_mandelbrot(Dimensions* map, SDL_Object* window, int offset)
 {
-	for(int y = 0; y < HEIGHT; y++)
-	{
-		for(int x = 0; x < WIDTH; x++)
-		{
-			Site* pix = build_site(x, y);
-			pix -> iterations = mandelbrot(map, pix, offset);
-			draw_site(window, pix, offset);
-			destroy_site(pix);
-		}
-		SDL_RenderPresent(window -> renderer);
-	}
-	printf("Render complete!\n");
+    Uint32 row[WIDTH];
+    const int rows_per_present = 8;
+
+    for (int y = 0; y < HEIGHT; y++)
+    {
+        for (int x = 0; x < WIDTH; x++)
+        {
+            row[x] = mandelbrot_pixel_color(map, x, y, offset);
+        }
+
+        SDL_Rect row_rect = {0, y, WIDTH, 1};
+
+        SDL_UpdateTexture(
+            window->texture,
+            &row_rect,
+            row,
+            WIDTH * sizeof(Uint32)
+        );
+
+        if(y % rows_per_present == 0)
+        {
+            SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
+            SDL_RenderClear(window -> renderer);
+
+            SDL_RenderCopy(window -> renderer, window -> texture, NULL, NULL);
+            SDL_RenderPresent(window -> renderer);
+        }
+    }
+    SDL_SetRenderDrawColor(window->renderer, 0, 0, 0, 255);
+    SDL_RenderClear(window -> renderer);
+    SDL_RenderCopy(window -> renderer, window -> texture, NULL, NULL);
+    SDL_RenderPresent(window -> renderer);
+    printf("Render complete!\n");
 }
 
+static Uint32 mandelbrot_pixel_color(Dimensions* map, int x, int y, int offset)
+{
+	Site pix;
+	pix.pix.x = x;
+	pix.pix.y = y;
+	pix.iterations = 0;
+
+	pix.iterations = mandelbrot(map, &pix, offset);
+	if (pix.iterations < MAX_ITERATIONS + offset)
+	{
+		Color color = map_color_pixel(map_inferno, pix.iterations);
+		return color_to_argb(color);
+	}
+	return 0xFF000000; // opaque black
+}
+
+static Uint32 color_to_argb(Color color)
+{
+    return ((Uint32)255 << 24)     |
+           ((Uint32)color.R << 16) |
+           ((Uint32)color.G << 8)  |
+           ((Uint32)color.B);
+}
 /* END FILE */

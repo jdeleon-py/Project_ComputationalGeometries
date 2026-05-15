@@ -85,6 +85,8 @@ int main(int argc, char* argv[])
 void render_julia(Dimensions* map, SDL_Object* window, Complex seed, int offset)
 {
 	// seed value corresponds to constant c of the power iteration (z^2 + c)
+	SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
+	SDL_RenderClear(window -> renderer);
 	for(int y = 0; y < HEIGHT; y++)
 	{
 		for(int x = 0; x < WIDTH; x++)
@@ -94,8 +96,8 @@ void render_julia(Dimensions* map, SDL_Object* window, Complex seed, int offset)
 			draw_site(window, pix, offset);
 			destroy_site(pix);
 		}
-		SDL_RenderPresent(window -> renderer);
 	}
+	SDL_RenderPresent(window -> renderer);
 	printf("Render complete.\n");
 }
 

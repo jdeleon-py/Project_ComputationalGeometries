@@ -7,8 +7,8 @@ SRC_DIR = src
 TEST_DIR = tests
 
 # FLAGS
-CFLAGS = -g -I$(INC_DIR) -I$(SRC_DIR) -I$(TEST_DIR)
-SDLFLAGS = `/usr/bin/pkg-config sdl2 --cflags --libs` -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
+CFLAGS = -g -I$(INC_DIR) -I$(SRC_DIR) -I$(TEST_DIR) -I/opt/homebrew/include/SDL2
+SDLFLAGS = -L/opt/homebrew/lib -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
 # BUILD DIRECTIVES
 all: tests m_explore j_explore mj_render
@@ -53,7 +53,7 @@ mandelbrot.o: $(SRC_DIR)/mandelbrot.c $(INC_DIR)/*.h
 	gcc -c $(CFLAGS) $(SRC_DIR)/mandelbrot.c -o mandelbrot.o
 
 renderwindow.o: $(SRC_DIR)/renderwindow.c $(INC_DIR)/*.h
-	gcc -c $(CFLAGS) $(SRC_DIR)/renderwindow.c $(SDLFLAGS) -o renderwindow.o
+	gcc -c $(CFLAGS) $(SRC_DIR)/renderwindow.c -o renderwindow.o
 
 test_mandelbrot.o: $(TEST_DIR)/test_mandelbrot.c $(INC_DIR)/*.h
 	gcc -c $(CFLAGS) $(TEST_DIR)/test_mandelbrot.c -o test_mandelbrot.o
@@ -62,13 +62,13 @@ test_julia.o: $(TEST_DIR)/test_julia.c $(INC_DIR)/*.h
 	gcc -c $(CFLAGS) $(TEST_DIR)/test_julia.c -o test_julia.o
 
 m_explore.o: $(SRC_DIR)/m_explore.c $(INC_DIR)/*.h
-	gcc -c $(CFLAGS) $(SRC_DIR)/m_explore.c $(SDLFLAGS) -o m_explore.o
+	gcc -c $(CFLAGS) $(SRC_DIR)/m_explore.c -o m_explore.o
 
 j_explore.o: $(SRC_DIR)/j_explore.c $(INC_DIR)/*.h
-	gcc -c $(CFLAGS) $(SRC_DIR)/j_explore.c $(SDLFLAGS) -o j_explore.o
+	gcc -c $(CFLAGS) $(SRC_DIR)/j_explore.c -o j_explore.o
 
 mj_render.o: $(SRC_DIR)/mj_render.c $(INC_DIR)/*.h
-	gcc -c $(CFLAGS) $(SRC_DIR)/mj_render.c $(SDLFLAGS) -o mj_render.o
+	gcc -c $(CFLAGS) $(SRC_DIR)/mj_render.c -o mj_render.o
 
 # HOUSEKEEPING
 clean:
