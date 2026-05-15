@@ -80,39 +80,37 @@ int main(int argc, char* argv[])
 
 void render_mandelbrot(Dimensions* map, SDL_Object* window, int offset)
 {
-    Uint32 row[WIDTH];
-    const int rows_per_present = 8;
+	Uint32 row[WIDTH];
+	const int rows_per_present = 8;
 
-    for (int y = 0; y < HEIGHT; y++)
-    {
-        for (int x = 0; x < WIDTH; x++)
-        {
-            row[x] = mandelbrot_pixel_color(map, x, y, offset);
-        }
+	for (int y = 0; y < HEIGHT; y++)
+	{
+		for (int x = 0; x < WIDTH; x++)
+		{
+			row[x] = mandelbrot_pixel_color(map, x, y, offset);
+		}
+		SDL_Rect row_rect = {0, y, WIDTH, 1};
+		SDL_UpdateTexture(
+			window -> texture,
+			&row_rect,
+			row,
+			WIDTH * sizeof(Uint32)
+		);
 
-        SDL_Rect row_rect = {0, y, WIDTH, 1};
+		if(y % rows_per_present == 0)
+		{
+			SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
+			SDL_RenderClear(window -> renderer);
 
-        SDL_UpdateTexture(
-            window->texture,
-            &row_rect,
-            row,
-            WIDTH * sizeof(Uint32)
-        );
-
-        if(y % rows_per_present == 0)
-        {
-            SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
-            SDL_RenderClear(window -> renderer);
-
-            SDL_RenderCopy(window -> renderer, window -> texture, NULL, NULL);
-            SDL_RenderPresent(window -> renderer);
-        }
-    }
-    SDL_SetRenderDrawColor(window->renderer, 0, 0, 0, 255);
-    SDL_RenderClear(window -> renderer);
-    SDL_RenderCopy(window -> renderer, window -> texture, NULL, NULL);
-    SDL_RenderPresent(window -> renderer);
-    printf("Render complete!\n");
+			SDL_RenderCopy(window -> renderer, window -> texture, NULL, NULL);
+			SDL_RenderPresent(window -> renderer);
+		}
+	}
+	SDL_SetRenderDrawColor(window->renderer, 0, 0, 0, 255);
+	SDL_RenderClear(window -> renderer);
+	SDL_RenderCopy(window -> renderer, window -> texture, NULL, NULL);
+	SDL_RenderPresent(window -> renderer);
+	printf("Render complete!\n");
 }
 
 static Uint32 mandelbrot_pixel_color(Dimensions* map, int x, int y, int offset)
@@ -133,9 +131,9 @@ static Uint32 mandelbrot_pixel_color(Dimensions* map, int x, int y, int offset)
 
 static Uint32 color_to_argb(Color color)
 {
-    return ((Uint32)255 << 24)     |
-           ((Uint32)color.R << 16) |
-           ((Uint32)color.G << 8)  |
-           ((Uint32)color.B);
+	return ((Uint32)255 << 24)     |
+			((Uint32)color.R << 16) |
+			((Uint32)color.G << 8)  |
+			((Uint32)color.B);
 }
 /* END FILE */

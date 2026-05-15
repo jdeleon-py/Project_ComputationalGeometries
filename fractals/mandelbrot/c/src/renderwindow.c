@@ -62,16 +62,16 @@ SDL_Renderer* define_renderer(SDL_Object* image)
 SDL_Texture* define_texture(SDL_Object* image, char* filename)
 {
 	SDL_Texture* new_texture = SDL_CreateTexture(
-	    image->renderer,
-	    SDL_PIXELFORMAT_ARGB8888,
-	    SDL_TEXTUREACCESS_STREAMING,
-	    WIDTH,
-	    HEIGHT
+		image -> renderer,
+		SDL_PIXELFORMAT_ARGB8888,
+		SDL_TEXTUREACCESS_STREAMING,
+		WIDTH,
+		HEIGHT
 	);
 	if (new_texture == NULL)
 	{
-	    printf("Error... could not create texture: %s\n", SDL_GetError());
-	    return NULL;
+		printf("Error... could not create texture: %s\n", SDL_GetError());
+		return NULL;
 	}
 	return new_texture;
 }
