@@ -16,6 +16,8 @@
  * - press 'return' key to enhance the image's resolution
 */
 
+static Uint32 color_to_argb(Color color);
+static Uint32 julia_pixel_color(Dimensions* map, Complex seed, int x, int y, int offset);
 void render_julia(Dimensions* map, SDL_Object* window, Complex seed, int offset);
 
 int main(int argc, char* argv[])
@@ -84,21 +86,60 @@ int main(int argc, char* argv[])
 
 void render_julia(Dimensions* map, SDL_Object* window, Complex seed, int offset)
 {
-	// seed value corresponds to constant c of the power iteration (z^2 + c)
-	SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
-	SDL_RenderClear(window -> renderer);
-	for(int y = 0; y < HEIGHT; y++)
+	Uint32 row[WIDTH];
+	const int rows_per_present = 8;
+
+	for (int y = 0; y < HEIGHT; y++)
 	{
-		for(int x = 0; x < WIDTH; x++)
+		for (int x = 0; x < WIDTH; x++)
 		{
-			Site* pix = build_site(x, y);
-			pix -> iterations = julia(map, pix, seed, offset);
-			draw_site(window, pix, offset);
-			destroy_site(pix);
+			row[x] = julia_pixel_color(map, seed, x, y, offset);
+		}
+		SDL_Rect row_rect = {0, y, WIDTH, 1};
+		SDL_UpdateTexture(
+			window -> texture,
+			&row_rect,
+			row,
+			WIDTH * sizeof(Uint32)
+		);
+
+		if(y % rows_per_present == 0)
+		{
+			SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
+			SDL_RenderClear(window -> renderer);
+
+			SDL_RenderCopy(window -> renderer, window -> texture, NULL, NULL);
+			SDL_RenderPresent(window -> renderer);
 		}
 	}
+	SDL_SetRenderDrawColor(window -> renderer, 0, 0, 0, 255);
+	SDL_RenderClear(window -> renderer);
+	SDL_RenderCopy(window -> renderer, window -> texture, NULL, NULL);
 	SDL_RenderPresent(window -> renderer);
-	printf("Render complete.\n");
+	printf("Render complete!\n");
 }
 
+static Uint32 julia_pixel_color(Dimensions* map, Complex seed, int x, int y, int offset)
+{
+	Site pix;
+	pix.pix.x = x;
+	pix.pix.y = y;
+	pix.iterations = 0;
+
+	pix.iterations = julia(map, &pix, seed, offset);
+	if (pix.iterations < MAX_ITERATIONS + offset)
+	{
+		Color color = map_color_pixel(map_viridis, pix.iterations);
+		return color_to_argb(color);
+	}
+	return 0xFF000000; // opaque black
+}
+
+static Uint32 color_to_argb(Color color)
+{
+	return ((Uint32)255 << 24)     |
+			((Uint32)color.R << 16) |
+			((Uint32)color.G << 8)  |
+			((Uint32)color.B);
+}
 /* END FILE */
