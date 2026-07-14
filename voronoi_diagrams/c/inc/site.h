@@ -11,7 +11,7 @@
 // "external" C library (included in makefile with -lm flag)
 #include <math.h>
 
-#define VOR_NUM      500
+#define VOR_NUM      50
 #define MAX_DISTANCE 10000
 
 // pixel
@@ -59,7 +59,7 @@ void destroy_site(Site* site);
 */
 
 // Utilities
-Pixel* build_pixel();
+Pixel* build_pixel(unsigned int x, unsigned int y);
 double get_distance(Site* corner, Site* vor_site);
 Color generate_color();
 void destroy_pixel(Pixel* pixel);

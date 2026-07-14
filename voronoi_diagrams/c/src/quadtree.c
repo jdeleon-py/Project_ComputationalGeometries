@@ -265,7 +265,7 @@ void destroy_quadtree(QuadTree* qtree)
 {
 	if(qtree == NULL) 
 	{
-		printf("Error -- cannot find quadtree.\n");
+		// printf("Error -- cannot find quadtree.\n");
 		return;
 	}
 

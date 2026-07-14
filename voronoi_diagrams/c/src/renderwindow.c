@@ -8,46 +8,58 @@ SDL_Object* initialize_SDL()
 	const char* title = "Voronoi Diagram Generation with QT Optimization";
 	SDL_Object* new_image;
 	new_image = (SDL_Object*)malloc(sizeof(SDL_Object));
-
-	new_image = define_window(new_image, title);
-	new_image = define_renderer(new_image);
-	new_image = define_texture(new_image, "placeholder.txt");
+	if(new_image == NULL)
+	{
+		printf("Error... could not allocate SDL Object.\n");
+		SDL_Quit();
+		return NULL;
+	}
+	new_image -> window = define_window(new_image, title);
+	new_image -> renderer = define_renderer(new_image);
+	new_image -> texture = define_texture(new_image, "placeholder.txt");
 	return new_image;
 }
 
-SDL_Object* define_window(SDL_Object* image, const char* title)
+SDL_Window* define_window(SDL_Object* image, const char* title)
 {
 	SDL_Window* new_window;
-
-	new_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, DIM, DIM, SDL_WINDOW_OPENGL);
+	new_window = SDL_CreateWindow(
+		title, 
+		SDL_WINDOWPOS_CENTERED, 
+		SDL_WINDOWPOS_CENTERED, 
+		DIM, 
+		DIM, 
+		SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE
+	);
 	if(new_window == NULL)
 	{
 		printf("Error... could not create window: %s\n", SDL_GetError());
+		SDL_Quit();
 		return NULL;
 	}
-	image -> window = new_window;
-	return image;
+	return new_window;
 }
 
-SDL_Object* define_renderer(SDL_Object* image)
+SDL_Renderer* define_renderer(SDL_Object* image)
 {
 	SDL_Renderer* new_renderer;
-
-	new_renderer = SDL_CreateRenderer(image -> window, -1, SDL_RENDERER_ACCELERATED);
+	new_renderer = SDL_CreateRenderer(
+		image -> window, 
+		-1, 
+		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+	);
 	if(new_renderer == NULL)
 	{
 		printf("Error... could not create renderer: %s\n", SDL_GetError());
 		return NULL;
 	}
-	image -> renderer = new_renderer;
-	return image;
+	return new_renderer;
 }
 
-SDL_Object* define_texture(SDL_Object* image, char* filename)
+SDL_Texture* define_texture(SDL_Object* image, char* filename)
 {
-	//TODO: implement as a separate struct
-	image -> texture = NULL;
-	return image;
+	SDL_Texture* new_texture = NULL;
+	return new_texture;
 }
 
 /*
@@ -95,28 +107,28 @@ void draw_voronoi(SDL_Object* image, QuadTree* qtree, Site* vor_sites[])
 		Color nw_cell_color = qtree -> boundary -> corners[NW] -> color;
 		SDL_SetRenderDrawColor(image -> renderer, nw_cell_color.R, nw_cell_color.G, nw_cell_color.B, 255);
 		SDL_RenderDrawPoint(image -> renderer, nw_cell_pos -> x, nw_cell_pos -> y);
-		SDL_RenderPresent(image -> renderer);
+		// SDL_RenderPresent(image -> renderer);
 
 		// draw ne
 		Pixel* ne_cell_pos = qtree -> boundary -> corners[NE] -> pixel;
 		Color ne_cell_color = qtree -> boundary -> corners[NE] -> color;
 		SDL_SetRenderDrawColor(image -> renderer, ne_cell_color.R, ne_cell_color.G, ne_cell_color.B, 255);
 		SDL_RenderDrawPoint(image -> renderer, ne_cell_pos -> x, ne_cell_pos -> y);
-		SDL_RenderPresent(image -> renderer);
+		// SDL_RenderPresent(image -> renderer);
 
 		// draw sw
 		Pixel* sw_cell_pos = qtree -> boundary -> corners[SW] -> pixel;
 		Color sw_cell_color = qtree -> boundary -> corners[SW] -> color;
 		SDL_SetRenderDrawColor(image -> renderer, sw_cell_color.R, sw_cell_color.G, sw_cell_color.B, 255);
 		SDL_RenderDrawPoint(image -> renderer, sw_cell_pos -> x, sw_cell_pos -> y);
-		SDL_RenderPresent(image -> renderer);
+		// SDL_RenderPresent(image -> renderer);
 
 		// draw se
 		Pixel* se_cell_pos = qtree -> boundary -> corners[SE] -> pixel;
 		Color se_cell_color = qtree -> boundary -> corners[SE] -> color;
 		SDL_SetRenderDrawColor(image -> renderer, se_cell_color.R, se_cell_color.G, se_cell_color.B, 255);
 		SDL_RenderDrawPoint(image -> renderer, se_cell_pos -> x, se_cell_pos -> y);
-		SDL_RenderPresent(image -> renderer);
+		// SDL_RenderPresent(image -> renderer);
 		return;
 	}
 	else if(corner_check(qtree -> boundary) == true)
@@ -126,9 +138,9 @@ void draw_voronoi(SDL_Object* image, QuadTree* qtree, Site* vor_sites[])
 		unsigned int y_min = qtree -> boundary -> corners[0] -> pixel -> y;
 		unsigned int y_max = qtree -> boundary -> corners[2] -> pixel -> y;
 
-		for(int x = x_min; x < x_max; x++)
+		for(int x = x_min; x <= x_max; x++)
 		{
-			for(int y = y_min; y < y_max; y++)
+			for(int y = y_min; y <= y_max; y++)
 			{
 				Color site_color = qtree -> boundary -> corners[0] -> color;
 				SDL_SetRenderDrawColor(image -> renderer, site_color.R, site_color.G, site_color.B, 255);
@@ -137,7 +149,7 @@ void draw_voronoi(SDL_Object* image, QuadTree* qtree, Site* vor_sites[])
 			}
 			//SDL_RenderPresent(image -> renderer);
 		}
-		SDL_RenderPresent(image -> renderer);
+		// SDL_RenderPresent(image -> renderer);
 		return;
 	}
 	else if(qtree -> divided == false)
@@ -152,7 +164,18 @@ void draw_voronoi(SDL_Object* image, QuadTree* qtree, Site* vor_sites[])
 
 void cleanup_SDL(SDL_Object* image)
 {
-	SDL_DestroyWindow(image -> window);
-	SDL_DestroyRenderer(image -> renderer);
-	free(image);
+	if(image == NULL) return;
+	if(image -> texture != NULL)
+	{
+		SDL_DestroyTexture(image -> texture);
+	}
+	if(image -> renderer != NULL)
+	{
+		SDL_DestroyRenderer(image -> renderer);
+	}
+	if(image -> window != NULL)
+	{
+		SDL_DestroyWindow(image -> window);
+	}
+    free(image);
 }

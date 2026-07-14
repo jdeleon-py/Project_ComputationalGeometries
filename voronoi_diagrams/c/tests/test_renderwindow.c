@@ -19,6 +19,17 @@ Site* generate_random_site()
 
 int main(int argc, char* argv[])
 {
+	if(SDL_Init(SDL_INIT_VIDEO > 0))
+	{
+		printf("SDL_Init has failed. SDL_Error: %s\n", SDL_GetError());
+		return 0;
+	}
+	if(!IMG_Init(IMG_INIT_PNG))
+	{
+		printf("IMG_init has failed. SDL_Error: %s\n", SDL_GetError());
+		return 0;
+	}
+
 	srand(time(NULL));
 	SDL_Object* window = NULL;
 	SDL_Event event;
@@ -43,9 +54,17 @@ int main(int argc, char* argv[])
 	}
 
 	// draw
+	//SDL_RenderPresent(window -> renderer);
+	// print_quadtree(qtree);
+
+	SDL_SetRenderDrawColor(window->renderer, 0, 0, 0, 255);
+	SDL_RenderClear(window->renderer);
+
+	/* Build sites and quadtree. */
 	draw_voronoi(window, qtree, vor_sites);
-	SDL_RenderPresent(window -> renderer);
-	print_quadtree(qtree);
+
+	/* Only one presentation after drawing finishes. */
+	SDL_RenderPresent(window->renderer);
 
 	printf("\nDONE!\n");
 
@@ -53,7 +72,7 @@ int main(int argc, char* argv[])
 	running = true;
 	while(running == true)
 	{
-		while(SDL_PollEvent(&event))
+		while(SDL_PollEvent(&event) != 0)
 		{
 			if(event.type == SDL_QUIT) {running = false;}
 			if(event.type == SDL_KEYDOWN)
@@ -71,14 +90,14 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	cleanup_SDL(window);
+	destroy_quadtree(qtree);
 	// destroy voronoi sites
 	for(int i = 0; i < VOR_NUM; i++)
 	{
 		destroy_site(vor_sites[i]);
 	}
-	destroy_quadtree(qtree);
-	cleanup_SDL(window);
-
+	SDL_Quit();
 	return 0;
 }
 
